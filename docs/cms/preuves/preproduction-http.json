@@ -1,0 +1,153 @@
+{
+  "observedAt": "2026-10-26T22:12:15.833Z",
+  "origin": "https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io",
+  "context": "préproduction CMS à vérifier sur la cible indiquée",
+  "expectCMS": true,
+  "expectPreproduction": true,
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "6957eaa2030ffcc02b264b739ce978e4bc5f78eee58bf2267edabd2f85482aaf"
+    },
+    {
+      "path": "/institutions",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "a481906de4ddd91b4c6f192847b83a9d055fc399e6446f5d7c3a66a6c8c00934"
+    },
+    {
+      "path": "/entreprises",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "f7d3f58e91e04b7ebf87accb06b681324f127248baf4f30a8f1d3ef317f0fb48"
+    },
+    {
+      "path": "/particuliers",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "90ae4a2f59a137d2e0943f7be1fcc2a4088f00782ed1c902f5fc0fa9cdbf4cb7"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "b455d32568286dcbe8f763dc4dce46a18010ec49538ab91ceac3b24b3d3d289a"
+    },
+    {
+      "path": "/mentions-legales",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "8d4902f39338e19c661b5782f20685bee6b735eaf8f8c6e4bd803171c653189d"
+    },
+    {
+      "path": "/confidentialite",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "24d56bb4de9ec54fe21702bb418899674fa762105166f80a118cce263ffea2e4"
+    },
+    {
+      "path": "/cgv",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "4bdc721de14d581ca08bea59c8d68d58291cee204ef35b70b6f896be50d81cbe"
+    },
+    {
+      "path": "/admin/login",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "52e05ab070e7bcb0db9d9a85c5fa099e5c06521aed21a34acc0dafb0ccb0dc6b"
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "contentType": "application/json",
+      "cacheControl": "no-store",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "4062edaf750fb8074e7e83e0c9028c94e32468a8b6f1614774328ef045150f93"
+    },
+    {
+      "path": "/apercu/1",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "1abd5fe0467e270f7b5fe15361c8cb8f839f609a770bdd18317d736f7314824c"
+    },
+    {
+      "path": "/api/globals/site-content",
+      "status": 403,
+      "contentType": "application/json",
+      "cacheControl": null,
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "3933aafac74d85fbe5820ec428e77766fb490ba18e7074c63b1b1a12757d3c04"
+    },
+    {
+      "path": "/atelier/1",
+      "status": 307,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": "/admin/login",
+      "sha256": "f29767eecd7d0526c682d286d8ae1e5b9fd26c45ec93e4fff1fee98d376519e6"
+    },
+    {
+      "path": "/api/client/files/1",
+      "status": 401,
+      "contentType": "text/plain;charset=UTF-8",
+      "cacheControl": "no-store",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "efb229cf9306136bb1f8cdd8be1928281ba7ba2acbcd594ccb94a12774b580b8"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "contentType": "text/plain",
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "d17b641665bc0d4e8b0836dc3b4539a0cddbfceb72ccfb01a0b733683238dcd5"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "contentType": "application/xml",
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "robots": "noindex, nofollow",
+      "location": null,
+      "sha256": "1214c52cace28c40b45da48b46ef96fe9ad1bb0584cde1ba6f66c9a70a5ed5df"
+    }
+  ]
+}
