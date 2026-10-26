@@ -3,7 +3,7 @@ import { test } from 'node:test'
 import { randomBytes } from 'node:crypto'
 import { mkdir, mkdtemp, rm } from 'node:fs/promises'
 import path from 'node:path'
-import { DatabaseSync } from 'node:sqlite'
+import { execFileSync } from 'node:child_process'
 import sharp from 'sharp'
 import { buildConfig, getPayload, type CollectionBeforeChangeHook, type PayloadRequest } from 'payload'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
@@ -15,6 +15,15 @@ import { restoreRelease, saveEditor } from '../src/cms/editor-service'
 import type { PageBlock } from '../src/cms/page-types'
 import { installTransactionQueue } from '../src/cms/transaction-queue'
 import { updateMediaMetadata } from '../src/cms/media-services'
+
+function diskRow(database: string, query: string, parameters: unknown[]) {
+  // Separate SQLite implementations must not share POSIX file locks in one
+  // process. This also verifies committed bytes from an independent reader.
+  return JSON.parse(execFileSync(process.execPath, ['--input-type=module', '-e',
+    "import {DatabaseSync} from 'node:sqlite';const db=new DatabaseSync(process.argv[1],{readOnly:true});try{console.log(JSON.stringify(db.prepare(process.argv[2]).get(...JSON.parse(process.argv[3]))??null))}finally{db.close()}",
+    database, query, JSON.stringify(parameters),
+  ], { encoding: 'utf8', windowsHide: true })) as Record<string, unknown> | null
+}
 
 test('Publications cohérentes : instantanés, restauration atomique et corbeille', async t => {
   await mkdir('.data', { recursive: true })
@@ -146,8 +155,7 @@ test('Publications cohérentes : instantanés, restauration atomique et corbeill
       assert.equal(attempts[2].status, 'fulfilled')
       const currentMedia = await cms.findByID({ collection: 'media', id: media.id, depth: 0, ...access })
       await updateMediaMetadata(cms, owner, { ids: [media.id], patch: { alt: 'Média durable après conflit' }, revisions: { [String(media.id)]: currentMedia.updatedAt } })
-      const disk = new DatabaseSync(path.join(directory, 'cms.db'))
-      const stored = disk.prepare("SELECT media_locales.alt, media.credit FROM media JOIN media_locales ON media_locales._parent_id = media.id WHERE media.id = ? AND media_locales._locale = 'fr'").get(Number(media.id)); disk.close()
+      const stored = diskRow(path.join(directory, 'cms.db'), "SELECT media_locales.alt, media.credit FROM media JOIN media_locales ON media_locales._parent_id = media.id WHERE media.id = ? AND media_locales._locale = 'fr'", [Number(media.id)])
       assert.equal(stored?.credit, 'Crédit concurrent conservé')
       assert.equal(stored?.alt, 'Média durable après conflit')
       assert.equal((await cms.count({ collection: 'publication-releases' })).totalDocs, releasesBefore + 1)
@@ -198,9 +206,8 @@ test('Publications cohérentes : instantanés, restauration atomique et corbeill
       const deletedAt = new Date().toISOString()
       const trashed = await cms.update({ collection: 'pages', id: pageID, data: { deletedAt }, ...access })
       assert.equal(trashed.deletedAt, deletedAt, 'La mutation de corbeille doit être persistée')
-      const disk = new DatabaseSync(path.join(directory, 'cms.db'))
-      const diskRow = disk.prepare('SELECT deleted_at FROM pages WHERE id = ?').get(pageID); disk.close()
-      assert.equal(diskRow?.deleted_at, deletedAt, 'La ligne SQLite brute doit conserver la corbeille')
+      const stored = diskRow(path.join(directory, 'cms.db'), 'SELECT deleted_at FROM pages WHERE id = ?', [pageID])
+      assert.equal(stored?.deleted_at, deletedAt, 'La ligne SQLite brute doit conserver la corbeille')
       assert.equal((await cms.findByID({ collection: 'pages', id: pageID, trash: true, draft: false })).deletedAt, deletedAt, 'La page doit être effectivement dans la corbeille avant le job')
       const contentBefore = await cms.findGlobal({ slug: 'site-content', draft: true })
       await cms.jobs.run({ limit: 10 })

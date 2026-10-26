@@ -7,8 +7,8 @@ Point ouvert le 26 octobre 2026. L’utilisateur confirme que le site est déjà
 - Coolify 4.5.0 accessible avec une session utilisateur existante sur `panel.cleanows.fr`.
 - Projet `Adam`, environnement actif `production`, ressource `MIS-PROD` : branche `prod`, ancienne URL Git `AzmogEx/Mzn`. GitHub confirme qu’elle redirige vers le même dépôt `AzmogEx/MIS-PROD` (identifiant 1128288774).
 - Site actif : HTTPS accessible ; Nixpacks, état « Running (no healthcheck) » et aucun stockage persistant configuré dans cette ressource lors de l’observation initiale. Ces constats ne valident pas le CMS sur cette ressource.
-- Nouvel environnement de recette : `mis-preproduction`, identifiant `waooyvgj5fnwauuebg2kra7y`, dans le projet existant. Aucun partage de base/volumes/comptes avec le site actif prévu.
-- Source de la recette : branche `codex/cms-administration`, révision à consigner après le commit ; les bases locales QA et secrets sont exclus du dépôt.
+- Nouvel environnement de recette : `mis-preproduction`, identifiant `waooyvgj5fnwauuebg2kra7y`, dans le projet existant. Ressource MIS-CMS-PREPRODUCTION créée, identifiant 7uacb4fl5dvn0okdefmxaimf. Aucun partage de base/volumes/comptes avec le site actif prévu.
+- Source de la recette : branche `codex/cms-administration`, révision 305010ca3679ecea829034e2baf52633d1f536b3 publiée avec autorisation explicite ; les bases locales QA et secrets sont exclus du dépôt.
 
 ## Critères du jalon
 
@@ -36,3 +36,7 @@ Point ouvert le 26 octobre 2026. L’utilisateur confirme que le site est déjà
 ## Limites à conserver
 
 Les 172 tests, modèles IA et restaurations précédents sont des preuves locales. HLS/CDN/transcodage, facturation/signature/agenda externe, webhook de livraison Resend et outbox des emails d’authentification ne sont pas implémentés. Aucun contournement du refus d’IA externe. La validation de l’utilisateur dans la fiche reste distincte des essais techniques.
+
+## Premier contrôle Linux de la révision publiée
+
+GitHub Actions 40406729967 (Ubuntu 24.04.5, Node24.22.1) a exécuté installation, migrations, seed, lint et TypeScript. La suite a rencontré SQLITE_IOERR_SHORT_READ après ouverture/fermeture de node:sqlite et libSQL dans le même processus du test de publication. Les lectures SQL brutes de ce test sont désormais faites en processus séparé, en lecture seule ; la couverture de corbeille et de concurrence est conservée. Le contrôle corrigé sera relancé avant validation. Sur Windows, un processus worker a aussi quitté avec 0xC0000005 après son rapport terminé ; le contrôle worker isolé suivant a réussi5/5. Ce résultat intermédiaire ne remplace pas le précédent bilan172/172.
