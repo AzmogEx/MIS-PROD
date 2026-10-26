@@ -45,6 +45,10 @@ export type PortfolioProject = {
    * Ex: "/videos/showreel-2025.mp4"
    */
   videoSrc?: string;
+  imageSrc?: string;
+  alt?: string;
+  source?: string;
+  verified?: boolean;
 };
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [

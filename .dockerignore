@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.data
+.cms
+.env*
+!.env.example
+test-results
+playwright-report
+*.tsbuildinfo
+docs/cms/captures

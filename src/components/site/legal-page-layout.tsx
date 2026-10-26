@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useSiteContent } from '@/components/cms/content-context';
 
 /**
  * Layout commun pour les pages légales (mentions, confidentialité, CGV).
@@ -10,15 +11,19 @@ export function LegalPageLayout({
   title,
   lastUpdate,
   children,
+  headingLevel = 1,
 }: {
   number: string;
   eyebrow: string;
   title: string;
   lastUpdate: string;
   children: ReactNode;
+  headingLevel?: 1 | 2;
 }) {
+  const {ui}=useSiteContent();
+  const Heading = headingLevel === 1 ? 'h1' : 'h2';
   return (
-    <main className="relative">
+    <div className="relative">
       {/* Hero éditorial */}
       <section className="relative border-b border-border bg-background pt-40 pb-20 md:pt-52 md:pb-28">
         <div className="mx-auto max-w-[1440px] px-6 md:px-10">
@@ -29,11 +34,11 @@ export function LegalPageLayout({
               </p>
             </div>
             <div className="md:col-span-9">
-              <h1 className="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
+              <Heading className="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
                 {title}
-              </h1>
+              </Heading>
               <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-                Dernière mise à jour · {lastUpdate}
+                {ui.lastUpdateLabel} · {lastUpdate}
               </p>
             </div>
           </div>
@@ -51,6 +56,6 @@ export function LegalPageLayout({
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,0 +1,117 @@
+{
+  "observedAt": "2026-10-26T21:00:30.265Z",
+  "desktop": {
+    "grids": [
+      {
+        "columns": "450.656px 450.672px 450.656px",
+        "mode": "original"
+      },
+      {
+        "columns": "338px 338px 338px 338px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "437.328px 437.328px 437.344px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "666px 666px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "675.5px 675.5px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "664px 664px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "656px 656px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "437.328px 437.328px 437.344px",
+        "mode": "uniform"
+      }
+    ],
+    "scrollWidth": 1432,
+    "viewport": 1440
+  },
+  "tablet": {
+    "grids": [
+      {
+        "columns": "244px 244px 244px",
+        "mode": "original"
+      },
+      {
+        "columns": "366px 366px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "356px 356px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "356px 356px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "365.5px 365.5px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "354px 354px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "346px 346px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "356px 356px",
+        "mode": "uniform"
+      }
+    ],
+    "scrollWidth": 812,
+    "viewport": 820
+  },
+  "mobile": {
+    "grids": [
+      {
+        "columns": "334px",
+        "mode": "original"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      },
+      {
+        "columns": "334px",
+        "mode": "uniform"
+      }
+    ],
+    "scrollWidth": 382,
+    "viewport": 390
+  }
+}

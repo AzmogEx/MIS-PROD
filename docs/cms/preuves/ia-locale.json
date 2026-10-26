@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-10-26T20:46:39.892Z",
+  "provider": "Ollama local",
+  "endpoint": "http://127.0.0.1:11435",
+  "version": "0.40.6",
+  "model": "dolphin-llama3:latest",
+  "digest": "613f068e29f863bb900e568f920401b42678efca873d7a7c87b0d6ef4945fadd",
+  "modelBytes": 4661235994,
+  "elapsedMs": 8714,
+  "status": "completed",
+  "input": "Exercice fictif de recette, sans client réel : un atelier de fabrication est filmé dans un studio. Le livrable prévu est une vidéo de trente secondes. Le tournage comporte un plan large et deux plans de détail. Préparer une description française courte de ce projet de démonstration.",
+  "output": "Dans le cadre de ce projet de démonstration, l'équipe MIS filmera un atelier de fabrication à l'intérieur d'un studio. Le but est de réaliser une vidéo de trente secondes présentant d'abord un plan large de l'atelier, suivi de deux plans de détail. Il est important de noter que le client, les chiffres, le prix, les citations et les engagements ne doivent pas être imaginés dans ce brouillon. La source fournie sert uniquement à présenter le contexte de l'exercice.",
+  "error": null,
+  "inputTokens": 179,
+  "outputTokens": 121,
+  "durableRequests": 1,
+  "quotaReservations": 1,
+  "repeatedRequestSameID": true,
+  "database": ".data\\tests\\ai-real-dcaeb056-d7a9-4999-a6f3-8796e74c1db6\\cms.db",
+  "limits": "Texte synthétique seulement. Suggestion privée, sans publication ni réponse client. Cette recette ne certifie pas la qualité générale du modèle."
+}

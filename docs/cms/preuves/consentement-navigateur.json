@@ -1,0 +1,86 @@
+{
+  "observedAt": "2026-10-26T21:00:41.211Z",
+  "base": ".data/tests/video-browser-N5e4Da/cms.db",
+  "realBrowser": true,
+  "enabledOnlyInIsolatedFixture": true,
+  "pendingCount": 0,
+  "refusedVideoPlayCount": 0,
+  "acceptedPageViews": 2,
+  "entryViews": 1,
+  "acceptedTotalBeforeWithdrawal": 11,
+  "afterWithdrawalNavigation": 11,
+  "events": [
+    {
+      "event": "contact_click",
+      "step": null,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "form_start",
+      "step": null,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "form_step",
+      "step": 1,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "form_step",
+      "step": 2,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "page_view",
+      "step": null,
+      "entry": 0,
+      "n": 1
+    },
+    {
+      "event": "page_view",
+      "step": null,
+      "entry": 1,
+      "n": 1
+    },
+    {
+      "event": "video_play_manual",
+      "step": null,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "video_progress",
+      "step": 25,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "video_progress",
+      "step": 50,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "video_progress",
+      "step": 75,
+      "entry": null,
+      "n": 1
+    },
+    {
+      "event": "video_progress",
+      "step": 100,
+      "entry": null,
+      "n": 1
+    }
+  ],
+  "notes": [
+    "Lecture réelle 15.44 secondes 1920x1080; positions vidéo atteintes, pas durée de visionnage certifiée.",
+    "Formulaire : univers choisi, étapes1et2 validées, étape coordonnées atteinte; aucun brief envoyé.",
+    "Consentement conservé en mémoire dans la navigation SPA, réinitialisé au rechargement.",
+    "Aucune identité visiteur : pas de taux de conversion visiteurs versCRM."
+  ]
+}

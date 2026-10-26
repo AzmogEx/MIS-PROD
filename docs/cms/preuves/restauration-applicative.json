@@ -1,0 +1,24 @@
+{
+  "backup": {
+    "status": "completed",
+    "completedAt": "2026-10-26T21:06:33.655Z",
+    "files": 18,
+    "pages": 8,
+    "scope": "SQLite, historiques, médias publics, fichiers privés, pièces jointes de briefs, imports médias en cours sans verrous, archives de conservation, observations Search Console, fichiers statiques ; restauration isolée et empreintes vérifiées",
+    "backupID": "2026-10-26T21-06-33.434Z-d3e64294"
+  },
+  "restoration": {
+    "restored": true,
+    "checkedAt": "2026-10-26T21:06:42.240Z",
+    "pages": 8,
+    "users": 3,
+    "briefs": 1,
+    "tasks": 1,
+    "versions": 2,
+    "privateAuthorization": "member-only",
+    "publishedAndDraft": "distinct",
+    "externalDelivery": "disabled"
+  },
+  "source": ".data\\tests\\restore-application-09a98fdc-fc44-4efe-8f31-b6aa8b4456bf",
+  "application": "new node process, same source revision, restored SQLite and restored file roots"
+}

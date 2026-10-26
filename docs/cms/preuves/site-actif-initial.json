@@ -1,0 +1,153 @@
+{
+  "observedAt": "2026-10-26T21:40:13.994Z",
+  "origin": "https://mis-prod.fr",
+  "context": "observation initiale du site actif, sans mutation",
+  "expectCMS": false,
+  "expectPreproduction": false,
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "4b1709a5aa1a5c3f3d7c3ab401b8f502611e03a7448b484f996229629969197a"
+    },
+    {
+      "path": "/institutions",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "86d1120e8b4ba1d913eef26a77cc3085f9359083d859426134894c407417ebd1"
+    },
+    {
+      "path": "/entreprises",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "5cffd1a800052eb83edf1ec0839b1ced28e9a9616d931a8611ff4666da029af0"
+    },
+    {
+      "path": "/particuliers",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "a93d5abaabdd3d9d416b70f6c08416f46e9b54da1c6b91a65fefff345cff3279"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "7c0f814d128898c4beade0d01908739ecaa2bf10549b06929ca09e09955bc607"
+    },
+    {
+      "path": "/mentions-legales",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "dde4272e1bca57d08f2998973c51cd217de21913deb65769b55fdb4a00b24f3f"
+    },
+    {
+      "path": "/confidentialite",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "65e1653f0eaefeaad25a1b5ce2628688bb79beed917df93351395472429c77a0"
+    },
+    {
+      "path": "/cgv",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "s-maxage=31536000",
+      "robots": null,
+      "location": null,
+      "sha256": "b9e713d6547262e30078ae05667df2d32384a1cb4b21f3ddad6bd69ccca26f24"
+    },
+    {
+      "path": "/admin/login",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "dce6fb9cc895eb4e4bb008ddc08746d368782817780e9fd2d52d59a0419652da"
+    },
+    {
+      "path": "/api/health",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "dce6fb9cc895eb4e4bb008ddc08746d368782817780e9fd2d52d59a0419652da"
+    },
+    {
+      "path": "/apercu/1",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "dce6fb9cc895eb4e4bb008ddc08746d368782817780e9fd2d52d59a0419652da"
+    },
+    {
+      "path": "/api/globals/site-content",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "dce6fb9cc895eb4e4bb008ddc08746d368782817780e9fd2d52d59a0419652da"
+    },
+    {
+      "path": "/atelier/1",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "dce6fb9cc895eb4e4bb008ddc08746d368782817780e9fd2d52d59a0419652da"
+    },
+    {
+      "path": "/api/client/files/1",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "dce6fb9cc895eb4e4bb008ddc08746d368782817780e9fd2d52d59a0419652da"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "contentType": "text/plain",
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "7e05361a4cfc9920a800e06deb2a7fb08de8c31bd4729c9bf9b25db846a517f7"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "contentType": "application/xml",
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "robots": null,
+      "location": null,
+      "sha256": "4609bf5b50a3f5c9eb1323ed9312ddb79647d07591d2f181522500b11208d6f7"
+    }
+  ]
+}

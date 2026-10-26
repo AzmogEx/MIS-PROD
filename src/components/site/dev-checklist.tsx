@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronUp, X } from "lucide-react";
 import { SITE } from "@/data/site";
@@ -56,15 +56,16 @@ function scanIssues(): Issue[] {
 
 const STORAGE_KEY = "mzn-dev-checklist-dismissed";
 
+function subscribeDismissed(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("mis-checklist", callback);
+  return () => { window.removeEventListener("storage", callback); window.removeEventListener("mis-checklist", callback); };
+}
+
 export function DevChecklist() {
   const [open, setOpen] = useState(false);
-  const [dismissed, setDismissed] = useState(true); // par défaut caché jusqu'à hydratation
-  const [issues, setIssues] = useState<Issue[]>([]);
-
-  useEffect(() => {
-    setIssues(scanIssues());
-    setDismissed(localStorage.getItem(STORAGE_KEY) === "1");
-  }, []);
+  const dismissed = useSyncExternalStore(subscribeDismissed, () => localStorage.getItem(STORAGE_KEY) === "1", () => true);
+  const issues = scanIssues();
 
   // Pas affiché en prod
   if (process.env.NODE_ENV !== "development") return null;
@@ -72,7 +73,7 @@ export function DevChecklist() {
 
   const handleDismiss = () => {
     localStorage.setItem(STORAGE_KEY, "1");
-    setDismissed(true);
+    window.dispatchEvent(new Event("mis-checklist"));
   };
 
   return (

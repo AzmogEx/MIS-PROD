@@ -3,35 +3,61 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20.9.0"
+    "node": "^22.23.4 || >=24.22.1"
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "cms:setup": "node scripts/cms-setup.mjs",
+    "cms:seed": "tsx --env-file-if-exists=.env.local scripts/cms-seed.ts",
+    "cms:worker": "tsx --env-file-if-exists=.env.local scripts/cms-worker.ts",
+    "cms:importmap": "node --env-file-if-exists=.env.local node_modules/payload/bin.js generate:importmap",
+    "cms:migrate": "node --env-file-if-exists=.env.local scripts/cms-migrate.mjs",
+    "cms:migrate:create": "node --env-file-if-exists=.env.local scripts/cms-migrate.mjs migrate:create",
+    "cms:migrate:status": "node --env-file-if-exists=.env.local scripts/cms-migrate.mjs migrate:status",
+    "cms:import-media": "tsx --env-file-if-exists=.env.local scripts/cms-import-media.ts",
+    "test:cms": "tsx --test --test-force-exit tests/*.test.ts tests/*.test.tsx",
+    "cms:backup": "tsx --env-file-if-exists=.env.local scripts/cms-backup.ts",
+    "cms:owner": "tsx --env-file-if-exists=.env.local scripts/cms-owner.ts",
+    "cms:retention": "tsx --env-file-if-exists=.env.local scripts/cms-retention.ts"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
+    "@payloadcms/db-sqlite": "3.92.0",
+    "@payloadcms/live-preview-react": "3.92.0",
+    "@payloadcms/next": "3.92.0",
+    "@payloadcms/richtext-lexical": "3.92.0",
+    "@payloadcms/translations": "3.92.0",
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "17.2.3",
+    "graphql": "16.11.0",
     "lenis": "^1.3.23",
     "lucide-react": "^0.577.0",
     "motion": "^12.38.0",
-    "next": "16.2.4",
+    "next": "16.4.3",
+    "payload": "3.92.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "tailwind-merge": "^3.5.0"
+    "sharp": "0.34.5",
+    "tailwind-merge": "^3.5.0",
+    "tsx": "4.20.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.4.3",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "type": "module"
 }

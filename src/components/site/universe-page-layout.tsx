@@ -1,5 +1,9 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +12,7 @@ import { useRef, useState, type ReactNode } from "react";
 import { RevealText } from "@/components/motion/reveal-text";
 import { CtaSection } from "@/components/site/cta-section";
 import { VideoLightbox } from "@/components/site/video-lightbox";
+import { useAnalytics } from "@/components/cms/analytics";
 import { cn } from "@/lib/utils";
 import type { Universe } from "@/data/universes";
 
@@ -30,26 +35,30 @@ function picsumUrl(seed: string, w: number, h: number) {
 export function UniversePageLayout({
   universe,
   afterFormulas,
+  headingLevel = 1,
 }: {
   universe: Universe;
+  headingLevel?: 1 | 2;
   /** Slot optionnel inséré entre la grille de formules et le portfolio. */
   afterFormulas?: ReactNode;
 }) {
   return (
-    <main className="relative">
-      <UniverseHero universe={universe} />
+    <div className="relative">
+      <UniverseHero universe={universe} headingLevel={headingLevel} />
       <UniverseManifesto universe={universe} />
       <UniverseFormulas universe={universe} />
       {afterFormulas}
       <UniversePortfolio universe={universe} />
       <CtaSection />
-    </main>
+    </div>
   );
 }
 
 /* ---------------------- 1. Hero ciblé --------------------- */
 
-function UniverseHero({ universe }: { universe: Universe }) {
+function UniverseHero({ universe, headingLevel }: { universe: Universe; headingLevel: 1 | 2 }) {
+  const { universeTemplate: copy } = useSiteContent();
+  const Heading = headingLevel === 1 ? 'h1' : 'h2';
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -88,11 +97,11 @@ function UniverseHero({ universe }: { universe: Universe }) {
           </span>
         </motion.div>
 
-        <h1 className="font-serif text-balance text-[clamp(2.75rem,8vw,7.5rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
+        <Heading className="font-serif text-balance text-[clamp(2.75rem,8vw,7.5rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
           <RevealText delay={0.6} stagger={0.07} className="block">
             {universe.title}
           </RevealText>
-        </h1>
+        </Heading>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -110,7 +119,7 @@ function UniverseHero({ universe }: { universe: Universe }) {
           className="mt-16 flex items-center gap-3"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
-            Manifeste
+            {copy.scrollLabel}
           </span>
           <motion.span
             animate={{ y: [0, 6, 0] }}
@@ -169,6 +178,7 @@ function AmbianceBackground({ ambiance }: { ambiance: Universe["ambiance"] }) {
 /* ---------------------- 2. Manifeste --------------------- */
 
 function UniverseManifesto({ universe }: { universe: Universe }) {
+  const { universeTemplate: copy } = useSiteContent();
   return (
     <section className="border-t border-border bg-background py-24 md:py-40">
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
@@ -180,7 +190,7 @@ function UniverseManifesto({ universe }: { universe: Universe }) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (Manifeste)
+            {copy.manifestoEyebrow}
           </motion.p>
 
           <div className="md:col-span-9">
@@ -208,15 +218,16 @@ function UniverseManifesto({ universe }: { universe: Universe }) {
 /* ---------------------- 3. Formules --------------------- */
 
 function UniverseFormulas({ universe }: { universe: Universe }) {
+  const { universeTemplate: copy } = useSiteContent();
   return (
     <section className="border-t border-border bg-background py-24 md:py-32">
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
         <div className="mb-16 grid gap-8 md:mb-24 md:grid-cols-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3">
-            (Formules)
+            {copy.formulasEyebrow}
           </p>
           <h2 className="font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9">
-            <em className="italic">Quatre</em> manières de travailler ensemble.
+            <em className="italic">{copy.formulasEmphasis}</em>{copy.formulasTitle}
           </h2>
         </div>
 
@@ -306,6 +317,9 @@ function FormulaRow({
 /* ---------------------- 4. Portfolio masonry --------------------- */
 
 function UniversePortfolio({ universe }: { universe: Universe }) {
+  const gridLayout = useHistoricalGrid();
+  const analytics = useAnalytics();
+  const { universeTemplate: copy } = useSiteContent();
   const [active, setActive] = useState<Universe["portfolio"][number] | null>(
     null,
   );
@@ -315,34 +329,34 @@ function UniversePortfolio({ universe }: { universe: Universe }) {
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
         <div className="mb-16 grid gap-8 md:mb-24 md:grid-cols-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3">
-            (Réalisations)
+            {copy.portfolioEyebrow}
           </p>
           <h2 className="font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9">
-            <em className="italic">Quelques</em> films récents.{" "}
+            <em className="italic">{copy.portfolioEmphasis}</em>{copy.portfolioTitle}{" "}
             <span className="text-foreground-muted">
-              Plus de 500 dans nos archives.
+              {copy.portfolioSubtitle}
             </span>
           </h2>
         </div>
 
         {/* Masonry CSS columns — fluide, ne casse pas le ratio des items */}
-        <div className="columns-1 gap-5 md:columns-2 lg:columns-3">
+        <div data-cms-grid={gridLayout} className="cms-universe-gallery columns-1 gap-5 md:columns-2 lg:columns-3">
           {universe.portfolio.map((item, i) => (
             <PortfolioCard
               key={item.title}
               item={item}
               index={i}
-              onPlay={() => setActive(item)}
+              onPlay={() => { analytics.track('project_view', { reference: `universe:${universe.slug}:${item.seed}` }); setActive(item); }}
             />
           ))}
         </div>
 
         <div className="mt-20 flex justify-center">
           <Link
-            href="/contact"
+            href={copy.portfolioHref}
             className="group inline-flex h-14 items-center gap-3 rounded-full border border-border-strong px-7 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground transition-all duration-700 hover:border-gold hover:text-gold"
           >
-            Demander la bande démo complète
+            {copy.portfolioCta}
             <ArrowUpRight
               className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.5}
@@ -357,10 +371,10 @@ function UniversePortfolio({ universe }: { universe: Universe }) {
         videoSrc={active?.videoSrc}
         imageSrc={
           active && !active.videoSrc
-            ? picsumUrl(active.seed, 2000, 1500)
+            ? active.imageSrc || picsumUrl(active.seed, 2000, 1500)
             : undefined
         }
-        alt={active ? `${active.title} — ${active.category}` : undefined}
+        alt={active ? active.alt || `${active.title} — ${active.category}` : undefined}
         title={active?.title}
         subtitle={active?.category}
       />
@@ -377,6 +391,7 @@ function PortfolioCard({
   index: number;
   onPlay: () => void;
 }) {
+  const { universeTemplate: copy } = useSiteContent();
   const dims = {
     tall: { w: 800, h: 1066, cls: "aspect-[3/4]" },
     wide: { w: 800, h: 600, cls: "aspect-[4/3]" },
@@ -407,7 +422,7 @@ function PortfolioCard({
       onClick={onPlay}
       role="button"
       tabIndex={0}
-      aria-label={`Ouvrir ${item.title}`}
+      aria-label={`${copy.openLabel} ${item.title}`}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -418,8 +433,9 @@ function PortfolioCard({
       {/* Image avec parallax-zoom au hover */}
       <div className="absolute inset-0 transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]">
         <Image
-          src={picsumUrl(item.seed, dims.w, dims.h)}
-          alt={`${item.title} — ${item.category}`}
+          unoptimized={Boolean(item.imageSrc)}
+          src={item.imageSrc || picsumUrl(item.seed, dims.w, dims.h)}
+          alt={item.alt || `${item.title} — ${item.category}`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="object-cover"

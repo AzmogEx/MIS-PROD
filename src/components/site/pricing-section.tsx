@@ -1,5 +1,9 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
@@ -13,8 +17,8 @@ import { cn } from "@/lib/utils";
    Données sourcées des plaquettes MIS.
    ================================================================== */
 
-type FormulaKey = "essentiel" | "traditionnel" | "tendance";
-type ServiceKey = "duo" | "photographe" | "videaste";
+type FormulaKey = string;
+type ServiceKey = string;
 
 type Formula = {
   key: FormulaKey;
@@ -23,163 +27,20 @@ type Formula = {
   bullets: string[];
 };
 
-type Service = {
-  key: ServiceKey;
-  label: string;
-  caption: string;
-  formulas: Formula[];
-};
 
-const SERVICES: Service[] = [
-  {
-    key: "duo",
-    label: "Duo Photo + Vidéo",
-    caption: "Le couple photographe & vidéaste — l'expérience complète.",
-    formulas: [
-      {
-        key: "essentiel",
-        name: "Essentiel",
-        price: 1490,
-        bullets: [
-          "Dès préparatifs au vin d'honneur",
-          "Cérémonies · couple · invités",
-          "Galerie privée en ligne",
-          "Photos retouchées en nombre illimité",
-          "Clip 5–10 minutes",
-          "Images brutes vidéo livrées",
-        ],
-      },
-      {
-        key: "traditionnel",
-        name: "Traditionnel",
-        price: 1990,
-        bullets: [
-          "Dès préparatifs à la pièce montée",
-          "Cérémonies · couple · invités · réception",
-          "Galerie privée en ligne",
-          "Photos retouchées en nombre illimité",
-          "Clip 10–15 minutes",
-          "Images brutes vidéo livrées",
-        ],
-      },
-      {
-        key: "tendance",
-        name: "Tendance",
-        price: 2490,
-        bullets: [
-          "Dès préparatifs à la pièce montée",
-          "Cérémonies · couple · invités · réception",
-          "Galerie privée en ligne",
-          "Livre photo qualité 50 pages",
-          "Photos retouchées en nombre illimité",
-          "Clip 5–10 minutes",
-          "Film 1h · cérémonies, discours, soirée",
-          "Images brutes vidéo livrées",
-        ],
-      },
-    ],
-  },
-  {
-    key: "photographe",
-    label: "Photographe seul",
-    caption: "Pour celles et ceux qui privilégient l'image fixe.",
-    formulas: [
-      {
-        key: "essentiel",
-        name: "Essentiel",
-        price: 790,
-        bullets: [
-          "Dès préparatifs au vin d'honneur",
-          "Cérémonies · couple · invités",
-          "Galerie privée en ligne",
-          "Photos retouchées en nombre illimité",
-        ],
-      },
-      {
-        key: "traditionnel",
-        name: "Traditionnel",
-        price: 1090,
-        bullets: [
-          "Dès préparatifs à la pièce montée",
-          "Cérémonies · couple · invités · réception",
-          "Galerie privée en ligne",
-          "Photos retouchées en nombre illimité",
-        ],
-      },
-      {
-        key: "tendance",
-        name: "Tendance",
-        price: 1290,
-        bullets: [
-          "Dès préparatifs à la pièce montée",
-          "Cérémonies · couple · invités · réception",
-          "Galerie privée en ligne",
-          "Livre photo qualité 100 pages XXL",
-          "Photos retouchées en nombre illimité",
-        ],
-      },
-    ],
-  },
-  {
-    key: "videaste",
-    label: "Vidéaste seul",
-    caption: "Le récit filmé, pour revivre la journée en mouvement.",
-    formulas: [
-      {
-        key: "essentiel",
-        name: "Essentiel",
-        price: 790,
-        bullets: [
-          "Dès préparatifs au vin d'honneur",
-          "Cérémonies · couple · invités",
-          "Clip 5–10 minutes",
-          "Images brutes vidéo livrées",
-        ],
-      },
-      {
-        key: "traditionnel",
-        name: "Traditionnel",
-        price: 1090,
-        bullets: [
-          "Dès préparatifs à la pièce montée",
-          "Cérémonies · couple · invités · réception",
-          "Clip 10–15 minutes",
-          "Images brutes vidéo livrées",
-        ],
-      },
-      {
-        key: "tendance",
-        name: "Tendance",
-        price: 1290,
-        bullets: [
-          "Dès préparatifs à la pièce montée",
-          "Cérémonies · couple · invités · réception",
-          "Clip 5–10 minutes",
-          "Film 1h · cérémonies, discours, soirée",
-          "Images brutes vidéo livrées",
-        ],
-      },
-    ],
-  },
-];
 
-const ADDONS: { label: string; price: number; note?: string }[] = [
-  { label: "Images aériennes par drone", price: 200 },
-  { label: "Deuxième photographe / vidéaste", price: 500 },
-  { label: "Journée supplémentaire", price: 500 },
-  { label: "Espace Photo Call éclairage pro", price: 300 },
-  { label: "Livre photo 28×28 · 50 pages", price: 250 },
-  { label: "Livre photo parents 21×28 · 30 pages", price: 100 },
-  { label: "Création d'un diaporama photo", price: 150 },
-  { label: "Tournage faire-part / save-the-date / teaser", price: 300 },
-];
 
 export function PricingSection() {
+  const gridLayout = useHistoricalGrid();
+  const { pricing: copy } = useSiteContent();
+  const SERVICES = copy.services;
+  const ADDONS = copy.addons;
   const [active, setActive] = useState<ServiceKey>("duo");
-  const activeService = SERVICES.find((s) => s.key === active)!;
+  const activeService = SERVICES.find((s) => s.key === active) ?? SERVICES[0];
+  if (!activeService) return null;
 
   return (
-    <section
+    <section data-cms-field="pricing"
       id="tarifs"
       aria-labelledby="pricing-heading"
       className="border-t border-border bg-background-elevated py-24 md:py-32"
@@ -194,7 +55,7 @@ export function PricingSection() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (Tarifs 2025—2026)
+            {copy.eyebrow}
           </motion.p>
 
           <motion.h2
@@ -205,9 +66,9 @@ export function PricingSection() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
-            Trois <em className="italic">prestations</em>,{" "}
+            {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}{" "}
             <span className="text-foreground-muted">
-              chacune pensée comme un récit complet.
+              {copy.subtitle}
             </span>
           </motion.h2>
         </div>
@@ -216,7 +77,7 @@ export function PricingSection() {
         <div className="mb-12 flex justify-center md:mb-16">
           <div
             role="tablist"
-            aria-label="Choix de la prestation"
+            aria-label={copy.serviceLabel}
             className="scrollbar-hide flex max-w-full gap-1.5 overflow-x-auto rounded-full border border-border-strong bg-foreground/[0.02] p-1.5 backdrop-blur-md"
           >
             {SERVICES.map((s) => {
@@ -274,13 +135,13 @@ export function PricingSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="grid gap-5 md:grid-cols-3 md:gap-6"
+            data-cms-grid={gridLayout} className="grid gap-5 md:grid-cols-3 md:gap-6"
           >
             {activeService.formulas.map((f, i) => (
               <FormulaCard
                 key={`${active}-${f.key}`}
                 formula={f}
-                featured={f.key === "tendance"}
+                featured={f.key === copy.featuredKey}
                 delay={i * 0.08}
               />
             ))}
@@ -295,7 +156,7 @@ export function PricingSection() {
           transition={{ duration: 1, delay: 0.4 }}
           className="mt-10 text-center font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle"
         >
-          Option drone · +200 €
+          {copy.droneNote}
         </motion.p>
 
         {/* À la carte */}
@@ -308,7 +169,7 @@ export function PricingSection() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
             >
-              (À la carte)
+              {copy.addonsEyebrow}
             </motion.p>
             <motion.h3
               initial={{ opacity: 0, y: 16 }}
@@ -321,14 +182,14 @@ export function PricingSection() {
               }}
               className="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-foreground md:col-span-9"
             >
-              <em className="italic">Sur-mesure.</em>{" "}
+              <em className="italic">{copy.addonsTitle}</em>{" "}
               <span className="text-foreground-muted">
-                Composez votre prestation selon vos envies.
+                {copy.addonsSubtitle}
               </span>
             </motion.h3>
           </div>
 
-          <ul className="grid gap-x-10 gap-y-0 md:grid-cols-2">
+          <ul data-cms-grid={gridLayout} className="grid gap-x-10 gap-y-0 md:grid-cols-2">
             {ADDONS.map((a, i) => (
               <motion.li
                 key={a.label}
@@ -346,7 +207,7 @@ export function PricingSection() {
                   {a.label}
                 </span>
                 <span className="font-mono text-[12px] tracking-[0.08em] text-gold transition-colors group-hover:text-gold-bright md:text-[13px]">
-                  {a.price} €
+                  {a.price} {copy.currency}
                 </span>
               </motion.li>
             ))}
@@ -362,14 +223,13 @@ export function PricingSection() {
           className="mt-20 flex flex-col items-center gap-8 text-center md:mt-24"
         >
           <p className="max-w-xl font-serif text-base italic text-foreground-muted md:text-lg">
-            Chaque mariage est unique — chaque souvenir doit l&apos;être aussi.
-            Parlons de votre journée.
+            {copy.footerNote}
           </p>
           <Link
-            href="/contact"
+            href={copy.ctaHref}
             className="group inline-flex h-14 items-center gap-3 rounded-full border border-foreground bg-foreground px-7 font-mono text-[11px] uppercase tracking-[0.28em] text-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold hover:bg-gold"
           >
-            Demander un devis personnalisé
+            {copy.ctaLabel}
             <ArrowUpRight
               className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.5}
@@ -392,6 +252,7 @@ function FormulaCard({
   featured?: boolean;
   delay: number;
 }) {
+  const { pricing: copy } = useSiteContent();
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -409,7 +270,7 @@ function FormulaCard({
       {featured && (
         <span className="absolute right-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/[0.08] px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.28em] text-gold backdrop-blur-md">
           <Sparkles className="h-2.5 w-2.5" strokeWidth={1.5} />
-          Best-seller
+          {copy.featuredLabel}
         </span>
       )}
 
@@ -443,7 +304,7 @@ function FormulaCard({
             featured ? "text-gold" : "text-foreground-muted",
           )}
         >
-          €
+          {copy.currency}
         </span>
       </div>
 
@@ -468,7 +329,7 @@ function FormulaCard({
 
       {/* CTA carte */}
       <Link
-        href="/contact"
+        href={copy.ctaHref}
         className={cn(
           "mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-full border font-mono text-[10px] uppercase tracking-[0.28em] transition-all duration-700",
           featured
@@ -476,7 +337,7 @@ function FormulaCard({
             : "border-border-strong text-foreground hover:border-gold hover:text-gold",
         )}
       >
-        Choisir cette formule
+        {copy.formulaCta}
         <ArrowUpRight
           className="h-3.5 w-3.5 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
           strokeWidth={1.5}

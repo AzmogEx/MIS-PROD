@@ -1,0 +1,2 @@
+export function MISLogo(){return <div style={{textAlign:'center',padding:'12px 0'}} aria-label="MIS Production"><strong style={{fontSize:56,letterSpacing:'-.06em',fontWeight:600}}>MIS<span style={{color:'#c9a961'}}>.</span></strong><div style={{fontSize:10,letterSpacing:'.26em',marginTop:6}}>PRODUCTION · ADMINISTRATION</div></div>}
+export function MISIcon(){return <span aria-label="MIS" style={{fontSize:18,fontWeight:700,letterSpacing:'-.06em'}}>MIS<span style={{color:'#c9a961'}}>.</span></span>}

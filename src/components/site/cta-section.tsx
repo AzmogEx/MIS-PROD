@@ -1,10 +1,12 @@
 "use client";
 
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { RevealText } from "@/components/motion/reveal-text";
-import { SITE } from "@/data/site";
+
 
 /**
  * CTA finale avant le footer.
@@ -12,8 +14,9 @@ import { SITE } from "@/data/site";
  * Fond background-elevated avec halo or radial subtil.
  */
 export function CtaSection() {
+  const { site: SITE, cta: copy } = useSiteContent();
   return (
-    <section
+    <section data-cms-field="cta"
       aria-labelledby="cta-heading"
       className="relative overflow-hidden border-t border-border bg-background-elevated py-32 md:py-44"
     >
@@ -38,7 +41,7 @@ export function CtaSection() {
         >
           <span className="h-px w-12 bg-gold md:w-20" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-            (07) — Brief projet
+            {copy.eyebrow}
           </span>
         </motion.div>
 
@@ -48,7 +51,7 @@ export function CtaSection() {
           className="font-serif text-balance text-[clamp(2.5rem,7vw,6.5rem)] leading-[1.02] tracking-[-0.02em] text-foreground"
         >
           <RevealText immediate={false} stagger={0.06} className="block">
-            <em className="italic">Parlons</em>
+            <em className="italic">{copy.title}</em>
           </RevealText>
           <RevealText
             immediate={false}
@@ -56,7 +59,7 @@ export function CtaSection() {
             delay={0.3}
             className="block text-foreground-muted"
           >
-            de votre projet.
+            {copy.subtitle}
           </RevealText>
         </h2>
 
@@ -68,9 +71,7 @@ export function CtaSection() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
           className="mt-10 max-w-xl font-sans text-[15px] leading-relaxed text-foreground-muted md:mt-14 md:text-base"
         >
-          Captation, plateau TV mobile, atelier mémoire, mariage,
-          documentaire&nbsp;: chaque univers a sa réponse. Décrivez-nous votre
-          besoin, on revient vers vous sous 24&nbsp;h.
+          {copy.description}
         </motion.p>
 
         {/* CTA + signature */}
@@ -82,10 +83,10 @@ export function CtaSection() {
           className="mt-12 flex flex-col items-start gap-10 md:mt-16 md:flex-row md:items-center md:justify-between"
         >
           <Link
-            href="/contact"
+            href={copy.href}
             className="group relative inline-flex h-16 items-center gap-4 overflow-hidden rounded-full border border-foreground bg-foreground px-9 font-mono text-[11px] uppercase tracking-[0.28em] text-background transition-all duration-700 hover:border-gold hover:bg-gold hover:text-background"
           >
-            <span className="relative z-10">Démarrer un brief</span>
+            <span className="relative z-10">{copy.label}</span>
             <ArrowUpRight
               className="relative z-10 h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.5}
@@ -94,7 +95,7 @@ export function CtaSection() {
 
           <div className="flex flex-col gap-1 text-left md:text-right">
             <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-              Studio {SITE.name} — {SITE.city}
+              {copy.studioLabel} {SITE.name} — {SITE.city}
             </span>
             <a
               href={`mailto:${SITE.email}`}

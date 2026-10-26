@@ -1,12 +1,14 @@
 "use client";
 
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { HeroBackground } from "@/components/site/hero-background";
 import { RevealText } from "@/components/motion/reveal-text";
-import { SITE } from "@/data/site";
+
 
 /* ---------------------------------------------------------------
    Hero — 100vh, slogan sur 3 lignes en serif, animation séquencée
@@ -22,9 +24,11 @@ import { SITE } from "@/data/site";
    "régie TV" sans crier.
    --------------------------------------------------------------- */
 
-export function HeroSection() {
+export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
+  const { site: SITE, hero: copy } = useSiteContent();
+  const Heading = headingLevel === 1 ? 'h1' : 'h2';
   return (
-    <section className="relative h-screen min-h-[700px] w-full overflow-hidden">
+    <section data-cms-field="hero" className="relative h-screen min-h-[700px] w-full overflow-hidden">
       <HeroBackground videoSrc={SITE.hero.videoUrl} />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col justify-center px-6 md:px-10">
@@ -37,19 +41,19 @@ export function HeroSection() {
         >
           <span className="h-px w-12 bg-gold md:w-20" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-            Studio · {SITE.city} · {SITE.foundedYear}
+            {copy.studioLabel} · {SITE.city} · {SITE.foundedYear}
           </span>
         </motion.div>
 
         {/* Slogan — 3 lignes serif, italique sur les verbes */}
-        <h1 className="font-serif text-balance text-[clamp(2.75rem,8vw,7.5rem)] font-normal leading-[1.02] tracking-[-0.02em] text-foreground">
+        <Heading className="font-serif text-balance text-[clamp(2.75rem,8vw,7.5rem)] font-normal leading-[1.02] tracking-[-0.02em] text-foreground">
           <RevealText as="span" delay={0.4} stagger={0.06} className="block">
-            <em className="italic">Capturer</em>
-            {" l’instant,"}
+            <em className="italic">{copy.firstVerb}</em>
+            {copy.firstRest}
           </RevealText>
           <RevealText as="span" delay={0.85} stagger={0.06} className="block">
-            <em className="italic">diffuser</em>
-            {" l’expertise,"}
+            <em className="italic">{copy.secondVerb}</em>
+            {copy.secondRest}
           </RevealText>
           <RevealText
             as="span"
@@ -57,9 +61,9 @@ export function HeroSection() {
             stagger={0.06}
             className="block text-foreground-muted"
           >
-            <em className="italic text-foreground">réveiller</em> la mémoire.
+            <em className="italic text-foreground">{copy.thirdVerb}</em>{copy.thirdRest}
           </RevealText>
-        </h1>
+        </Heading>
 
         {/* CTA + meta bas */}
         <motion.div
@@ -70,10 +74,10 @@ export function HeroSection() {
         >
           <div className="flex items-center gap-6">
             <Link
-              href="#realisations"
+              href={copy.showreelHref}
               className="group relative inline-flex h-14 items-center gap-3 overflow-hidden rounded-full border border-border-strong bg-foreground/[0.02] px-7 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground backdrop-blur-md transition-all duration-700 hover:border-gold hover:bg-gold/[0.08] hover:text-gold"
             >
-              <span className="relative z-10">Voir le showreel</span>
+              <span className="relative z-10">{copy.showreelLabel}</span>
               <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
@@ -82,11 +86,11 @@ export function HeroSection() {
             </Link>
 
             <Link
-              href="#univers"
+              href={copy.universesHref}
               className="group hidden items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground-muted transition-colors hover:text-foreground md:inline-flex"
             >
               <span className="h-px w-6 bg-foreground-muted/40 transition-all duration-500 group-hover:w-12 group-hover:bg-gold" />
-              <span>Nos univers</span>
+              <span>{copy.universesLabel}</span>
             </Link>
           </div>
 
@@ -106,12 +110,12 @@ export function HeroSection() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground/80">
-              On Air
+              {copy.onAirLabel}
             </span>
           </div>
           <span className="h-8 w-px bg-foreground-subtle/30" />
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
-            (01) — Studio
+            {copy.studioEyebrow}
           </span>
         </motion.div>
 
@@ -123,9 +127,9 @@ export function HeroSection() {
           className="absolute bottom-8 left-6 hidden items-center gap-3 md:left-10 md:flex"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
-            Live ·
+            {copy.liveLabel}
           </span>
-          <Timecode />
+          {copy.showTimecode && <Timecode />}
         </motion.div>
       </div>
     </section>
@@ -133,10 +137,11 @@ export function HeroSection() {
 }
 
 function ScrollIndicator() {
+  const { hero: copy } = useSiteContent();
   return (
     <div className="flex items-center gap-3 self-end md:self-auto">
       <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
-        Scroll
+        {copy.scrollLabel}
       </span>
       <motion.span
         animate={{ y: [0, 6, 0] }}

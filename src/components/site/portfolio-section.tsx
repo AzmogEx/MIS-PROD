@@ -1,5 +1,10 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent } from "@/components/cms/content-context";
+import { useAnalytics } from "@/components/cms/analytics";
+
 import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -7,10 +12,7 @@ import Link from "next/link";
 import { ArrowUpRight, Play } from "lucide-react";
 import { RevealText } from "@/components/motion/reveal-text";
 import { VideoLightbox } from "@/components/site/video-lightbox";
-import {
-  PORTFOLIO_PROJECTS,
-  type PortfolioProject,
-} from "@/data/portfolio";
+import type { PortfolioProject } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
 /* ==================================================================
@@ -24,11 +26,6 @@ import { cn } from "@/lib/utils";
    ================================================================== */
 
 /** Couleur d'eyebrow par univers */
-const UNIVERSE_LABEL: Record<PortfolioProject["universe"], string> = {
-  institutions: "Institutions · Santé",
-  entreprises: "Entreprises · Broadcast",
-  particuliers: "Particuliers · Héritage",
-};
 
 /** Image Picsum dimensionnée selon la forme */
 function picsumUrl(seed: string, w: number, h: number) {
@@ -36,13 +33,16 @@ function picsumUrl(seed: string, w: number, h: number) {
 }
 
 export function PortfolioSection() {
+  const gridLayout = useHistoricalGrid();
+  const analytics = useAnalytics();
+  const { projects: PORTFOLIO_PROJECTS, portfolioSection: copy } = useSiteContent();
   const featured = PORTFOLIO_PROJECTS.find((p) => p.featured);
-  const rest = PORTFOLIO_PROJECTS.filter((p) => !p.featured).slice(0, 6);
+  const rest = PORTFOLIO_PROJECTS.filter((p) => !p.featured).slice(0, copy.limit);
 
   const [active, setActive] = useState<PortfolioProject | null>(null);
 
   return (
-    <section
+    <section data-cms-field="portfolioSection"
       id="realisations"
       aria-labelledby="portfolio-heading"
       className="relative scroll-mt-24 border-t border-border bg-background py-24 md:py-32"
@@ -57,7 +57,7 @@ export function PortfolioSection() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (05) — Réalisations
+            {copy.eyebrow}
           </motion.p>
 
           <h2
@@ -65,7 +65,7 @@ export function PortfolioSection() {
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
             <RevealText immediate={false} stagger={0.05} className="block">
-              Le studio <em className="italic">en mouvement</em>.
+              {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}
             </RevealText>
             <RevealText
               immediate={false}
@@ -73,7 +73,7 @@ export function PortfolioSection() {
               delay={0.2}
               className="block text-foreground-muted"
             >
-              Quelques projets récents.
+              {copy.subtitle}
             </RevealText>
           </h2>
         </div>
@@ -82,18 +82,18 @@ export function PortfolioSection() {
         {featured && (
           <FeaturedCard
             project={featured}
-            onPlay={() => setActive(featured)}
+            onPlay={() => { analytics.track('project_view', { reference: `project:${featured.slug}` }); setActive(featured); }}
           />
         )}
 
         {/* Grille des projets */}
-        <ul className="mt-6 grid gap-4 md:mt-8 md:grid-cols-12 md:gap-5">
+        <ul data-cms-grid={gridLayout} className="mt-6 grid gap-4 md:mt-8 md:grid-cols-12 md:gap-5">
           {rest.map((project, i) => (
             <ProjectCard
               key={project.slug}
               project={project}
               index={i}
-              onPlay={() => setActive(project)}
+              onPlay={() => { analytics.track('project_view', { reference: `project:${project.slug}` }); setActive(project); }}
             />
           ))}
         </ul>
@@ -107,11 +107,11 @@ export function PortfolioSection() {
           className="mt-16 flex items-center justify-center md:mt-24"
         >
           <Link
-            href="/contact"
+            href={copy.ctaHref}
             className="group inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-foreground-muted transition-colors hover:text-gold"
           >
             <span className="h-px w-8 bg-foreground-muted/40 transition-all duration-500 group-hover:w-16 group-hover:bg-gold" />
-            <span>Demander le portfolio complet</span>
+            <span>{copy.ctaLabel}</span>
             <ArrowUpRight
               className="h-3.5 w-3.5 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.25}
@@ -127,10 +127,10 @@ export function PortfolioSection() {
         videoSrc={active?.videoSrc}
         imageSrc={
           active && !active.videoSrc
-            ? picsumUrl(active.seed, 2400, 1600)
+            ? active.imageSrc || picsumUrl(active.seed, 2400, 1600)
             : undefined
         }
-        alt={active ? `${active.title} — ${active.client}` : undefined}
+        alt={active ? active.alt || `${active.title} — ${active.client}` : undefined}
         title={active?.title}
         subtitle={active?.client}
       />
@@ -149,6 +149,7 @@ function FeaturedCard({
   project: PortfolioProject;
   onPlay: () => void;
 }) {
+  const { portfolioSection: copy } = useSiteContent();
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -158,12 +159,13 @@ function FeaturedCard({
     >
       <CardShell
         onOpen={onPlay}
-        ariaLabel={`Ouvrir ${project.title}`}
+        ariaLabel={`${copy.openLabel} ${project.title}`}
         className="group relative block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border bg-background-elevated md:aspect-[21/9]"
       >
         <Image
-          src={picsumUrl(project.seed, 2400, 1100)}
-          alt={`${project.title} — ${project.client}`}
+          unoptimized={Boolean(project.imageSrc)}
+          src={project.imageSrc || picsumUrl(project.seed, 2400, 1100)}
+          alt={project.alt || `${project.title} — ${project.client}`}
           fill
           priority
           sizes="(min-width: 1280px) 1400px, 100vw"
@@ -196,7 +198,7 @@ function FeaturedCard({
         <div className="absolute left-7 top-7 flex items-center gap-3 md:left-10 md:top-10">
           <span className="h-px w-8 bg-gold md:w-12" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-            Showreel · {project.year}
+            {copy.showreelLabel} · {project.year}
           </span>
         </div>
 
@@ -320,6 +322,7 @@ function ProjectCard({
   index: number;
   onPlay: () => void;
 }) {
+  const { portfolioSection: copy, universes } = useSiteContent();
   const colSpan = COL_SPANS[index % COL_SPANS.length];
   const aspect = ASPECTS[index % ASPECTS.length];
 
@@ -337,19 +340,20 @@ function ProjectCard({
     >
       <CardShell
         onOpen={onPlay}
-        ariaLabel={`Ouvrir ${project.title} pour ${project.client}`}
+        ariaLabel={`${copy.openLabel} ${project.title} ${copy.forLabel} ${project.client}`}
         className={cn(
           "group relative block w-full overflow-hidden rounded-2xl border border-border bg-background-elevated",
           aspect,
         )}
       >
         <Image
-          src={picsumUrl(
+          unoptimized={Boolean(project.imageSrc)}
+          src={project.imageSrc || picsumUrl(
             project.seed,
             project.shape === "tall" ? 900 : 1400,
             project.shape === "tall" ? 1200 : project.shape === "square" ? 1050 : 880,
           )}
-          alt={`${project.title} — ${project.client}`}
+          alt={project.alt || `${project.title} — ${project.client}`}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
@@ -401,7 +405,7 @@ function ProjectCard({
         <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
           {/* Eyebrow univers */}
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-            {UNIVERSE_LABEL[project.universe]}
+            {universes.find(universe => universe.slug === project.universe)?.eyebrow ?? project.universe}
           </p>
 
           {/* Titre */}
@@ -420,7 +424,7 @@ function ProjectCard({
           </p>
 
           {/* Reveal au hover : description + tags */}
-          <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr]">
+          <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] max-md:grid-rows-[1fr]">
             <div className="overflow-hidden">
               <div className="pt-4">
                 <p className="max-w-md font-sans text-[13px] leading-relaxed text-foreground-muted">

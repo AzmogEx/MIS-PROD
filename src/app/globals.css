@@ -5,6 +5,9 @@
    Palette : noir profond / ivoire / or champagne
    ========================================================= */
 :root {
+  --font-sans-display: "Inter Variable";
+  --font-serif-display: "Instrument Serif";
+  --font-mono-display: "JetBrains Mono Variable";
   /* Surfaces */
   --background: #050505;
   --background-elevated: #0c0c0c;

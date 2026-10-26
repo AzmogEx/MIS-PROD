@@ -1,37 +1,13 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { motion, useReducedMotion } from "motion/react";
 import { AnimatedNumber } from "@/components/motion/animated-number";
 
-type Stat = {
-  value: number;
-  decimals?: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-  /** Petit mot d'introduction (ex: "Plus de") */
-  kicker?: string;
-};
 
-const STATS: Stat[] = [
-  {
-    kicker: "Plus de",
-    value: 500,
-    suffix: "",
-    label: "Projets réalisés",
-  },
-  {
-    value: 8,
-    suffix: " ans",
-    label: "D'expertise broadcast",
-  },
-  {
-    value: 4.9,
-    decimals: 1,
-    suffix: "★",
-    label: "Note moyenne client",
-  },
-];
 
 /**
  * Bandeau Stats — 3 chiffres clés, separés par hairlines verticales.
@@ -42,15 +18,17 @@ const STATS: Stat[] = [
  *   4. Labels fade-in
  */
 export function StatsSection() {
+  const gridLayout = useHistoricalGrid();
+  const { stats: copy } = useSiteContent();
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section
+    <section data-cms-field="stats"
       aria-labelledby="stats-heading"
       className="relative border-y border-border bg-background py-24 md:py-32"
     >
       <h2 id="stats-heading" className="sr-only">
-        Chiffres clés du studio
+        {copy.heading}
       </h2>
 
       {/* Lignes décoratives top/bottom qui se déploient */}
@@ -80,18 +58,18 @@ export function StatsSection() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:mb-20"
         >
-          (03) — Le studio en chiffres
+          {copy.eyebrow}
         </motion.p>
 
         {/* Grille des stats */}
-        <ul className="grid grid-cols-1 gap-px md:grid-cols-3 md:gap-0">
-          {STATS.map((stat, i) => (
+        <ul data-cms-grid={gridLayout} className="grid grid-cols-1 gap-px md:grid-cols-3 md:gap-0">
+          {copy.items.map((stat, i) => (
             <li
               key={stat.label}
               className={[
                 "relative px-2 py-10 md:px-10 md:py-0",
                 i > 0 && "md:border-l md:border-border",
-                i > 0 && i < STATS.length && "border-t border-border md:border-t-0",
+                i > 0 && i < copy.items.length && "border-t border-border md:border-t-0",
               ]
                 .filter(Boolean)
                 .join(" ")}

@@ -1,18 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
+
+import { useSiteContent, useLocalizedHref } from "@/components/cms/content-context";
 
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { SITE } from "@/data/site";
+import { Menu, X } from "lucide-react";
 
-const NAV_LINKS = [
-  { href: "/institutions", label: "Institutions" },
-  { href: "/entreprises", label: "Entreprises" },
-  { href: "/particuliers", label: "Particuliers" },
-];
 
 export function Navbar() {
+  const { site: SITE, navigation: copy } = useSiteContent();
+  const localize = useLocalizedHref();
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [menuOpen]);
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
 
@@ -39,28 +46,28 @@ export function Navbar() {
       <nav className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10">
         {/* Logo / wordmark */}
         <Link
-          href="/"
-          aria-label="MIS — Mémoire Image Son · accueil"
+          href={localize('/')}
+          aria-label={copy.logoAlt}
           className="group flex items-center gap-3"
         >
           <span
             className="font-serif text-2xl tracking-[0.18em] text-foreground transition-colors group-hover:text-gold"
             style={{ textShadow: "0 1px 8px rgba(0,0,0,0.4)" }}
           >
-            MIS
+            {copy.logoImage ? <img src={copy.logoImage} alt={copy.logoAlt} className="h-10 max-w-36 object-contain" /> : copy.logo}
           </span>
           <span className="hidden h-3 w-px bg-foreground/30 md:block" />
           <span
             className="hidden font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/65 md:block"
             style={{ textShadow: "0 1px 4px rgba(0,0,0,0.5)" }}
           >
-            Studio · {SITE.city} · {SITE.foundedYear}
+            {copy.studioLabel} · {SITE.city} · {SITE.foundedYear}
           </span>
         </Link>
 
         {/* Liens centrés */}
         <ul className="hidden items-center gap-10 md:flex">
-          {NAV_LINKS.map((link) => (
+          {copy.links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -74,18 +81,22 @@ export function Navbar() {
           ))}
         </ul>
 
+        <div className="flex items-center gap-3">
+        <button type="button" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-strong text-foreground md:hidden" aria-label={menuOpen ? copy.menuClose : copy.menuOpen} aria-expanded={menuOpen} aria-controls="mis-mobile-menu" onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
         {/* CTA contact */}
         <Link
-          href="/contact"
+          href={copy.briefHref}
           className="group relative inline-flex h-10 items-center gap-2 overflow-hidden rounded-full border border-foreground/30 bg-background/20 px-5 font-mono text-[11px] uppercase tracking-[0.24em] text-foreground backdrop-blur-md transition-[color,border-color,background-color] duration-500 hover:border-gold hover:bg-gold/10 hover:text-gold"
           style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
         >
-          <span className="relative z-10">Brief projet</span>
+          <span className="relative z-10">{copy.briefLabel}</span>
           <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-0.5">
             →
           </span>
         </Link>
+        </div>
       </nav>
+      {menuOpen && <nav id="mis-mobile-menu" aria-label={copy.menuLabel} className="border-t border-border bg-background px-6 py-4 md:hidden"><ul>{copy.links.map(link => <li key={link.href}><Link href={link.href} onClick={() => setMenuOpen(false)} className="block rounded px-3 py-4 text-base text-foreground focus-visible:outline-2 focus-visible:outline-gold">{link.label}</Link></li>)}</ul></nav>}
     </motion.header>
   );
 }

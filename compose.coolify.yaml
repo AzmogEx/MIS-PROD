@@ -1,0 +1,64 @@
+x-cms-environment: &cms-environment
+  NODE_ENV: production
+  CMS_SCHEMA_PUSH: 'false'
+  CMS_DEPLOYMENT_ENVIRONMENT: ${CMS_DEPLOYMENT_ENVIRONMENT:-production}
+  PAYLOAD_SECRET: ${PAYLOAD_SECRET:?Generate a unique secret in Coolify}
+  DATABASE_URL: file:/app/.data/cms.db
+  NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://mis-prod.fr}
+  CMS_EMAIL_DELIVERY: ${CMS_EMAIL_DELIVERY:-disabled}
+  CMS_AUTH_EMAIL_DELIVERY: ${CMS_AUTH_EMAIL_DELIVERY:-disabled}
+  CMS_BROWSER_ANALYTICS: ${CMS_BROWSER_ANALYTICS:-disabled}
+  CMS_SEARCH_CONSOLE: ${CMS_SEARCH_CONSOLE:-disabled}
+  GOOGLE_SEARCH_CONSOLE_PROPERTY: ${GOOGLE_SEARCH_CONSOLE_PROPERTY:-}
+  GOOGLE_SEARCH_CONSOLE_CLIENT_EMAIL: ${GOOGLE_SEARCH_CONSOLE_CLIENT_EMAIL:-}
+  GOOGLE_SEARCH_CONSOLE_PRIVATE_KEY: ${GOOGLE_SEARCH_CONSOLE_PRIVATE_KEY:-}
+  CMS_RETENTION_ENABLED: ${CMS_RETENTION_ENABLED:-disabled}
+  CMS_RETENTION_ANALYTICS_DAYS: ${CMS_RETENTION_ANALYTICS_DAYS:-0}
+  CMS_RETENTION_AUDIT_DAYS: ${CMS_RETENTION_AUDIT_DAYS:-0}
+  CMS_RETENTION_BRIEF_DAYS: ${CMS_RETENTION_BRIEF_DAYS:-0}
+  RESEND_API_KEY: ${RESEND_API_KEY:-}
+  CONTACT_SENDER: ${CONTACT_SENDER:-}
+  MEDIA_MAX_BYTES: ${MEDIA_MAX_BYTES:-104857600}
+  MEDIA_STORAGE_MAX_BYTES: ${MEDIA_STORAGE_MAX_BYTES:-10737418240}
+  CMS_BRIEF_STORAGE_MAX_BYTES: ${CMS_BRIEF_STORAGE_MAX_BYTES:-1073741824}
+  MEDIA_IMPORT_STORAGE_MAX_BYTES: ${MEDIA_IMPORT_STORAGE_MAX_BYTES:-2147483648}
+  MEDIA_IMPORT_TTL_SECONDS: ${MEDIA_IMPORT_TTL_SECONDS:-86400}
+  CMS_PRIVATE_FILES_DIR: /app/.cms/private
+  CMS_PRIVATE_STORAGE_MAX_BYTES: ${CMS_PRIVATE_STORAGE_MAX_BYTES:-10737418240}
+  CMS_WORKER_RUN_TIMEOUT_MS: ${CMS_WORKER_RUN_TIMEOUT_MS:-600000}
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://mis-prod.fr}
+        CMS_DEPLOYMENT_ENVIRONMENT: ${CMS_DEPLOYMENT_ENVIRONMENT:-production}
+    image: ${CMS_IMAGE_NAME:-mis-production-cms}:${CMS_IMAGE_TAG:-local}
+    restart: unless-stopped
+    environment: *cms-environment
+    volumes:
+      - cms-data:/app/.data
+      - cms-private:/app/.cms
+    expose: ['3000']
+    # Migrations finish before traffic or workers. Import never overwrites edits.
+    command: ['sh', '-c', 'npm run cms:migrate && npm run cms:seed && exec npm start']
+  worker:
+    image: ${CMS_IMAGE_NAME:-mis-production-cms}:${CMS_IMAGE_TAG:-local}
+    restart: unless-stopped
+    environment: *cms-environment
+    volumes:
+      - cms-data:/app/.data
+      - cms-private:/app/.cms
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'node', '--import', 'tsx', 'scripts/cms-worker-health.ts']
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+    command: ['node', 'scripts/cms-worker-loop.mjs']
+volumes:
+  cms-data:
+  cms-private:

@@ -1,0 +1,29 @@
+{
+  "observedAt": "2026-10-26T21:06:15.317Z",
+  "public": {
+    "duration": 15.44,
+    "width": 1920,
+    "height": 1080,
+    "readyState": 4,
+    "manualPlay": true,
+    "seekSeconds": 12.6163,
+    "poster": "recette-affiche.png",
+    "captions": "en",
+    "captionsReadyState": 2,
+    "transcriptAvailable": true
+  },
+  "private": {
+    "session": "client de recette attribué au projet",
+    "duration": 15.44,
+    "width": 1920,
+    "height": 1080,
+    "readyState": 4,
+    "manualPlay": true,
+    "comment": "synthétique",
+    "commentTimecode": 13,
+    "approval": "V1 acceptée",
+    "viewportMobile": 390,
+    "horizontalOverflow": false
+  },
+  "scope": "Serveur Next local, vraie base/fichiers isolés ; aucun déploiement"
+}

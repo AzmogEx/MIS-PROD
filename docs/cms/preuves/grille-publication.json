@@ -1,0 +1,43 @@
+{
+  "observedAt": "2026-10-26T21:03:30.728Z",
+  "page": 10,
+  "editViaUI": true,
+  "changedDesktopColumnsFrom": 4,
+  "to": 3,
+  "publicBeforePublish": 4,
+  "publicAfterPublish": [
+    {
+      "columns": "397.328px 397.328px 397.344px",
+      "mode": "original"
+    },
+    {
+      "columns": "397.328px 397.328px 397.344px",
+      "mode": "uniform"
+    },
+    {
+      "columns": "384px 384px 384px",
+      "mode": "uniform"
+    },
+    {
+      "columns": "586px 586px",
+      "mode": "uniform"
+    },
+    {
+      "columns": "595.5px 595.5px",
+      "mode": "uniform"
+    },
+    {
+      "columns": "584px 584px",
+      "mode": "uniform"
+    },
+    {
+      "columns": "576px 576px",
+      "mode": "uniform"
+    },
+    {
+      "columns": "384px 384px 384px",
+      "mode": "uniform"
+    }
+  ],
+  "scope": "Base isolée video-browser-N5e4Da seulement"
+}

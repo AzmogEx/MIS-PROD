@@ -1,6 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { useSiteContent } from "@/components/cms/content-context";
+
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useRef } from "react";
 
 /**
@@ -14,6 +16,8 @@ import { useRef } from "react";
  * pendant que le texte sort plus vite.
  */
 export function HeroBackground({ videoSrc }: { videoSrc?: string }) {
+  const { hero: copy } = useSiteContent();
+  const reducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -32,20 +36,22 @@ export function HeroBackground({ videoSrc }: { videoSrc?: string }) {
     >
       {/* Couche 1 — vidéo / fallback */}
       <motion.div
-        style={{ y, scale, opacity }}
+        style={reducedMotion ? undefined : { y, scale, opacity }}
         className="absolute inset-0 h-[110%] w-full"
       >
         {videoSrc ? (
           <video
+            data-mis-analytics="auto"
             src={videoSrc}
-            autoPlay
+            autoPlay={copy.autoplay && !reducedMotion}
+            poster={copy.poster || undefined}
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             className="h-full w-full object-cover"
             style={{ backgroundColor: "#050505" }}
-            aria-label="Ambiance vidéo de fond"
+            aria-label={copy.backgroundLabel}
           />
         ) : (
           <FallbackGradient />

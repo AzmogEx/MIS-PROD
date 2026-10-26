@@ -1,24 +1,25 @@
-import type { MetadataRoute } from "next";
-import { SITE } from "@/data/site";
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
-  const routes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" }[] = [
-    { path: "", priority: 1.0, changeFrequency: "weekly" },
-    { path: "/institutions", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/entreprises", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/particuliers", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
-    { path: "/mentions-legales", priority: 0.2, changeFrequency: "monthly" },
-    { path: "/confidentialite", priority: 0.2, changeFrequency: "monthly" },
-    { path: "/cgv", priority: 0.2, changeFrequency: "monthly" },
-  ];
-
-  return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${SITE.url}${path}`,
-    lastModified,
-    changeFrequency,
-    priority,
-  }));
+import type { MetadataRoute } from 'next'
+import { getCMS } from '@/cms/payload'
+import { readSiteContent } from '@/cms/read'
+import type { PaginatedDocs } from 'payload'
+import type { PageRecord } from '@/cms/page-types'
+export const dynamic = 'force-dynamic'
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if(process.env.CMS_DEPLOYMENT_ENVIRONMENT==='preproduction')return [];
+  const cms=await getCMS();const {site}=await readSiteContent();
+  const shared=await cms.findGlobal({slug:'site-content',locale:'en',depth:0,overrideAccess:true,select:{translationState:true,sourceRevision:true,reviewedSourceRevision:true}})
+  const entries:MetadataRoute.Sitemap=[]
+  for(const locale of ['fr','en'] as const){
+    if(locale==='en'&&shared.translationState!=='reviewed')continue
+    let next:number|null=1
+    while(next){
+      const result:PaginatedDocs<PageRecord>=await cms.find({collection:'pages',where:{and:[{_status:{equals:'published'}},{'seo.noindex':{not_equals:true}}]},draft:false,locale,depth:0,limit:500,page:next,overrideAccess:false}) as unknown as PaginatedDocs<PageRecord>
+      for(const page of result.docs){
+        if(locale==='en'&&page.translationState!=='reviewed')continue
+        entries.push({url:site.url+(locale==='en'?'/en':'')+(page.path==='/'&&locale==='en'?'':String(page.path)),lastModified:new Date(String(page.updatedAt)),changeFrequency:'monthly',priority:page.path==='/'?1:0.7})
+      }
+      next=result.nextPage??null
+    }
+  }
+  return entries
 }

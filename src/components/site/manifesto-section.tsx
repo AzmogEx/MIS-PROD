@@ -1,5 +1,9 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { motion, useReducedMotion } from "motion/react";
 import { RevealText } from "@/components/motion/reveal-text";
 
@@ -11,39 +15,15 @@ import { RevealText } from "@/components/motion/reveal-text";
      · respect prefers-reduced-motion
    ================================================================== */
 
-type Pillar = {
-  number: string;
-  verb: string;
-  title: string;
-  body: string;
-};
 
-const PILLARS: Pillar[] = [
-  {
-    number: "I.",
-    verb: "Capturer",
-    title: "L'instant juste, pas l'instant facile.",
-    body: "Repérage, écriture, lumière. Chaque captation est préparée pour qu'au tournage, on ne fasse plus que regarder ce qui doit être vu.",
-  },
-  {
-    number: "II.",
-    verb: "Diffuser",
-    title: "L'expertise, sans dilution.",
-    body: "Plateaux TV mobiles, streaming 4K HDR, multi-caméras. La régie broadcast professionnelle déplacée là où votre public se trouve, en latence sub-seconde.",
-  },
-  {
-    number: "III.",
-    verb: "Réveiller",
-    title: "La mémoire qu'on transmet.",
-    body: "Documentaires de vie, biographies vidéo, ateliers en EHPAD. Filmer l'humain avec la pudeur et la précision qu'exige ce qui ne se rejouera pas.",
-  },
-];
 
 export function ManifestoSection() {
+  const gridLayout = useHistoricalGrid();
+  const { manifesto: copy } = useSiteContent();
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section
+    <section data-cms-field="manifesto"
       id="manifeste"
       aria-labelledby="manifesto-heading"
       className="relative scroll-mt-24 border-t border-border bg-background py-24 md:py-40"
@@ -58,7 +38,7 @@ export function ManifestoSection() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (02) — Manifeste
+            {copy.eyebrow}
           </motion.p>
 
           <h2
@@ -66,7 +46,7 @@ export function ManifestoSection() {
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
             <RevealText immediate={false} stagger={0.05} className="block">
-              Trois <em className="italic">verbes</em>.
+              {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}
             </RevealText>
             <RevealText
               immediate={false}
@@ -74,7 +54,7 @@ export function ManifestoSection() {
               delay={0.2}
               className="block text-foreground-muted"
             >
-              Une seule exigence.
+              {copy.subtitle}
             </RevealText>
           </h2>
         </div>
@@ -93,18 +73,15 @@ export function ManifestoSection() {
               aria-hidden
               className="float-left mr-4 mt-2 font-serif text-[clamp(4.5rem,9vw,7.5rem)] leading-[0.78] tracking-[-0.04em] text-gold"
             >
-              D
+              {copy.introduction.charAt(0)}
             </span>
-            epuis 2017, MIS refuse l&apos;image jetable. Chaque film, chaque
-            captation, chaque atelier est conçu comme une pièce qui doit tenir
-            dans dix ans, vingt ans. Parce qu&apos;une mémoire qu&apos;on filme
-            n&apos;a pas le droit d&apos;être approximative.
+            {copy.introduction.slice(1)}
           </motion.p>
         </div>
 
         {/* Trois piliers */}
-        <ul className="grid gap-px border-t border-border md:grid-cols-3 md:gap-0">
-          {PILLARS.map((pillar, i) => (
+        <ul data-cms-grid={gridLayout} className="grid gap-px border-t border-border md:grid-cols-3 md:gap-0">
+          {copy.pillars.map((pillar, i) => (
             <motion.li
               key={pillar.verb}
               initial={{ opacity: 0, y: 24 }}

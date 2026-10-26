@@ -1,0 +1,597 @@
+{
+  "checkedAt": "2026-10-26T20:51:40.584Z",
+  "entries": [
+    {
+      "id": "MIS-D630B09F",
+      "category": "Référence commerciale",
+      "field": "clients[1]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : EHPAD Saint-Joseph",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-C9A300A2",
+      "category": "Référence commerciale",
+      "field": "clients[10]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Domaine de Camargue",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-A3705BB4",
+      "category": "Référence commerciale",
+      "field": "clients[11]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Crédit Agricole Sud",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-068F6F36",
+      "category": "Référence commerciale",
+      "field": "clients[12]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Mairie d'Uzès",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-5143D6FD",
+      "category": "Référence commerciale",
+      "field": "clients[2]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : ARS Occitanie",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-7B6F894F",
+      "category": "Référence commerciale",
+      "field": "clients[3]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Centre Hospitalier de Nîmes",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-8DA03BF3",
+      "category": "Référence commerciale",
+      "field": "clients[4]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Fondation Hôpitaux",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-E1120B6F",
+      "category": "Référence commerciale",
+      "field": "clients[5]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Groupe Bourbon",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-B1426D20",
+      "category": "Référence commerciale",
+      "field": "clients[6]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Maison F.",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-FF7140A2",
+      "category": "Référence commerciale",
+      "field": "clients[7]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : CCI Gard",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-B826AF28",
+      "category": "Référence commerciale",
+      "field": "clients[8]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Conservatoire de Musique",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-B8E1E5C2",
+      "category": "Référence commerciale",
+      "field": "clients[9]",
+      "source": "Contenus partagés · clients",
+      "href": "/admin/globals/site-content",
+      "current": "name : Ville de Nîmes",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-EF6602D0",
+      "category": "Référence commerciale",
+      "field": "projects[1]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Showreel 2025 ; client : MIS · Compilation ; format : Showreel ; year : 2025 ; description : Une année de captations, plateaux mobiles, mariages et documentaires de vie condensée en 90 secondes. Le langage visuel du studio. ; seed : mzn-showreel-2025",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-07B90449",
+      "category": "Visuel / droits",
+      "field": "projects[1].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-showreel-2025 ; projet=Showreel 2025",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-77224815",
+      "category": "Référence commerciale",
+      "field": "projects[2]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Convention annuelle ; client : Groupe X · Montpellier ; format : Plateau TV mobile ; year : 2024 ; description : Régie ATEM 6 caméras, streaming 4K HDR vers 1 200 collaborateurs, fond LED, double animation. Latence sub-seconde. ; seed : mzn-port-convention",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-D49F559C",
+      "category": "Visuel / droits",
+      "field": "projects[2].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-convention ; projet=Convention annuelle",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-1074048A",
+      "category": "Référence commerciale",
+      "field": "projects[3]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Mémoires de Saint-Joseph ; client : EHPAD Saint-Joseph · Nîmes ; format : Documentaire de vie ; year : 2024 ; description : Six résidents, six histoires. Atelier mémoire mené sur trois mois, avec restitution en projection collective. Format 22 minutes. ; seed : mzn-port-saintjoseph",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-2558D66D",
+      "category": "Visuel / droits",
+      "field": "projects[3].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-saintjoseph ; projet=Mémoires de Saint-Joseph",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-2B515503",
+      "category": "Référence commerciale",
+      "field": "projects[4]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Lucile & Marc ; client : Mariage · Domaine de Camargue ; format : Film de mariage cinématographique ; year : 2024 ; description : Deux chefs-opérateurs, un drone, une journée filmée comme un long-métrage. Restitution en film court 5 min + film long 38 min. ; seed : mzn-port-camargue",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-B27E33D2",
+      "category": "Visuel / droits",
+      "field": "projects[4].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-camargue ; projet=Lucile & Marc",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-B8661EA0",
+      "category": "Référence commerciale",
+      "field": "projects[5]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Lancement produit ; client : Maison F. · Paris ; format : Live streaming 4K ; year : 2024 ; description : Diffusion 4K HDR multi-plateformes depuis un site sans fibre. Bonding LiveU 14 modems, 8 000 viewers simultanés, replay nettoyé sous 24h. ; seed : mzn-port-lancement",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-F7ECC8BE",
+      "category": "Visuel / droits",
+      "field": "projects[5].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-lancement ; projet=Lancement produit",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-1998EFC1",
+      "category": "Référence commerciale",
+      "field": "projects[6]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Le récit d'Henri ; client : Biographie privée · 92 ans ; format : Documentaire de vie ; year : 2023 ; description : Quatre séances d'interview, soixante ans d'archives photo numérisées, un coffret bois remis à la famille. La mémoire qu'on transmet. ; seed : mzn-port-henri",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-BA0D0C92",
+      "category": "Visuel / droits",
+      "field": "projects[6].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-henri ; projet=Le récit d'Henri",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-EBDF2907",
+      "category": "Référence commerciale",
+      "field": "projects[7]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Campagne bientraitance ; client : ARS Occitanie ; format : Films de sensibilisation ; year : 2024 ; description : Trois films courts de 90 secondes chacun, diffusés en EHPAD, sur le web et en formation. Comédiens encadrés, voix off, sous-titres SME. ; seed : mzn-port-bientraitance",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-6F8A7A3F",
+      "category": "Visuel / droits",
+      "field": "projects[7].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-bientraitance ; projet=Campagne bientraitance",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-9AAD8B61",
+      "category": "Référence commerciale",
+      "field": "projects[8]",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "title : Camille & Théo ; client : Mariage · Camargue ; format : Film de mariage ; year : 2025 ; description : Cérémonie laïque en bord d'étang, golden hour parfaite, montage en 9:16 inclus pour les réseaux. Bande-son licenciée originale. ; seed : mzn-port-camille",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer réalité, intitulé, prestations et droit de citer ; joindre la source ou décider correction/retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-1AF14B6B",
+      "category": "Visuel / droits",
+      "field": "projects[8].imageSrc",
+      "source": "Contenus partagés · projects",
+      "href": "/admin/globals/site-content",
+      "current": "Image non renseignée ; visuel de démonstration seed=mzn-port-camille ; projet=Camille & Théo",
+      "reason": "Cette réalisation conserve un identifiant de visuel de démonstration. Vérifiez sa photo dans la fiche.",
+      "decision": "Fournir le vrai visuel, ses crédits, autorisations et échéance ; décider de sa diffusion.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-9845C102",
+      "category": "Chiffre",
+      "field": "stats.items[1]",
+      "source": "Contenus partagés · stats",
+      "href": "/admin/globals/site-content",
+      "current": "kicker : Plus de ; value : 500 ; label : Projets réalisés",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Fournir source, date, périmètre et calcul ; confirmer la valeur ou la corriger.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-12E0C559",
+      "category": "Chiffre",
+      "field": "stats.items[2]",
+      "source": "Contenus partagés · stats",
+      "href": "/admin/globals/site-content",
+      "current": "value : 8 ; suffix :  ans ; label : D'expertise broadcast",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Fournir source, date, périmètre et calcul ; confirmer la valeur ou la corriger.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-35DAE240",
+      "category": "Chiffre",
+      "field": "stats.items[3]",
+      "source": "Contenus partagés · stats",
+      "href": "/admin/globals/site-content",
+      "current": "value : 4.9 ; suffix : ★ ; label : Note moyenne client",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Fournir source, date, périmètre et calcul ; confirmer la valeur ou la corriger.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-E81EDB57",
+      "category": "Témoignage",
+      "field": "testimonials[1]",
+      "source": "Contenus partagés · testimonials",
+      "href": "/admin/globals/site-content",
+      "current": "quote : Les ateliers MIS ont changé la manière dont nos résidents se racontent. Et la manière dont leurs familles les écoutent. ; author : Marie L. ; role : Directrice ; organization : EHPAD Saint-Joseph · Nîmes ; year : 2024",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer citation exacte, auteur, contexte et accord de diffusion ; sinon fournir un remplacement ou décider du retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-66EEE599",
+      "category": "Témoignage",
+      "field": "testimonials[2]",
+      "source": "Contenus partagés · testimonials",
+      "href": "/admin/globals/site-content",
+      "current": "quote : Régie sub-seconde, plateau impeccable, équipe précise. Notre convention 1 200 personnes diffusée comme une émission TV. Sans la moindre frayeur. ; author : Julien R. ; role : Directeur communication ; organization : Groupe Bourbon ; year : 2024",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer citation exacte, auteur, contexte et accord de diffusion ; sinon fournir un remplacement ou décider du retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-E5F42CAE",
+      "category": "Témoignage",
+      "field": "testimonials[3]",
+      "source": "Contenus partagés · testimonials",
+      "href": "/admin/globals/site-content",
+      "current": "quote : On voulait un souvenir. On a reçu un film. Vingt minutes qu'on regardera dans dix, vingt, trente ans, sans rougir. ; author : Lucile & Marc ; role : Mariés ; organization : Domaine de Camargue ; year : 2024",
+      "reason": "La case de vérification n’est pas cochée. Renseignez un justificatif puis faites valider cette donnée.",
+      "decision": "Confirmer citation exacte, auteur, contexte et accord de diffusion ; sinon fournir un remplacement ou décider du retrait.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Confirmer, corriger ou retirer cet élément avant sa diffusion publique dans la nouvelle version ; recette isolée possible."
+    },
+    {
+      "id": "MIS-C34410FF",
+      "category": "Mention légale",
+      "field": "site.address.street",
+      "source": "Identité et navigation",
+      "href": "/admin/globals/site-content",
+      "current": "[À COMPLÉTER]",
+      "reason": "[À COMPLÉTER]",
+      "decision": "Fournir la valeur officielle applicable ; faire relire avant publication.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Valeur officielle à fournir avant bascule des mentions publiques ; recette isolée possible."
+    },
+    {
+      "id": "MIS-990C97E9",
+      "category": "Mention légale",
+      "field": "site.legal.director",
+      "source": "Identité et navigation",
+      "href": "/admin/globals/site-content",
+      "current": "[À COMPLÉTER — Nom Prénom]",
+      "reason": "[À COMPLÉTER — Nom Prénom]",
+      "decision": "Fournir la valeur officielle applicable ; faire relire avant publication.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Valeur officielle à fournir avant bascule des mentions publiques ; recette isolée possible."
+    },
+    {
+      "id": "MIS-6FDD5087",
+      "category": "Mention légale",
+      "field": "site.legal.siret",
+      "source": "Identité et navigation",
+      "href": "/admin/globals/site-content",
+      "current": "[À COMPLÉTER]",
+      "reason": "[À COMPLÉTER]",
+      "decision": "Fournir la valeur officielle applicable ; faire relire avant publication.",
+      "status": "À décider",
+      "scopes": [
+        "published",
+        "draft"
+      ],
+      "launchImpact": "Valeur officielle à fournir avant bascule des mentions publiques ; recette isolée possible."
+    }
+  ]
+}

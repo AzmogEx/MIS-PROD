@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-10-26T21:16:45.252Z",
+  "database": ".data/cms-ready.db",
+  "integrity": "ok",
+  "pages": 8,
+  "media": 9,
+  "users": 0,
+  "briefs": 0,
+  "payload_migrations": 10
+}

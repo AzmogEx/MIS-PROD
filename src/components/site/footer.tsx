@@ -1,42 +1,17 @@
+"use client";
+
+import { useSiteContent, useLocalizedHref } from "@/components/cms/content-context";
+
 import Link from "next/link";
 import { Instagram, Linkedin, Youtube } from "lucide-react";
-import { SITE } from "@/data/site";
 
-const NAV_COLUMNS = [
-  {
-    label: "Univers",
-    links: [
-      { href: "/institutions", label: "Institutions · Santé" },
-      { href: "/entreprises", label: "Entreprises · Broadcast" },
-      { href: "/particuliers", label: "Particuliers · Héritage" },
-    ],
-  },
-  {
-    label: "Studio",
-    links: [
-      { href: "/#manifeste", label: "Manifeste" },
-      { href: "/#realisations", label: "Réalisations" },
-      { href: "/#confiance", label: "Confiance" },
-      { href: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    label: "Légal",
-    links: [
-      { href: "/mentions-legales", label: "Mentions légales" },
-      { href: "/confidentialite", label: "Confidentialité" },
-      { href: "/cgv", label: "CGV" },
-    ],
-  },
-];
 
-const SOCIAL = [
-  { href: SITE.social.instagram, label: "Instagram", Icon: Instagram },
-  { href: SITE.social.linkedin, label: "LinkedIn", Icon: Linkedin },
-  { href: SITE.social.youtube, label: "YouTube", Icon: Youtube },
-];
+
 
 export function Footer() {
+  const { site: SITE, footer: copy } = useSiteContent();
+  const localize = useLocalizedHref();
+  const socialIcons = { instagram: Instagram, linkedin: Linkedin, youtube: Youtube };
   return (
     <footer className="relative border-t border-border bg-background">
       <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-28">
@@ -44,12 +19,12 @@ export function Footer() {
         <div className="grid gap-16 md:grid-cols-12 md:gap-10">
           {/* Wordmark + signature */}
           <div className="md:col-span-5">
-            <Link href="/" className="group inline-block" aria-label="Accueil MIS — Mémoire Image Son">
+            <Link href={localize('/')} className="group inline-block" aria-label={copy.homeLabel}>
               <span className="block font-serif text-[clamp(3rem,9vw,7rem)] leading-none tracking-[-0.02em] text-foreground transition-colors group-hover:text-gold">
-                MIS
+                {copy.logo}
               </span>
               <span className="mt-3 block font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-                Mémoire · Image · Son
+                {copy.signature}
               </span>
             </Link>
             <p className="mt-8 max-w-md font-serif text-xl italic leading-snug text-foreground-muted">
@@ -58,14 +33,14 @@ export function Footer() {
             <div className="mt-10 flex items-center gap-4">
               <span className="h-px w-10 bg-gold/60" />
               <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-                Studio · {SITE.city} · Depuis {SITE.foundedYear}
+                {copy.studioLabel} · {SITE.city} · {copy.sinceLabel} {SITE.foundedYear}
               </span>
             </div>
           </div>
 
           {/* Colonnes nav */}
           <div className="grid grid-cols-2 gap-10 md:col-span-7 md:grid-cols-3">
-            {NAV_COLUMNS.map((col) => (
+            {copy.columns.map((col) => (
               <div key={col.label}>
                 <h3 className="mb-6 font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
                   {col.label}
@@ -100,7 +75,7 @@ export function Footer() {
           {/* Contact */}
           <div className="md:col-span-5">
             <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-              Contact
+              {copy.contactLabel}
             </h3>
             <a
               href={`mailto:${SITE.email}`}
@@ -122,10 +97,12 @@ export function Footer() {
           {/* Social */}
           <div className="md:col-span-4">
             <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-              Suivre le studio
+              {copy.socialLabel}
             </h3>
             <ul className="flex gap-3">
-              {SOCIAL.map(({ href, label, Icon }) => (
+              {copy.socialLinks.map(({ href, label, icon }) => {
+                const Icon = socialIcons[icon as keyof typeof socialIcons] ?? Instagram;
+                return (
                 <li key={label}>
                   <a
                     href={href}
@@ -140,7 +117,7 @@ export function Footer() {
                     />
                   </a>
                 </li>
-              ))}
+              ); })}
             </ul>
           </div>
 
@@ -150,7 +127,7 @@ export function Footer() {
               © {new Date().getFullYear()} {SITE.name}
             </p>
             <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.28em] text-foreground-subtle">
-              Tous droits réservés
+              {copy.rightsLabel}
             </p>
           </div>
         </div>

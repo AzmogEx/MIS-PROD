@@ -4,7 +4,7 @@
  * UniversePageLayout (template page dédiée) et le contact form.
  */
 
-export type UniverseSlug = "institutions" | "entreprises" | "particuliers";
+export type UniverseSlug = string;
 
 export type UniverseFormula = {
   number: string;
@@ -32,6 +32,8 @@ export type UniversePortfolioItem = {
    * jouée dans la lightbox au clic sur la card. Optionnel.
    */
   videoSrc?: string;
+  imageSrc?: string;
+  alt?: string;
 };
 
 export type Universe = {

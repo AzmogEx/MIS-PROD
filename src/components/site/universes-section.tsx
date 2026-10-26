@@ -1,79 +1,17 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent, useLocalizedHref } from "@/components/cms/content-context";
+
 import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Universe = {
-  number: string;
-  href: string;
-  eyebrow: string;
-  title: string;
-  /** Phrase d'accroche, toujours visible */
-  tagline: string;
-  /** Description longue révélée au hover */
-  description: string;
-  /** 3-4 mots clés affichés en bas */
-  highlights: string[];
-  /** Image cinématique locale utilisée en fond de card */
-  imageSrc: string;
-  /** Définit le placeholder background (3 ambiances distinctes) */
-  ambiance: "warm" | "cold" | "champagne";
-};
+import type { UniverseCardContent as Universe } from "@/cms/seed-content";
 
-const UNIVERSES: Universe[] = [
-  {
-    number: "01",
-    href: "/institutions",
-    eyebrow: "Institutions · Santé",
-    title: "Réveiller la mémoire.",
-    tagline: "EHPAD, hôpitaux, collectivités.",
-    description:
-      "Ateliers mémoire par l'image, stimulation cognitive, documentaires de vie pour les résidents, captation d'événements institutionnels.",
-    highlights: [
-      "Ateliers mémoire",
-      "Documentaires de vie",
-      "Stimulation cognitive",
-    ],
-    imageSrc: "/universes/institutions.webp",
-    ambiance: "warm",
-  },
-  {
-    number: "02",
-    href: "/entreprises",
-    eyebrow: "Entreprises · Broadcast",
-    title: "Diffuser l'expertise.",
-    tagline: "Plateaux TV mobiles, live streaming 4K.",
-    description:
-      "Captation multi-caméras, films corporate, webinaires hybrides, plateaux mobiles ATEM, streaming LiveU pour vos événements professionnels.",
-    highlights: [
-      "Live streaming 4K",
-      "Multi-caméras",
-      "Films corporate",
-      "Webinaires hybrides",
-    ],
-    imageSrc: "/universes/entreprises.webp",
-    ambiance: "cold",
-  },
-  {
-    number: "03",
-    href: "/particuliers",
-    eyebrow: "Particuliers · Héritage",
-    title: "Capturer l'instant.",
-    tagline: "Mariages, biographies, événements familiaux.",
-    description:
-      "Films de mariage cinématographiques, biographies vidéo, récits de vie, événements familiaux, héritage filmé pour les générations futures.",
-    highlights: [
-      "Films de mariage",
-      "Biographies vidéo",
-      "Récits de vie",
-    ],
-    imageSrc: "/universes/particuliers.webp",
-    ambiance: "champagne",
-  },
-];
 
 /**
  * Section "Les 3 Univers" — façon Apple :
@@ -83,8 +21,11 @@ const UNIVERSES: Universe[] = [
  *  - Hover : zoom léger background + reveal description + slide flèche
  */
 export function UniversesSection() {
+  const gridLayout = useHistoricalGrid();
+  const { universes, universesSection: copy } = useSiteContent();
+  const localize = useLocalizedHref();
   return (
-    <section
+    <section data-cms-field="universesSection"
       id="univers"
       aria-labelledby="universes-heading"
       className="relative scroll-mt-24 bg-background py-24 md:py-32"
@@ -99,7 +40,7 @@ export function UniversesSection() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (04) — Trois univers
+            {copy.eyebrow}
           </motion.p>
 
           <motion.h2
@@ -110,16 +51,16 @@ export function UniversesSection() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
-            Une <em className="italic">même</em> exigence.{" "}
+            {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}{" "}
             <span className="text-foreground-muted">
-              Trois manières d&apos;y répondre.
+              {copy.subtitle}
             </span>
           </motion.h2>
         </div>
 
         {/* Cards */}
-        <ul
-          className={cn(
+        <ul data-cms-grid={gridLayout}
+          className={cn("cms-universe-cards",
             // Mobile / tablette : scroll-snap horizontal
             "scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-6",
             "-mx-6",
@@ -127,8 +68,8 @@ export function UniversesSection() {
             "md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0",
           )}
         >
-          {UNIVERSES.map((u, i) => (
-            <UniverseCard key={u.number} universe={u} index={i} />
+          {universes.map((u, i) => (
+            <UniverseCard key={u.number} universe={{ ...u.card, href: localize(`/${u.slug}`), eyebrow: u.eyebrow, title: u.title, number: u.number, ambiance: u.ambiance }} index={i} />
           ))}
         </ul>
       </div>
@@ -204,7 +145,7 @@ function UniverseCard({
           </p>
 
           {/* Reveal au hover : description + highlights */}
-          <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr]">
+          <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] max-md:grid-rows-[1fr]">
             <div className="overflow-hidden">
               <div className="pt-5">
                 <p className="font-sans text-[13px] leading-relaxed text-foreground-muted">
@@ -263,14 +204,15 @@ function CardBackground({
         className="absolute inset-0 transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
         style={{ background: gradient }}
       />
-      <Image
+      {imageSrc && <Image
+        unoptimized
         src={imageSrc}
         alt=""
         aria-hidden="true"
         fill
         sizes="(min-width: 768px) 31vw, 85vw"
         className="absolute inset-0 object-cover opacity-90 saturate-[0.9] transition-[transform,opacity,filter] duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:opacity-100 group-hover:saturate-100"
-      />
+      />}
       {/* Grain subtil */}
       <div
         aria-hidden

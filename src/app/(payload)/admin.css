@@ -1,0 +1,14 @@
+:root { --mis-gold: #c9a961; }
+.mis-dashboard { border: 1px solid var(--theme-elevation-150); border-radius: 16px; padding: 28px; margin-bottom: 36px; }
+.mis-dashboard h2 { font-size: 30px; letter-spacing: -.03em; margin: 8px 0 16px; }
+.mis-dashboard p { color: var(--theme-elevation-600); max-width: 76ch; }
+.mis-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--mis-gold); }
+.mis-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 12px; margin: 24px 0; }
+.mis-card { display: flex; flex-direction: column; gap: 8px; padding: 20px; border: 1px solid var(--theme-elevation-150); border-radius: 10px; text-decoration: none; }
+.mis-card strong { font-size: 36px; font-weight: 500; color: var(--mis-gold); }
+.mis-card:hover { border-color: var(--mis-gold); }
+.mis-shortcuts { display: flex; flex-wrap: wrap; gap: 12px; }
+.mis-shortcuts a { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 5px; background: var(--theme-elevation-100); }
+.mis-warning { border-left: 3px solid var(--mis-gold); padding: 12px 16px; background: var(--theme-elevation-50); }
+@media(max-width:600px) { .mis-dashboard { padding: 18px; } .mis-dashboard h2 { font-size: 24px; } }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

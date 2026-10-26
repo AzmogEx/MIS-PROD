@@ -1,5 +1,7 @@
 "use client";
 
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
@@ -37,14 +39,25 @@ export function VideoLightbox({
   title,
   subtitle,
 }: MediaLightboxProps) {
+  const { ui: copy } = useSiteContent();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   // Fermeture Escape + lock du scroll
   useEffect(() => {
     if (!open) return;
 
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const dialog = dialogRef.current;
+    dialog?.querySelector<HTMLButtonElement>("button")?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "Tab" && dialog) {
+        const targets = [...dialog.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], video[controls], [tabindex="0"]')];
+        const first = targets[0]; const last = targets[targets.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
     };
     window.addEventListener("keydown", onKey);
 
@@ -63,6 +76,7 @@ export function VideoLightbox({
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
       if (v) {
         v.pause();
         v.currentTime = 0;
@@ -77,9 +91,10 @@ export function VideoLightbox({
     <AnimatePresence>
       {open && hasMedia && (
         <motion.div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
-          aria-label={title ?? (isVideo ? "Lecture vidéo" : "Aperçu image")}
+          aria-label={title ?? (isVideo ? copy.videoLabel : copy.imageLabel)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -91,7 +106,7 @@ export function VideoLightbox({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Fermer"
+            aria-label={copy.closeLabel}
             className="absolute right-5 top-5 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-foreground/20 bg-background/40 text-foreground backdrop-blur-md transition-all duration-500 hover:border-gold hover:bg-gold/10 hover:text-gold md:right-8 md:top-8"
           >
             <X className="h-4 w-4" strokeWidth={1.5} />
@@ -115,6 +130,7 @@ export function VideoLightbox({
             >
               {isVideo ? (
                 <video
+                  data-mis-analytics="manual"
                   ref={videoRef}
                   src={videoSrc}
                   poster={poster}

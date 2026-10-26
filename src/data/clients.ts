@@ -7,7 +7,7 @@ export type Client = {
   /** Nom du client tel qu'il apparaît dans le marquee */
   name: string;
   /** Univers d'appartenance (pour filtrer/colorer si besoin) */
-  universe: "institutions" | "entreprises" | "particuliers";
+  universe: string;
 };
 
 export const CLIENTS: Client[] = [
@@ -35,7 +35,7 @@ export type Testimonial = {
   /** Organisation / entreprise de l'auteur */
   organization: string;
   /** Univers MIS concerné */
-  universe: "institutions" | "entreprises" | "particuliers";
+  universe: string;
   /** Projet associé (optionnel) — affiché en bas de citation */
   project?: string;
   /** Année du projet */

@@ -2,6 +2,7 @@
 
 import { ReactLenis } from "lenis/react";
 import type { ReactNode } from "react";
+import { useReducedMotion } from "motion/react";
 
 /**
  * Wrap entire app — Lenis takes over native scrolling for buttery
@@ -9,6 +10,8 @@ import type { ReactNode } from "react";
  * légère inertie, easing exponentiel, pas trop lent.
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {
+  const reduced = useReducedMotion();
+  if (reduced) return <>{children}</>;
   return (
     <ReactLenis
       root

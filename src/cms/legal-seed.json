@@ -1,0 +1,312 @@
+[
+  {
+    "slug": "mentions-legales",
+    "blockType": "legal",
+    "number": "L.01",
+    "eyebrow": "Légal",
+    "title": "Mentions légales.",
+    "lastUpdate": "Mai 2026",
+    "sections": [
+      {
+        "kind": "paragraph",
+        "text": "Conformément aux dispositions des articles 6-III et 19 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), nous portons à la connaissance des utilisateurs et visiteurs du site les informations suivantes."
+      },
+      {
+        "kind": "heading",
+        "text": "Éditeur du site"
+      },
+      {
+        "kind": "paragraph",
+        "text": "{{site.name}} \n {{site.legal.legalForm}} \n {{site.address.street}}, {{site.address.postalCode}} {{site.address.city}},  {{site.address.country}} \n SIRET : {{site.legal.siret}} \n {{site.legal.vatNumber}} \n Téléphone :  {{site.phone}} \n Email : {{site.email}}"
+      },
+      {
+        "kind": "subheading",
+        "text": "Directeur de la publication"
+      },
+      {
+        "kind": "paragraph",
+        "text": "{{site.legal.director}}, en sa qualité de {{site.legal.directorTitle}}."
+      },
+      {
+        "kind": "heading",
+        "text": "Hébergeur du site"
+      },
+      {
+        "kind": "paragraph",
+        "text": "{{site.host.name}} \n {{site.host.address}} \n Site web :   {{site.host.website}}"
+      },
+      {
+        "kind": "heading",
+        "text": "Propriété intellectuelle"
+      },
+      {
+        "kind": "paragraph",
+        "text": "L'ensemble des contenus présents sur ce site (textes, images, vidéos, photographies, illustrations, marques, logos, identité graphique, code source) sont la propriété exclusive de {{site.name}} ou de leurs ayants-droit respectifs. Toute reproduction, représentation, modification, publication, adaptation totale ou partielle de ces éléments, quel que soit le moyen ou le procédé utilisé, est interdite sans autorisation écrite préalable."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Les œuvres audiovisuelles produites pour le compte de clients demeurent la propriété intellectuelle de {{site.name}} jusqu'à la cession expresse définie par contrat."
+      },
+      {
+        "kind": "heading",
+        "text": "Données personnelles"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Les informations recueillies via le formulaire de contact font l'objet d'un traitement informatique destiné à répondre à votre demande. Pour plus d'informations, consultez notre  politique de confidentialité."
+      },
+      {
+        "kind": "heading",
+        "text": "Cookies"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Ce site n'utilise pas de cookies de suivi tiers ni de cookies publicitaires. Seuls des cookies strictement nécessaires au fonctionnement du site peuvent être déposés."
+      },
+      {
+        "kind": "heading",
+        "text": "Droit applicable"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Le présent site et ses mentions légales sont régis par le droit français. En cas de litige, les tribunaux français seront seuls compétents."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Pour toute question relative à ces mentions, contactez-nous à  {{site.email}}."
+      }
+    ]
+  },
+  {
+    "slug": "confidentialite",
+    "blockType": "legal",
+    "number": "L.02",
+    "eyebrow": "Légal",
+    "title": "Politique de confidentialité.",
+    "lastUpdate": "Mai 2026",
+    "sections": [
+      {
+        "kind": "paragraph",
+        "text": "MIS attache une importance particulière au respect de la vie privée de ses interlocuteurs. La présente politique décrit la manière dont nous collectons, traitons, conservons et protégeons vos données personnelles, conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés."
+      },
+      {
+        "kind": "heading",
+        "text": "Responsable du traitement"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Le responsable du traitement des données est  {{site.name}}, dont les coordonnées figurent dans les  mentions légales."
+      },
+      {
+        "kind": "heading",
+        "text": "Données collectées"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Nous collectons uniquement les données que vous nous transmettez :"
+      },
+      {
+        "kind": "list",
+        "text": "via le formulaire de brief projet : nom, prénom, email, téléphone, organisation, description de votre projet   par email ou téléphone : les informations échangées dans le cadre de nos relations commerciales"
+      },
+      {
+        "kind": "heading",
+        "text": "Finalités du traitement"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Vos données sont traitées exclusivement pour :"
+      },
+      {
+        "kind": "list",
+        "text": "répondre à vos demandes et établir des devis exécuter les prestations qui nous sont confiées respecter nos obligations légales et comptables vous tenir informé(e) de nos actualités si vous y consentez"
+      },
+      {
+        "kind": "heading",
+        "text": "Base légale"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Le traitement repose sur votre consentement (formulaire de contact), l'exécution d'un contrat (mission confiée) ou une obligation légale (facturation)."
+      },
+      {
+        "kind": "heading",
+        "text": "Durée de conservation"
+      },
+      {
+        "kind": "list",
+        "text": "Demandes sans suite : les données sont supprimées au bout de 3 ans à compter du dernier contact.   Clients : données conservées pendant la durée de la relation contractuelle, puis archivées 10 ans pour des raisons comptables et fiscales."
+      },
+      {
+        "kind": "heading",
+        "text": "Destinataires"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Vos données ne sont jamais cédées, louées ou vendues à des tiers. Elles sont accessibles uniquement aux personnes habilitées au sein de  {{site.name}} et, le cas échéant, à nos sous-traitants techniques (hébergeur, outil de messagerie) qui sont tenus à une obligation de confidentialité."
+      },
+      {
+        "kind": "heading",
+        "text": "Vos droits"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Conformément au RGPD, vous disposez des droits suivants sur vos données :"
+      },
+      {
+        "kind": "list",
+        "text": "droit d'accès, de rectification et d'effacement droit à la limitation et à l'opposition au traitement droit à la portabilité droit de retirer votre consentement à tout moment  droit d'introduire une réclamation auprès de la   CNIL"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Pour exercer ces droits, contactez-nous à  {{site.email}}. Nous nous engageons à répondre dans un délai d'un mois."
+      },
+      {
+        "kind": "heading",
+        "text": "Sécurité"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Nous mettons en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, altération, divulgation ou destruction. Le site est servi en HTTPS et nos communications par email sont chiffrées en transit."
+      },
+      {
+        "kind": "heading",
+        "text": "Cookies"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Ce site ne dépose aucun cookie publicitaire ni de suivi tiers. Seuls des cookies strictement nécessaires au fonctionnement (préférences d'affichage) peuvent être utilisés."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Pour toute question, écrivez-nous à  {{site.email}}."
+      }
+    ]
+  },
+  {
+    "slug": "cgv",
+    "blockType": "legal",
+    "number": "L.03",
+    "eyebrow": "Légal",
+    "title": "Conditions générales de vente.",
+    "lastUpdate": "Mai 2026",
+    "sections": [
+      {
+        "kind": "paragraph",
+        "text": "Les présentes Conditions Générales de Vente (« CGV ») s'appliquent à toutes les prestations audiovisuelles fournies par  {{site.name}} (« le Prestataire ») à ses clients (« le Client »). Toute commande implique l'acceptation pleine et entière des présentes CGV."
+      },
+      {
+        "kind": "heading",
+        "text": "1. Devis et commandes"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Toute prestation fait l'objet d'un devis détaillé. Le devis précise la nature de la mission, le matériel mobilisé, les délais, le nombre de livrables et le prix. Le devis est valable 30 jours à compter de son émission. La signature du devis (ou son acceptation par email) vaut commande ferme."
+      },
+      {
+        "kind": "heading",
+        "text": "2. Tarifs"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Les tarifs sont exprimés en euros, hors taxes (HT). La TVA en vigueur au jour de l'émission de la facture est applicable. Les frais de déplacement, hébergement et restauration en dehors de la zone d'intervention de référence (50 km autour de {{site.city}}) sont facturés en sus."
+      },
+      {
+        "kind": "heading",
+        "text": "3. Conditions de paiement"
+      },
+      {
+        "kind": "list",
+        "text": "Acompte de 40 % à la signature du devis (réservation du matériel et de l'équipe)   Solde de 60 % à la livraison des fichiers, sous 30 jours fin de mois   Pour les missions d'une durée inférieure à un jour, le paiement intégral est exigé à la commande"
+      },
+      {
+        "kind": "paragraph",
+        "text": "En cas de retard de paiement, des pénalités calculées au taux de la BCE majoré de 10 points seront appliquées de plein droit, ainsi qu'une indemnité forfaitaire de 40 € pour frais de recouvrement (article D. 441-5 du Code de commerce)."
+      },
+      {
+        "kind": "heading",
+        "text": "4. Livraison et délais"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Les délais de livraison indiqués sur le devis sont donnés à titre indicatif. Sauf cas de force majeure, {{site.name}} s'engage à respecter ces délais à compter de la réception de l'acompte et des éléments nécessaires à la mission."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Les fichiers sont livrés via un lien de téléchargement sécurisé valable 90 jours. Au-delà, des frais de remise à disposition pourront être appliqués."
+      },
+      {
+        "kind": "heading",
+        "text": "5. Validation et modifications"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Le Client dispose de deux séries de retours incluses dans le devis pour chaque livrable. Toute modification au-delà fera l'objet d'un avenant tarifé."
+      },
+      {
+        "kind": "heading",
+        "text": "6. Annulation"
+      },
+      {
+        "kind": "list",
+        "text": "Annulation par le Client à plus de 14 jours de la prestation : remboursement de 50 % de l'acompte   Annulation entre 14 et 7 jours : l'acompte est conservé   Annulation à moins de 7 jours : la totalité du devis est due"
+      },
+      {
+        "kind": "heading",
+        "text": "7. Propriété intellectuelle et droits d'auteur"
+      },
+      {
+        "kind": "paragraph",
+        "text": "{{site.name}} reste titulaire des droits d'auteur sur les œuvres produites jusqu'à paiement intégral du prix. Le devis précise l'étendue de la cession (durée, territoires, supports)."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Le Client garantit qu'il dispose des droits nécessaires sur les éléments qu'il fournit (logos, musiques, images, témoins) et garantit {{site.name}} contre tout recours de tiers."
+      },
+      {
+        "kind": "heading",
+        "text": "8. Droit à l'image"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Le Client fait son affaire de l'obtention des autorisations de droit à l'image auprès des personnes filmées, sauf mention contraire au devis. {{site.name}} met à disposition des modèles de cession de droit à l'image."
+      },
+      {
+        "kind": "heading",
+        "text": "9. Référencement"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Sauf opposition expresse du Client, {{site.name}} se réserve le droit de citer le Client comme référence et de présenter les œuvres produites dans son portfolio (site, réseaux, démonstrations commerciales)."
+      },
+      {
+        "kind": "heading",
+        "text": "10. Responsabilité"
+      },
+      {
+        "kind": "paragraph",
+        "text": "La responsabilité de {{site.name}} est limitée au montant total facturé pour la mission concernée. {{site.name}} ne saurait être tenu responsable des dommages indirects, perte d'exploitation ou perte de chance."
+      },
+      {
+        "kind": "heading",
+        "text": "11. Force majeure"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Aucune des parties ne pourra être tenue responsable d'une inexécution due à un cas de force majeure (panne grave, intempéries rendant la captation impossible, maladie, événement extérieur imprévisible)."
+      },
+      {
+        "kind": "heading",
+        "text": "12. Litiges"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Les présentes CGV sont régies par le droit français. En cas de litige et à défaut de résolution amiable, les tribunaux du ressort de {{site.city}} seront seuls compétents."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Pour toute question relative aux CGV, contactez  {{site.email}}."
+      }
+    ]
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "observedAt": "2026-10-26T21:16:45.267Z",
+  "branch": "codex/cms-administration",
+  "baseCommit": "e366c51ac76d63d56d4296ac8fade0cc5bf45c88",
+  "uncommittedChanges": true,
+  "environment": {
+    "platform": "win32",
+    "node": "v26.4.0",
+    "next": "16.4.3",
+    "payload": "3.92.0",
+    "dockerExecuted": false,
+    "coolifyVerified": false
+  },
+  "tests": {
+    "total": 172,
+    "passed": 172,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 91355.4971
+  },
+  "evidence": [
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": ".data/finalisation-lint.log",
+      "logSHA256": "9c56d83f0a71e0f377ede1490cc15f2d754474262d57e5c67b9b5c61578fc878",
+      "lastWritten": "2026-10-26T21:11:46.757Z"
+    },
+    {
+      "name": "types",
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": ".data/finalisation-types.log",
+      "logSHA256": "b037b544fd82de8a7a7c984ad1f4e23f586b034baa8c4b532ab8f5887cbfc2a6",
+      "lastWritten": "2026-10-26T21:14:09.801Z"
+    },
+    {
+      "name": "tests",
+      "command": "npm run test:cms",
+      "exitCode": 0,
+      "log": ".data/finalisation-tests.log",
+      "logSHA256": "3d70afa45f1f0ee7c59047528afb5fa8b629c76249e09ad1d8181f161eeb6db5",
+      "lastWritten": "2026-10-26T21:13:20.389Z"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": ".data/finalisation-build.log",
+      "logSHA256": "01a03af8fe77c7545bc97f95afa402265fff7a81077aa03bad895f99a1d15444",
+      "lastWritten": "2026-10-26T21:12:36.759Z"
+    },
+    {
+      "name": "http",
+      "command": "CMS_CHECK_URL=http://127.0.0.1:3200 node scripts/cms-http-check.mjs",
+      "exitCode": 0,
+      "log": ".data/finalisation-http.log",
+      "logSHA256": "9eca2d8033e4a847e126a99cd38ea871a84e385dac0228416d43f6b7f67c6f4a",
+      "lastWritten": "2026-10-26T21:13:39.514Z"
+    },
+    {
+      "name": "backup",
+      "command": "npm run cms:backup",
+      "exitCode": 0,
+      "log": ".data/finalisation-backup.log",
+      "logSHA256": "6358968e2e3b0fc4f72986e5c5b3000b7735f01d8e1f7665ae9ede4502822825",
+      "lastWritten": "2026-10-26T21:15:57.137Z"
+    }
+  ],
+  "productionHTTP": {
+    "pages200": 9,
+    "preview": 404,
+    "global": 403,
+    "studioRedirectToLogin": true,
+    "notFound": 404,
+    "sitemap": true,
+    "robots": true,
+    "health": 200,
+    "anonymousPrivateFile": 401,
+    "healthAndPrivateCache": "no-store"
+  },
+  "backup": {
+    "status": "completed",
+    "completedAt": "2026-10-26T21:15:57.135Z",
+    "files": 34,
+    "pages": 8,
+    "scope": "SQLite, historiques, médias publics, fichiers privés, pièces jointes de briefs, imports médias en cours sans verrous, archives de conservation, observations Search Console, fichiers statiques ; restauration isolée et empreintes vérifiées",
+    "backupID": "2026-10-26T21-15-56.872Z-2b0224e7"
+  },
+  "externalDelivery": false,
+  "notes": [
+    "Deux erreurs de types détectées sur un premier build puis corrigées avant les journaux finaux.",
+    "Données de recette isolées. La compilation locale ne valide pas les conteneurs."
+  ]
+}

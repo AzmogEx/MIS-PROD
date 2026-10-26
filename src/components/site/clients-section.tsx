@@ -1,8 +1,12 @@
 "use client";
 
+import { useHistoricalGrid } from "@/components/cms/historical-grid";
+
+import { useSiteContent } from "@/components/cms/content-context";
+
 import { motion } from "motion/react";
 import { RevealText } from "@/components/motion/reveal-text";
-import { CLIENTS, TESTIMONIALS, type Testimonial } from "@/data/clients";
+import type { Testimonial } from "@/data/clients";
 import { cn } from "@/lib/utils";
 
 /* ==================================================================
@@ -14,8 +18,10 @@ import { cn } from "@/lib/utils";
    ================================================================== */
 
 export function ClientsSection() {
+  const gridLayout = useHistoricalGrid();
+  const { clientsSection: copy, testimonials } = useSiteContent();
   return (
-    <section
+    <section data-cms-field="clientsSection"
       id="confiance"
       aria-labelledby="clients-heading"
       className="relative scroll-mt-24 overflow-hidden border-t border-border bg-background-elevated py-24 md:py-32"
@@ -30,7 +36,7 @@ export function ClientsSection() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (06) — Confiance
+            {copy.eyebrow}
           </motion.p>
 
           <h2
@@ -38,7 +44,7 @@ export function ClientsSection() {
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
             <RevealText immediate={false} stagger={0.05} className="block">
-              Les structures qui nous <em className="italic">confient</em>
+              {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}
             </RevealText>
             <RevealText
               immediate={false}
@@ -46,7 +52,7 @@ export function ClientsSection() {
               delay={0.2}
               className="block text-foreground-muted"
             >
-              ce qui ne se rejouera pas.
+              {copy.subtitle}
             </RevealText>
           </h2>
         </div>
@@ -57,8 +63,8 @@ export function ClientsSection() {
 
       {/* Témoignages */}
       <div className="mx-auto mt-24 max-w-[1440px] px-6 md:mt-32 md:px-10">
-        <ul className="grid gap-px border-t border-border md:grid-cols-3">
-          {TESTIMONIALS.map((t, i) => (
+        <ul data-cms-grid={gridLayout} className="grid gap-px border-t border-border md:grid-cols-3">
+          {testimonials.map((t, i) => (
             <TestimonialCard key={t.author} testimonial={t} index={i} />
           ))}
         </ul>
@@ -72,13 +78,14 @@ export function ClientsSection() {
 /* ------------------------------------------------------------------ */
 
 function ClientsMarquee() {
+  const { clients: CLIENTS, clientsSection: copy } = useSiteContent();
   // 2 copies du tableau pour la boucle parfaite (translateX 0 → -50%)
   const items = [...CLIENTS, ...CLIENTS];
 
   return (
     <div
       className="group relative w-full select-none"
-      aria-label="Clients du studio"
+      aria-label={copy.clientsLabel}
     >
       {/* Fade gauche / droite pour adoucir les bords */}
       <div
@@ -135,6 +142,7 @@ function TestimonialCard({
   testimonial: Testimonial;
   index: number;
 }) {
+  const { clientsSection: copy } = useSiteContent();
   return (
     <motion.li
       initial={{ opacity: 0, y: 24 }}
@@ -160,7 +168,7 @@ function TestimonialCard({
       {/* Numéro + ligne or */}
       <div className="flex items-baseline gap-4">
         <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-          T.{String(index + 1).padStart(2, "0")}
+          {copy.testimonialPrefix}{String(index + 1).padStart(2, "0")}
         </span>
         <span className="h-px w-8 bg-gold/40" />
       </div>
