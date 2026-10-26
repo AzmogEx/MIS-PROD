@@ -425,8 +425,8 @@ export async function mutateOperation(payload: Payload, user: OperationsUser, in
     if (!title || title.length > 200) throw new SubmissionError('Saisissez un objet de 1 à 200 caractères.', 400);
     const assignee = await validateAssignee(payload, stringOf(input.assignee) || String(user!.id));
     if (!['reminder', 'publication', 'showreel', 'price', 'rights', 'case-study'].includes(stringOf(input.kind))) throw new SubmissionError('Type de rappel invalide.', 400);
-    if (input.brief) await payload.findByID({ collection: 'briefs', id: String(input.brief), ...access });
-    await payload.create({ collection: 'tasks', data: { title, description: stringOf(input.description).slice(0, 4000), dueAt: parisLocalToUTC(stringOf(input.dueLocal)), assignee, kind: input.kind, state: 'open', brief: input.brief || undefined, contentPath: stringOf(input.contentPath), notifyAssignee: input.notifyAssignee === true || input.notifyAssignee === 'on', notifyMinutesBefore: Number(input.notifyMinutesBefore || 0) }, ...access });
+    const brief = input.brief ? await payload.findByID({ collection: 'briefs', id: String(input.brief), ...access }) : undefined;
+    await payload.create({ collection: 'tasks', data: { title, description: stringOf(input.description).slice(0, 4000), dueAt: parisLocalToUTC(stringOf(input.dueLocal)), assignee, kind: input.kind, state: 'open', brief: brief?.id, contentPath: stringOf(input.contentPath), notifyAssignee: input.notifyAssignee === true || input.notifyAssignee === 'on', notifyMinutesBefore: Number(input.notifyMinutesBefore || 0) }, ...access });
     return;
   }
   const collection = action === 'brief' ? 'briefs' : action === 'taskState' ? 'tasks' : action === 'retryNotification' ? 'notifications' : null;

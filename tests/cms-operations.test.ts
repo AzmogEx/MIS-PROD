@@ -152,6 +152,19 @@ test('CRM, formulaires et notifications : stockage SQLite réel et permissions',
       await assert.rejects(() => getOperationsSnapshot(payload, null, new URLSearchParams()), (error: unknown) => error instanceof SubmissionError && error.status === 401);
     });
 
+    await t.test('un rappel lié accepte l’identifiant de demande transmis par le formulaire', async () => {
+      const person = (await payload.find({ collection: 'users', where: { role: { equals: 'sales' } }, limit: 1 })).docs[0];
+      const user = { ...person, collection: 'users' as const };
+      const brief = (await payload.find({ collection: 'briefs', depth: 0, user, overrideAccess: false, limit: 1 })).docs[0];
+      await mutateOperation(payload, user, { action: 'createTask', title: 'Rappel lié de recette', kind: 'reminder', assignee: String(person.id), dueLocal: '2026-10-27T10:00', brief: String(brief.id), description: 'Suivre la demande liée', contentPath: '', notifyAssignee: false, notifyMinutesBefore: 0 });
+      const task = (await payload.find({ collection: 'tasks', where: { title: { equals: 'Rappel lié de recette' } }, depth: 0, user, overrideAccess: false })).docs[0];
+      assert.equal(task.brief, brief.id);
+      assert.equal(task.assignee, person.id);
+      assert.equal(task.dueAt, '2026-10-27T09:00:00.000Z');
+      assert.equal(task.notifyAssignee, false);
+      assert.equal(task.notifyAt, null);
+    });
+
     await t.test('mesure : activation, consentement, absence de PII et déduplication', async () => {
       const previous = process.env.CMS_BROWSER_ANALYTICS;
       try {
