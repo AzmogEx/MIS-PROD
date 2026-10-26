@@ -41,7 +41,23 @@ try {
     const login = await cms.login({ collection: 'users', data: fixture.owner })
     const owner = { ...login.user!, collection: 'users' as const }
     const access = { user: owner, overrideAccess: false }
-    if (['draft', 'publish', 'unpublish', 'schedule'].includes(phase)) {
+    if (phase === 'rotate-access') {
+      // The operator runs this manually during the credential handoff.
+      // Invalidate every existing session as well as the temporary passwords.
+      for (const [key, id] of [['owner', fixture.ownerID], ['alice', fixture.aliceID], ['bob', fixture.bobID]] as const) {
+        const password = randomBytes(32).toString('base64url')
+        await cms.update({ collection: 'users', id, data: { password, sessions: [] }, ...access })
+        fixture[key].password = password
+        await writeFile(filename, JSON.stringify(fixture, null, 2), { mode: 0o600 })
+      }
+      console.log('Trois mots de passe remplacés et sessions révoquées. Consulter le fichier privé depuis Coolify, sans le copier dans la conversation.')
+    } else if (phase === 'prepare-portal') {
+      assert.ok(!fixture.portfolioID, 'Selection already prepared')
+      const portfolio = await cms.create({ collection: 'commercial-portfolios', ...access, data: { title: 'RECETTE-MIS Sélection privée', introduction: 'Sélection synthétique réservée au client de recette. Les médias commerciaux seront ajoutés par MIS après vérification de leurs droits.', members: [fixture.aliceID], expiresAt: new Date(Date.now() + 30 * 86400000).toISOString(), items: [] } })
+      fixture.portfolioID = portfolio.id
+      await writeFile(filename, JSON.stringify(fixture, null, 2), { mode: 0o600 })
+      console.log(JSON.stringify({ portfolioID: portfolio.id, items: 0, rightsDecision: 'pending-user' }))
+    } else if (['draft', 'publish', 'unpublish', 'schedule'].includes(phase)) {
       const page = await cms.findByID({ collection: 'pages', id: fixture.pageID, draft: true, depth: 0, ...access })
       const content = await cms.findGlobal({ slug: 'site-content', draft: true, depth: 0, ...access })
       if (phase === 'draft') await saveEditor(cms, owner, fixture.pageID, { pageUpdatedAt: page.updatedAt, contentUpdatedAt: content.updatedAt, layout: [{ blockType: 'editorial', title: 'RECETTE-MIS Version B', body: 'RECETTE-MIS BROUILLON B', media: fixture.mediaID }], publish: false })
@@ -70,6 +86,6 @@ try {
       const draft = await cms.findByID({ collection: 'pages', id: fixture.pageID, draft: true, depth: 0 })
       const job = fixture.jobID ? await cms.findByID({ collection: 'payload-jobs', id: fixture.jobID, depth: 0 }) : null
       console.log(JSON.stringify({ checkedAt: new Date().toISOString(), ownerLogin: true, pages: (await cms.count({ collection: 'pages' })).totalDocs, users: (await cms.count({ collection: 'users' })).totalDocs, privateACL: 'member-only', videoHash: hash, publicTitle: page.layout[0]?.title, draftTitle: draft.layout[0]?.title, jobCompleted: Boolean(job?.completedAt), versions: (await cms.countVersions({ collection: 'pages', where: { parent: { equals: fixture.pageID } } })).totalDocs }))
-    } else throw new Error('Expected seed, draft, publish, unpublish, schedule, restore or probe')
+    } else throw new Error('Expected seed, draft, publish, unpublish, schedule, restore, probe or rotate-access')
   }
 } finally { await cms.destroy() }
