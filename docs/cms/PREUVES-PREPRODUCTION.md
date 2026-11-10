@@ -2,7 +2,7 @@
 
 Relevé des essais Coolify du 26 octobre au 10 novembre 2026. Les heures techniques sont en UTC ; le 10 novembre, Paris est à UTC+1. Le [tableau des critères](PREPRODUCTION.md) porte l’état du jalon. Aucune conclusion de ce document ne remplit la validation métier de MIS.
 
-Mise à jour du 10 novembre 2026 : Coolify 4.7.3 a déployé la révision `03929e686de373c1d6cf6c898276bcae9f932986` (job `ssxnffldmmxr33ihd2zfgjxj`, 10:22:31–10:24:48 UTC). Les conteneurs web/worker sont sains, les volumes persistants ont été conservés et le healthcheck HTTPS répond `200`. La CI `42797896291` a réussi. La restauration isolée, distincte et sans réseau, a aussi passé le probe d’accès privé et un healthcheck `200`. La rotation des trois accès synthétiques reste à faire par MIS avant remise.
+Mise à jour du 10 novembre 2026 : Coolify 4.7.3 a déployé la révision `03929e686de373c1d6cf6c898276bcae9f932986` (job `ssxnffldmmxr33ihd2zfgjxj`, 10:22:31–10:24:48 UTC). Les conteneurs web/worker sont sains, les volumes persistants ont été conservés et le healthcheck HTTPS répond `200`. La CI `42797896291` a réussi. La restauration isolée, distincte et sans réseau, a passé le probe d’accès privé et un healthcheck `200`. MIS a renouvelé les trois accès synthétiques et révoqué leurs sessions ; le probe final confirme la nouvelle connexion propriétaire. La sauvegarde finale après rotation est `2026-11-10T10-56-22.581Z-ad61b49d`.
 
 ## Construction et accès
 
@@ -80,10 +80,11 @@ Les deux conteneurs ont été redémarrés avec `docker restart`, sans retirer l
 | `2026-10-26T22-28-21.870Z-a096e862` | Neuf pages, dix-huit fichiers ; comptes et vidéo synthétiques, historiques public/brouillon | Terminée à 22:28:22 ; mêmes contrôles réussis |
 | `2026-10-26T22-38-49.822Z-acf141ef` | Neuf pages, dix-huit fichiers ; brief, commentaires, acceptation V1 et sélection privée synthétiques | Terminée à 22:38:50 ; vérifications intégrité/empreintes réussies ; aucune tâche CRM encore créée |
 | `2026-11-10T10-30-38.601Z-678560b3` | Neuf pages, dix-huit fichiers ; brief, rappel ID 1, commentaire, acceptation, médias et fichiers privés | Terminée à 10:30:38 ; restauration applicative distincte, probe ACL/empreintes et santé HTTP 200 réussis |
+| `2026-11-10T10-56-22.581Z-ad61b49d` | Neuf pages, dix-huit fichiers ; état de recette après rotation des trois comptes | Terminée à 10:56:22 ; sauvegarde finale vérifiée, propriétaire reconnecté après rotation |
 
 Les archives sont dans `/app/.data/backups/<identifiant>`. La commande réalise aussi une copie de vérification dans `/app/.data/restore-checks/<identifiant>`. Le 10 novembre, les conteneurs de la ressource ont été recréés avec conservation des volumes. La sauvegarde récente a ensuite été copiée dans des répertoires protégés distincts sur l’hôte et ouverte par un conteneur utilisant la même image, `--network none` et des montages séparés. `cms-target-acceptance.ts probe` a retrouvé le propriétaire, neuf pages, trois utilisateurs, le brief, le rappel, le commentaire et l’acceptation ; l’ACL membre seul et les empreintes vidéo concordent. `/api/health` local répond `200`.
 
-La sauvegarde couvre l’état de recette avant rotation des comptes. L’environnement Coolify injecte ses secrets au runtime ; aucun `.env.local` n’était présent dans le conteneur. Une copie runtime protégée a été utilisée uniquement pour démarrer le conteneur de restauration ; aucun secret n’est consigné ici. Il faut encore organiser une copie hors hôte et définir la rétention/responsabilité de sauvegarde. La restauration ici prouve le retour des données et fichiers synthétiques, pas le MFA ni un exercice complet de reprise de production.
+La sauvegarde finale couvre la base après rotation. Le fichier privé contenant les nouveaux accès est exclu de l’archive et reste dans `/app/.cms/preproduction-access.json`, à consulter uniquement via l’accès privé Coolify. L’environnement injecte ses secrets au runtime ; aucun `.env.local` n’était présent dans le conteneur. Une copie runtime protégée a été utilisée pour démarrer le conteneur de restauration antérieur à la rotation ; aucun secret n’est consigné ici. Il faut encore organiser une copie hors hôte et définir la rétention/responsabilité de sauvegarde. La restauration prouve le retour des données et fichiers synthétiques, pas le MFA ni un exercice complet de reprise de production.
 
 ## Services externes et capacités absentes
 
@@ -100,7 +101,7 @@ Le dashboard cible affiche Resend en mode test, récupération de compte en boî
 
 ## Remise des accès
 
-Les trois premiers mots de passe synthétiques ont été affichés accidentellement dans un retour technique de la conversation. Ils ne figurent pas dans Git, ce document ou les captures. **MIS doit les remplacer et révoquer leurs sessions avant la remise des comptes.** La procédure `rotate-access` est disponible dans le conteneur web actuel ; elle ne touche que ces trois comptes synthétiques et écrit les nouveaux accès dans le fichier privé. L’opérateur doit l’exécuter dans le terminal Coolify, puis consulter ce fichier uniquement depuis son accès privé. Ne pas copier les mots de passe dans la conversation.
+Les trois premiers mots de passe synthétiques ont été affichés accidentellement dans un retour technique de la conversation. Le 10 novembre, MIS a exécuté `rotate-access` depuis le terminal Coolify ; le script a confirmé le renouvellement des trois comptes et la révocation des sessions. Le probe suivant a confirmé la nouvelle connexion propriétaire. Les nouveaux accès sont dans `/app/.cms/preproduction-access.json` ; les consulter uniquement depuis les fichiers privés Coolify. Ne pas copier les mots de passe dans la conversation.
 
 L’accès à cette fiche et aux comptes ne constitue pas une validation métier. Le propriétaire de recette doit être préservé lors du nettoyage ; les comptes clients, objets et liens synthétiques suivent le périmètre explicite de la [fiche administrateur](RECETTE-ADMINISTRATEUR.md).
 

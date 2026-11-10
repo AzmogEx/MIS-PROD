@@ -4,9 +4,9 @@ Reprise terminée sur la préproduction Coolify le 10 novembre. La révision `03
 
 Le manifeste Compose accepte l’absence du secret uniquement pendant le build ; `src/payload.config.ts` refuse toujours un secret runtime absent ou trop court. L’image Docker réelle a été construite et déployée par Coolify. Le 10 novembre, lint, TypeScript, parsing YAML et build Next.js local passent ; la suite CMS réussit **173/173**. La [CI 42797896291](https://github.com/AzmogEx/MIS-PROD/actions/runs/42797896291) a réussi toutes ses étapes sur la révision déployée.
 
-Le retour technique antérieur a exposé les trois premiers mots de passe synthétiques. La rotation et la révocation de leurs sessions restent le seul contrôle technique cible en attente avant remise ; aucune valeur secrète n’est reproduite ici. La restauration dans un conteneur distinct sans réseau a été vérifiée. Le site actif et son domaine n’ont pas été basculés.
+Le retour technique antérieur a exposé les trois premiers mots de passe synthétiques. La rotation des trois comptes et la révocation des sessions sont confirmées ; le probe réussit la connexion propriétaire après renouvellement. Aucune valeur secrète n’est reproduite ici. Le site actif et son domaine n’ont pas été basculés.
 
-La préproduction est déployée dans le projet Coolify `Adam`, environnement `mis-preproduction`, ressource `MIS-CMS-PREPRODUCTION`, sur la révision `03929e6`. Les [critères du jalon](PREPRODUCTION.md) et les [preuves cible](PREUVES-PREPRODUCTION.md) font foi pour l’état de la recette. La rotation des accès synthétiques et la validation métier de MIS restent ouvertes.
+La préproduction est déployée dans le projet Coolify `Adam`, environnement `mis-preproduction`, ressource `MIS-CMS-PREPRODUCTION`, sur la révision `03929e6`. Les [critères du jalon](PREPRODUCTION.md) et les [preuves cible](PREUVES-PREPRODUCTION.md) font foi pour l’état de la recette. Seule la validation métier de MIS reste ouverte.
 
 [Ouvrir la préproduction](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io) · [Administration](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io/admin/login) · [Fiche de recette MIS](RECETTE-ADMINISTRATEUR.md).
 
@@ -18,7 +18,7 @@ La préproduction est déployée dans le projet Coolify `Adam`, environnement `m
 - Brouillon B isolé de la version A publique, publication B visible après rechargement, dépublication 404, programmation réellement exécutée par le worker. Restauration de A en brouillon avec B toujours publique.
 - Vidéo historique MP4 de 7 040 524 octets et 15,44 s : lecture publique, avance mobile à 390 pixels, repère privé à huit secondes, commentaire et acceptation de V1. Les lectures Range publiques et privées renvoient 206 avec exactement 1 024 octets ; le format MOV volontairement invalide est refusé en 400.
 - Recréation des conteneurs le 10 novembre en conservant les volumes ; probe après démarrage : neuf pages, trois comptes, six versions, job terminé, commentaire, approbation et empreinte vidéo présents.
-- Sauvegarde de recette du 10 novembre `2026-11-10T10-30-38.601Z-678560b3` : 18 fichiers et neuf pages. Restauration dans un conteneur distinct sans réseau ; accès privé membre, empreintes des médias et santé HTTP 200 contrôlés.
+- Sauvegarde après rotation du 10 novembre `2026-11-10T10-56-22.581Z-ad61b49d` : 18 fichiers et neuf pages. La restauration distincte sans réseau de l’instantané précédent a passé les contrôles d’accès privé, empreintes média et santé HTTP 200.
 - Brief synthétique reçu depuis le formulaire et visible dans le CRM ; rappel ID 1 lié au brief ID 1, échéance 10:00 Paris, créé sans email. Audience : zéro événement avant accord/après refus ; comptages exclusivement de recette.
 
 ## Validé seulement en local ou en CI
@@ -31,7 +31,6 @@ La suite locale la plus récente a réussi **173/173**, zéro échec/ignoré. La
 
 ## Encore ouvert dans le jalon cible
 
-- Rotation des trois mots de passe synthétiques et révocation des sessions : MIS doit exécuter l’étape protégée dans Coolify avant la remise.
 - La sauvegarde de l’état de recette est réalisée avec configuration runtime protégée sur l’hôte ; une copie hors hôte et une politique de rétention/responsable restent à décider.
 - Recette métier de MIS : toutes les cases de la [fiche administrateur](RECETTE-ADMINISTRATEUR.md) restent à remplir.
 
