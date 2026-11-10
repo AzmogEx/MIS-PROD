@@ -4,12 +4,7 @@ import { getCMS } from '@/cms/payload'
 import { hasRole } from '@/cms/access'
 import { readSiteContent } from '@/cms/read'
 import { getPublishedForm } from '@/cms/operations'
-import { SiteContentProvider } from '@/components/cms/content-context'
-import { PageRenderer } from '@/components/cms/page-renderer'
-import { PreviewBridge } from '@/components/cms/preview-bridge'
-import { Navbar } from '@/components/site/navbar'
-import { Footer } from '@/components/site/footer'
-import { GlobalAppearance } from '@/components/cms/global-appearance'
+import { LivePreviewDocument } from '@/components/cms/live-preview-document'
 import type { PageBlock, PageRecord } from '@/cms/page-types'
 import type { PublicForm } from '@/cms/form-schema'
 
@@ -24,5 +19,5 @@ export default async function Preview({ params, searchParams }: { params: Promis
   const forms: Record<string, PublicForm> = {}
   async function collectForms(blocks:PageBlock[]) { for(const block of blocks) { if(block.blockType==='contact'){const key=block.formSlug||'brief-projet';const form=await getPublishedForm(cms,key,locale);if(form)forms[key]=form}if(block.section&&typeof block.section==='object')await collectForms(block.section.layout||[]) } }
   await collectForms(page.layout || [])
-  return <SiteContentProvider content={content} locale={locale}><GlobalAppearance content={content}><Navbar /><main lang={locale}><PageRenderer page={page} forms={forms} /></main><Footer /><PreviewBridge /></GlobalAppearance></SiteContentProvider>
+  return <LivePreviewDocument initialPage={page} initialContent={content} forms={forms} locale={locale} />
 }

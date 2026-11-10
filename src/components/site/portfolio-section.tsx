@@ -51,6 +51,7 @@ export function PortfolioSection() {
         {/* En-tête éditoriale */}
         <div className="mb-16 grid gap-8 md:mb-24 md:grid-cols-12">
           <motion.p
+            data-cms-path="portfolioSection.eyebrow"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -65,7 +66,7 @@ export function PortfolioSection() {
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
             <RevealText immediate={false} stagger={0.05} className="block">
-              {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}
+              <span data-cms-path="portfolioSection.titleBefore">{copy.titleBefore}</span><em data-cms-path="portfolioSection.titleEmphasis" className="italic">{copy.titleEmphasis}</em><span data-cms-path="portfolioSection.titleAfter">{copy.titleAfter}</span>
             </RevealText>
             <RevealText
               immediate={false}
@@ -73,7 +74,7 @@ export function PortfolioSection() {
               delay={0.2}
               className="block text-foreground-muted"
             >
-              {copy.subtitle}
+              <span data-cms-path="portfolioSection.subtitle">{copy.subtitle}</span>
             </RevealText>
           </h2>
         </div>
@@ -82,6 +83,7 @@ export function PortfolioSection() {
         {featured && (
           <FeaturedCard
             project={featured}
+            cmsIndex={PORTFOLIO_PROJECTS.indexOf(featured)}
             onPlay={() => { analytics.track('project_view', { reference: `project:${featured.slug}` }); setActive(featured); }}
           />
         )}
@@ -93,6 +95,7 @@ export function PortfolioSection() {
               key={project.slug}
               project={project}
               index={i}
+              cmsIndex={PORTFOLIO_PROJECTS.indexOf(project)}
               onPlay={() => { analytics.track('project_view', { reference: `project:${project.slug}` }); setActive(project); }}
             />
           ))}
@@ -107,11 +110,12 @@ export function PortfolioSection() {
           className="mt-16 flex items-center justify-center md:mt-24"
         >
           <Link
+            data-cms-path="portfolioSection.ctaHref"
             href={copy.ctaHref}
             className="group inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-foreground-muted transition-colors hover:text-gold"
           >
             <span className="h-px w-8 bg-foreground-muted/40 transition-all duration-500 group-hover:w-16 group-hover:bg-gold" />
-            <span>{copy.ctaLabel}</span>
+            <span data-cms-path="portfolioSection.ctaLabel">{copy.ctaLabel}</span>
             <ArrowUpRight
               className="h-3.5 w-3.5 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.25}
@@ -144,14 +148,18 @@ export function PortfolioSection() {
 
 function FeaturedCard({
   project,
+  cmsIndex,
   onPlay,
 }: {
   project: PortfolioProject;
+  cmsIndex: number;
   onPlay: () => void;
 }) {
   const { portfolioSection: copy } = useSiteContent();
   return (
     <motion.div
+      data-cms-field="projects"
+      data-cms-path={`projects.items.${cmsIndex}.title`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -163,6 +171,7 @@ function FeaturedCard({
         className="group relative block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border bg-background-elevated md:aspect-[21/9]"
       >
         <Image
+          data-cms-path={`projects.items.${cmsIndex}.imageSrc`}
           unoptimized={Boolean(project.imageSrc)}
           src={project.imageSrc || picsumUrl(project.seed, 2400, 1100)}
           alt={project.alt || `${project.title} — ${project.client}`}
@@ -197,7 +206,7 @@ function FeaturedCard({
         {/* Eyebrow + numéro */}
         <div className="absolute left-7 top-7 flex items-center gap-3 md:left-10 md:top-10">
           <span className="h-px w-8 bg-gold md:w-12" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
+          <span data-cms-path={`projects.items.${cmsIndex}.year`} className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
             {copy.showreelLabel} · {project.year}
           </span>
         </div>
@@ -236,7 +245,7 @@ function FeaturedCard({
         {/* Bloc bas — titre + meta */}
         <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-7 md:flex-row md:items-end md:justify-between md:p-10">
           <div>
-            <h3 className="font-serif text-3xl leading-[1.05] tracking-[-0.02em] text-foreground md:text-5xl lg:text-6xl">
+            <h3 data-cms-path={`projects.items.${cmsIndex}.title`} className="font-serif text-3xl leading-[1.05] tracking-[-0.02em] text-foreground md:text-5xl lg:text-6xl">
               {project.title}
             </h3>
             <p className="mt-2 font-serif text-base italic text-foreground-muted md:mt-3 md:text-lg">
@@ -316,10 +325,12 @@ const ASPECTS = [
 function ProjectCard({
   project,
   index,
+  cmsIndex,
   onPlay,
 }: {
   project: PortfolioProject;
   index: number;
+  cmsIndex: number;
   onPlay: () => void;
 }) {
   const { portfolioSection: copy, universes } = useSiteContent();
@@ -328,6 +339,8 @@ function ProjectCard({
 
   return (
     <motion.li
+      data-cms-field="projects"
+      data-cms-path={`projects.items.${cmsIndex}.title`}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -347,6 +360,7 @@ function ProjectCard({
         )}
       >
         <Image
+          data-cms-path={`projects.items.${cmsIndex}.imageSrc`}
           unoptimized={Boolean(project.imageSrc)}
           src={project.imageSrc || picsumUrl(
             project.seed,
@@ -387,7 +401,7 @@ function ProjectCard({
 
         {/* Numéro éditorial top-left */}
         <div className="absolute left-6 top-6 flex items-center gap-3 md:left-7 md:top-7">
-          <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/80">
+          <span data-cms-path={`projects.items.${cmsIndex}.number`} className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/80">
             {project.number}
           </span>
           <span className="h-px w-8 bg-foreground/30" />
@@ -409,12 +423,12 @@ function ProjectCard({
           </p>
 
           {/* Titre */}
-          <h3 className="mb-1 font-serif text-2xl leading-[1.05] tracking-[-0.02em] text-foreground md:text-3xl">
+          <h3 data-cms-path={`projects.items.${cmsIndex}.title`} className="mb-1 font-serif text-2xl leading-[1.05] tracking-[-0.02em] text-foreground md:text-3xl">
             {project.title}
           </h3>
 
           {/* Client */}
-          <p className="font-serif text-sm italic text-foreground-muted md:text-base">
+          <p data-cms-path={`projects.items.${cmsIndex}.client`} className="font-serif text-sm italic text-foreground-muted md:text-base">
             {project.client}
           </p>
 

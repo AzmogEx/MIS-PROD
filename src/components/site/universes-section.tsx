@@ -34,6 +34,7 @@ export function UniversesSection() {
         {/* En-tête éditoriale */}
         <div className="mb-16 grid gap-8 md:mb-24 md:grid-cols-12">
           <motion.p
+            data-cms-path="universesSection.eyebrow"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -51,9 +52,9 @@ export function UniversesSection() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
-            {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}{" "}
+            <span data-cms-path="universesSection.titleBefore">{copy.titleBefore}</span><em data-cms-path="universesSection.titleEmphasis" className="italic">{copy.titleEmphasis}</em><span data-cms-path="universesSection.titleAfter">{copy.titleAfter}</span>{" "}
             <span className="text-foreground-muted">
-              {copy.subtitle}
+              <span data-cms-path="universesSection.subtitle">{copy.subtitle}</span>
             </span>
           </motion.h2>
         </div>
@@ -99,6 +100,8 @@ function UniverseCard({
       className="flex-shrink-0 snap-center [width:min(85vw,420px)] md:w-auto"
     >
       <Link
+        data-cms-field="universes"
+        data-cms-path={`universes.items.${index}.slug`}
         href={universe.href}
         className="group relative block aspect-[3/4] overflow-hidden rounded-2xl border border-border bg-background-elevated"
       >
@@ -106,6 +109,7 @@ function UniverseCard({
         <CardBackground
           ambiance={universe.ambiance}
           imageSrc={universe.imageSrc}
+          editorPath={`universes.items.${index}.card.imageSrc`}
         />
 
         {/* Voile assombrissant — s'allège au hover */}
@@ -113,7 +117,7 @@ function UniverseCard({
 
         {/* Numéro éditorial top-left */}
         <div className="absolute left-7 top-7 flex items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/80">
+          <span data-cms-path={`universes.items.${index}.number`} className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/80">
             {universe.number}
           </span>
           <span className="h-px w-8 bg-foreground/30" />
@@ -130,17 +134,17 @@ function UniverseCard({
         {/* Contenu bas */}
         <div className="absolute inset-x-0 bottom-0 p-7 md:p-8">
           {/* Eyebrow */}
-          <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
+          <p data-cms-path={`universes.items.${index}.eyebrow`} className="mb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
             {universe.eyebrow}
           </p>
 
           {/* Titre */}
-          <h3 className="mb-3 font-serif text-3xl leading-[1.05] tracking-[-0.02em] text-foreground md:text-4xl">
+          <h3 data-cms-path={`universes.items.${index}.title`} className="mb-3 font-serif text-3xl leading-[1.05] tracking-[-0.02em] text-foreground md:text-4xl">
             {universe.title}
           </h3>
 
           {/* Tagline */}
-          <p className="font-sans text-sm text-foreground/80 md:text-base">
+          <p data-cms-path={`universes.items.${index}.card.tagline`} className="font-sans text-sm text-foreground/80 md:text-base">
             {universe.tagline}
           </p>
 
@@ -148,13 +152,13 @@ function UniverseCard({
           <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] max-md:grid-rows-[1fr]">
             <div className="overflow-hidden">
               <div className="pt-5">
-                <p className="font-sans text-[13px] leading-relaxed text-foreground-muted">
+                <p data-cms-path={`universes.items.${index}.card.description`} className="font-sans text-[13px] leading-relaxed text-foreground-muted">
                   {universe.description}
                 </p>
 
                 <ul className="mt-5 flex flex-wrap gap-x-2 gap-y-1.5">
-                  {universe.highlights.map((h) => (
-                    <li
+                  {universe.highlights.map((h, i) => (
+                    <li data-cms-path={`universes.items.${index}.card.highlights.${i}`}
                       key={h}
                       className="rounded-full border border-foreground/15 bg-foreground/[0.04] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-foreground/80"
                     >
@@ -179,9 +183,11 @@ function UniverseCard({
 function CardBackground({
   ambiance,
   imageSrc,
+  editorPath,
 }: {
   ambiance: Universe["ambiance"];
   imageSrc: string;
+  editorPath: string;
 }) {
   // 3 ambiances : warm (sépia chaleureux pour la mémoire/santé),
   // cold (bleu nuit broadcast), champagne (or doux pour particuliers)
@@ -205,6 +211,7 @@ function CardBackground({
         style={{ background: gradient }}
       />
       {imageSrc && <Image
+        data-cms-path={editorPath}
         unoptimized
         src={imageSrc}
         alt=""

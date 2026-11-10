@@ -30,15 +30,15 @@ export function LegalPageLayout({
           <div className="grid gap-10 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle">
-                ({number}) — {eyebrow}
+                (<span data-cms-path="number">{number}</span>) — <span data-cms-path="ui.legalEyebrow">{eyebrow}</span>
               </p>
             </div>
             <div className="md:col-span-9">
-              <Heading className="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
+              <Heading data-cms-path="title" className="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
                 {title}
               </Heading>
               <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-                {ui.lastUpdateLabel} · {lastUpdate}
+                <span data-cms-path="ui.lastUpdateLabel">{ui.lastUpdateLabel}</span> · <span data-cms-path="lastUpdate">{lastUpdate}</span>
               </p>
             </div>
           </div>

@@ -27,7 +27,7 @@ export function StatsSection() {
       aria-labelledby="stats-heading"
       className="relative border-y border-border bg-background py-24 md:py-32"
     >
-      <h2 id="stats-heading" className="sr-only">
+      <h2 data-cms-path="stats.heading" id="stats-heading" className="sr-only">
         {copy.heading}
       </h2>
 
@@ -52,6 +52,7 @@ export function StatsSection() {
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
         {/* Eyebrow */}
         <motion.p
+          data-cms-path="stats.eyebrow"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -91,6 +92,7 @@ export function StatsSection() {
               {/* Kicker optionnel */}
               {stat.kicker && (
                 <motion.span
+                  data-cms-path={`stats.items.${i}.kicker`}
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.5 }}
@@ -107,6 +109,7 @@ export function StatsSection() {
 
               {/* Le chiffre */}
               <div
+                data-cms-path={`stats.items.${i}.value`}
                 className={[
                   "block font-serif text-[clamp(3.5rem,9vw,7rem)] font-normal leading-[0.95] tracking-[-0.03em] text-foreground",
                   !stat.kicker && "md:mt-8",
@@ -126,6 +129,7 @@ export function StatsSection() {
 
               {/* Label */}
               <motion.span
+                data-cms-path={`stats.items.${i}.label`}
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}

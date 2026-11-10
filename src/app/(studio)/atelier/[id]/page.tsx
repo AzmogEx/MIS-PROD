@@ -14,5 +14,9 @@ export default async function EditorPage({ params, searchParams }: { params: Pro
   const page = await cms.findByID({ collection: 'pages', id: (await params).id, locale, draft: true, depth: 2, overrideAccess: false, user }) as unknown as PageRecord
   const content = await cms.findGlobal({ slug: 'site-content', locale, draft: true, depth: 0, overrideAccess: false, user })
   const media = await cms.find({ collection: 'media', locale, limit: 100, overrideAccess: false, user })
-  return <VisualEditor key={locale} locale={locale} initialPage={page} initialContent={fromPayloadContent(content)} contentUpdatedAt={content.updatedAt} media={media.docs.map(m => ({ id: Number(m.id), label: String(m.alt || m.filename) }))} />
+  return <VisualEditor key={locale} locale={locale} initialPage={page} initialContent={fromPayloadContent(content)} contentUpdatedAt={content.updatedAt} media={media.docs.map(m => ({
+    id: Number(m.id), label: String(m.alt || m.filename || `Image ${m.id}`), url: m.url || undefined, alt: m.alt || '',
+    mimeType: m.mimeType || undefined, width: typeof m.width === 'number' ? m.width : undefined, height: typeof m.height === 'number' ? m.height : undefined,
+    visibility: m.visibility || undefined, rightsUntil: m.rightsUntil || undefined,
+  }))} />
 }

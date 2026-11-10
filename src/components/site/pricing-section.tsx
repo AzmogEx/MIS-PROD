@@ -49,6 +49,7 @@ export function PricingSection() {
         {/* En-tête éditorial */}
         <div className="mb-14 grid gap-8 md:mb-20 md:grid-cols-12">
           <motion.p
+            data-cms-path="pricing.eyebrow"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -66,9 +67,9 @@ export function PricingSection() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
-            {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}{" "}
+            <span data-cms-path="pricing.titleBefore">{copy.titleBefore}</span><em data-cms-path="pricing.titleEmphasis" className="italic">{copy.titleEmphasis}</em><span data-cms-path="pricing.titleAfter">{copy.titleAfter}</span>{" "}
             <span className="text-foreground-muted">
-              {copy.subtitle}
+              <span data-cms-path="pricing.subtitle">{copy.subtitle}</span>
             </span>
           </motion.h2>
         </div>
@@ -80,10 +81,11 @@ export function PricingSection() {
             aria-label={copy.serviceLabel}
             className="scrollbar-hide flex max-w-full gap-1.5 overflow-x-auto rounded-full border border-border-strong bg-foreground/[0.02] p-1.5 backdrop-blur-md"
           >
-            {SERVICES.map((s) => {
+            {SERVICES.map((s, serviceIndex) => {
               const isActive = s.key === active;
               return (
                 <button
+                  data-cms-path={`pricing.services.${serviceIndex}.label`}
                   key={s.key}
                   role="tab"
                   aria-selected={isActive}
@@ -116,6 +118,7 @@ export function PricingSection() {
         {/* Caption sous le sélecteur */}
         <AnimatePresence mode="wait">
           <motion.p
+            data-cms-path={`pricing.services.${SERVICES.indexOf(activeService)}.caption`}
             key={activeService.caption}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,6 +144,8 @@ export function PricingSection() {
               <FormulaCard
                 key={`${active}-${f.key}`}
                 formula={f}
+                serviceIndex={SERVICES.indexOf(activeService)}
+                formulaIndex={i}
                 featured={f.key === copy.featuredKey}
                 delay={i * 0.08}
               />
@@ -150,6 +155,7 @@ export function PricingSection() {
 
         {/* Option drone — note discrète sous les cards */}
         <motion.p
+          data-cms-path="pricing.droneNote"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -163,6 +169,7 @@ export function PricingSection() {
         <div className="mt-28 border-t border-border pt-20 md:mt-36 md:pt-24">
           <div className="mb-14 grid gap-8 md:mb-20 md:grid-cols-12">
             <motion.p
+              data-cms-path="pricing.addonsEyebrow"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
@@ -182,9 +189,9 @@ export function PricingSection() {
               }}
               className="font-serif text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-foreground md:col-span-9"
             >
-              <em className="italic">{copy.addonsTitle}</em>{" "}
+              <em data-cms-path="pricing.addonsTitle" className="italic">{copy.addonsTitle}</em>{" "}
               <span className="text-foreground-muted">
-                {copy.addonsSubtitle}
+                <span data-cms-path="pricing.addonsSubtitle">{copy.addonsSubtitle}</span>
               </span>
             </motion.h3>
           </div>
@@ -192,6 +199,7 @@ export function PricingSection() {
           <ul data-cms-grid={gridLayout} className="grid gap-x-10 gap-y-0 md:grid-cols-2">
             {ADDONS.map((a, i) => (
               <motion.li
+                data-cms-path={`pricing.addons.${i}.label`}
                 key={a.label}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -203,11 +211,11 @@ export function PricingSection() {
                 }}
                 className="group flex items-baseline justify-between gap-6 border-b border-border py-5 transition-colors hover:border-gold/40"
               >
-                <span className="font-sans text-[14px] text-foreground md:text-[15px]">
+                <span data-cms-path={`pricing.addons.${i}.label`} className="font-sans text-[14px] text-foreground md:text-[15px]">
                   {a.label}
                 </span>
-                <span className="font-mono text-[12px] tracking-[0.08em] text-gold transition-colors group-hover:text-gold-bright md:text-[13px]">
-                  {a.price} {copy.currency}
+                <span data-cms-path={`pricing.addons.${i}.price`} className="font-mono text-[12px] tracking-[0.08em] text-gold transition-colors group-hover:text-gold-bright md:text-[13px]">
+                  {a.price} <span data-cms-path="pricing.currency">{copy.currency}</span>
                 </span>
               </motion.li>
             ))}
@@ -222,14 +230,15 @@ export function PricingSection() {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="mt-20 flex flex-col items-center gap-8 text-center md:mt-24"
         >
-          <p className="max-w-xl font-serif text-base italic text-foreground-muted md:text-lg">
+          <p data-cms-path="pricing.footerNote" className="max-w-xl font-serif text-base italic text-foreground-muted md:text-lg">
             {copy.footerNote}
           </p>
           <Link
+            data-cms-path="pricing.ctaHref"
             href={copy.ctaHref}
             className="group inline-flex h-14 items-center gap-3 rounded-full border border-foreground bg-foreground px-7 font-mono text-[11px] uppercase tracking-[0.28em] text-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold hover:bg-gold"
           >
-            {copy.ctaLabel}
+            <span data-cms-path="pricing.ctaLabel">{copy.ctaLabel}</span>
             <ArrowUpRight
               className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.5}
@@ -245,16 +254,21 @@ export function PricingSection() {
 
 function FormulaCard({
   formula,
+  serviceIndex,
+  formulaIndex,
   featured,
   delay,
 }: {
   formula: Formula;
+  serviceIndex: number;
+  formulaIndex: number;
   featured?: boolean;
   delay: number;
 }) {
   const { pricing: copy } = useSiteContent();
   return (
     <motion.article
+      data-cms-path={`pricing.services.${serviceIndex}.formulas.${formulaIndex}.name`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -268,7 +282,7 @@ function FormulaCard({
     >
       {/* Badge best-seller pour Tendance */}
       {featured && (
-        <span className="absolute right-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/[0.08] px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.28em] text-gold backdrop-blur-md">
+        <span data-cms-path="pricing.featuredLabel" className="absolute right-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/[0.08] px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.28em] text-gold backdrop-blur-md">
           <Sparkles className="h-2.5 w-2.5" strokeWidth={1.5} />
           {copy.featuredLabel}
         </span>
@@ -284,13 +298,14 @@ function FormulaCard({
       />
 
       {/* Nom */}
-      <h3 className="font-serif text-2xl leading-tight tracking-[-0.01em] text-foreground md:text-3xl">
+      <h3 data-cms-path={`pricing.services.${serviceIndex}.formulas.${formulaIndex}.name`} className="font-serif text-2xl leading-tight tracking-[-0.01em] text-foreground md:text-3xl">
         {formula.name}
       </h3>
 
       {/* Prix */}
       <div className="mt-5 flex items-baseline gap-2">
         <span
+          data-cms-path={`pricing.services.${serviceIndex}.formulas.${formulaIndex}.price`}
           className={cn(
             "font-serif text-[clamp(2.5rem,5vw,3.25rem)] leading-none tracking-[-0.02em]",
             featured ? "text-gold" : "text-foreground",
@@ -299,6 +314,7 @@ function FormulaCard({
           {formula.price.toLocaleString("fr-FR")}
         </span>
         <span
+          data-cms-path="pricing.currency"
           className={cn(
             "font-serif text-2xl",
             featured ? "text-gold" : "text-foreground-muted",
@@ -313,8 +329,9 @@ function FormulaCard({
 
       {/* Bullets */}
       <ul className="mb-8 flex-1 space-y-3">
-        {formula.bullets.map((b) => (
+        {formula.bullets.map((b, bulletIndex) => (
           <li
+            data-cms-path={`pricing.services.${serviceIndex}.formulas.${formulaIndex}.bullets.${bulletIndex}`}
             key={b}
             className="flex items-start gap-3 font-sans text-[13.5px] leading-relaxed text-foreground-muted md:text-[14.5px]"
           >
@@ -329,6 +346,7 @@ function FormulaCard({
 
       {/* CTA carte */}
       <Link
+        data-cms-path="pricing.ctaHref"
         href={copy.ctaHref}
         className={cn(
           "mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-full border font-mono text-[10px] uppercase tracking-[0.28em] transition-all duration-700",
@@ -337,7 +355,7 @@ function FormulaCard({
             : "border-border-strong text-foreground hover:border-gold hover:text-gold",
         )}
       >
-        {copy.formulaCta}
+        <span data-cms-path="pricing.formulaCta">{copy.formulaCta}</span>
         <ArrowUpRight
           className="h-3.5 w-3.5 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
           strokeWidth={1.5}

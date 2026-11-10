@@ -29,6 +29,7 @@ export function Navbar() {
 
   return (
     <motion.header
+      data-cms-field="navigation"
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
@@ -54,27 +55,28 @@ export function Navbar() {
             className="font-serif text-2xl tracking-[0.18em] text-foreground transition-colors group-hover:text-gold"
             style={{ textShadow: "0 1px 8px rgba(0,0,0,0.4)" }}
           >
-            {copy.logoImage ? <img src={copy.logoImage} alt={copy.logoAlt} className="h-10 max-w-36 object-contain" /> : copy.logo}
+            {copy.logoImage ? <img data-cms-path="navigation.logoImage" src={copy.logoImage} alt={copy.logoAlt} className="h-10 max-w-36 object-contain" /> : <span data-cms-path="navigation.logo">{copy.logo}</span>}
           </span>
           <span className="hidden h-3 w-px bg-foreground/30 md:block" />
           <span
             className="hidden font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/65 md:block"
             style={{ textShadow: "0 1px 4px rgba(0,0,0,0.5)" }}
           >
-            {copy.studioLabel} · {SITE.city} · {SITE.foundedYear}
+            <span data-cms-path="navigation.studioLabel">{copy.studioLabel}</span> · <span data-cms-path="site.city">{SITE.city}</span> · <span data-cms-path="site.foundedYear">{SITE.foundedYear}</span>
           </span>
         </Link>
 
         {/* Liens centrés */}
         <ul className="hidden items-center gap-10 md:flex">
-          {copy.links.map((link) => (
+          {copy.links.map((link, index) => (
             <li key={link.href}>
               <Link
+                data-cms-path={`navigation.links.${index}.href`}
                 href={link.href}
                 className="group relative font-mono text-[11px] uppercase tracking-[0.28em] text-foreground/85 transition-colors hover:text-foreground"
                 style={{ textShadow: "0 1px 4px rgba(0,0,0,0.5)" }}
               >
-                {link.label}
+                <span data-cms-path={`navigation.links.${index}.label`}>{link.label}</span>
                 <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-gold transition-all duration-500 group-hover:w-full" />
               </Link>
             </li>
@@ -85,18 +87,19 @@ export function Navbar() {
         <button type="button" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-strong text-foreground md:hidden" aria-label={menuOpen ? copy.menuClose : copy.menuOpen} aria-expanded={menuOpen} aria-controls="mis-mobile-menu" onClick={() => setMenuOpen(value => !value)}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
         {/* CTA contact */}
         <Link
+          data-cms-path="navigation.briefHref"
           href={copy.briefHref}
           className="group relative inline-flex h-10 items-center gap-2 overflow-hidden rounded-full border border-foreground/30 bg-background/20 px-5 font-mono text-[11px] uppercase tracking-[0.24em] text-foreground backdrop-blur-md transition-[color,border-color,background-color] duration-500 hover:border-gold hover:bg-gold/10 hover:text-gold"
           style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
         >
-          <span className="relative z-10">{copy.briefLabel}</span>
+          <span data-cms-path="navigation.briefLabel" className="relative z-10">{copy.briefLabel}</span>
           <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-0.5">
             →
           </span>
         </Link>
         </div>
       </nav>
-      {menuOpen && <nav id="mis-mobile-menu" aria-label={copy.menuLabel} className="border-t border-border bg-background px-6 py-4 md:hidden"><ul>{copy.links.map(link => <li key={link.href}><Link href={link.href} onClick={() => setMenuOpen(false)} className="block rounded px-3 py-4 text-base text-foreground focus-visible:outline-2 focus-visible:outline-gold">{link.label}</Link></li>)}</ul></nav>}
+      {menuOpen && <nav id="mis-mobile-menu" aria-label={copy.menuLabel} className="border-t border-border bg-background px-6 py-4 md:hidden"><ul>{copy.links.map((link, index) => <li key={link.href}><Link data-cms-path={`navigation.links.${index}.href`} href={link.href} onClick={() => setMenuOpen(false)} className="block rounded px-3 py-4 text-base text-foreground focus-visible:outline-2 focus-visible:outline-gold"><span data-cms-path={`navigation.links.${index}.label`}>{link.label}</span></Link></li>)}</ul></nav>}
     </motion.header>
   );
 }

@@ -40,7 +40,7 @@ export function CtaSection() {
           className="mb-12 flex items-center gap-4 md:mb-16"
         >
           <span className="h-px w-12 bg-gold md:w-20" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
+          <span data-cms-path="cta.eyebrow" className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
             {copy.eyebrow}
           </span>
         </motion.div>
@@ -51,7 +51,7 @@ export function CtaSection() {
           className="font-serif text-balance text-[clamp(2.5rem,7vw,6.5rem)] leading-[1.02] tracking-[-0.02em] text-foreground"
         >
           <RevealText immediate={false} stagger={0.06} className="block">
-            <em className="italic">{copy.title}</em>
+            <em data-cms-path="cta.title" className="italic">{copy.title}</em>
           </RevealText>
           <RevealText
             immediate={false}
@@ -59,12 +59,13 @@ export function CtaSection() {
             delay={0.3}
             className="block text-foreground-muted"
           >
-            {copy.subtitle}
+            <span data-cms-path="cta.subtitle">{copy.subtitle}</span>
           </RevealText>
         </h2>
 
         {/* Sous-titre */}
         <motion.p
+          data-cms-path="cta.description"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -83,10 +84,11 @@ export function CtaSection() {
           className="mt-12 flex flex-col items-start gap-10 md:mt-16 md:flex-row md:items-center md:justify-between"
         >
           <Link
+            data-cms-path="cta.href"
             href={copy.href}
             className="group relative inline-flex h-16 items-center gap-4 overflow-hidden rounded-full border border-foreground bg-foreground px-9 font-mono text-[11px] uppercase tracking-[0.28em] text-background transition-all duration-700 hover:border-gold hover:bg-gold hover:text-background"
           >
-            <span className="relative z-10">{copy.label}</span>
+            <span data-cms-path="cta.label" className="relative z-10">{copy.label}</span>
             <ArrowUpRight
               className="relative z-10 h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={1.5}

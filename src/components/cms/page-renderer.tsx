@@ -19,19 +19,20 @@ import type { PublicForm } from '@/cms/form-schema'
 import type { MediaRecord, PageBlock, PageRecord } from '@/cms/page-types'
 
 const safeHref = (url?: string) => url && /^(\/(?!\/)|#|https:\/\/|mailto:|tel:)/.test(url) ? url : undefined
-function Media({ media }: { media?: MediaRecord | number | null }) {
+function Media({ media, editorPath }: { media?: MediaRecord | number | null; editorPath?: string }) {
   const {ui}=useSiteContent()
   if (!media || typeof media !== 'object' || !media.url) return null
   // Expiry and file visibility are enforced by the server on every file request.
   if (media.visibility === 'restricted') return null
-  if (media.mimeType?.startsWith('video/')) return <div><video data-mis-analytics="manual" controls preload="none" poster={media.poster?.url || undefined} className="cms-block-media"><source src={media.url} type={media.mimeType} />{media.captions?.url && <track default kind="captions" src={media.captions.url} srcLang={media.captions.language||media.language||'fr'} />}</video>{media.transcript&&<details><summary>Transcription</summary><p className="cms-body" lang={media.language||'fr'}>{media.transcript}</p></details>}</div>
-  if (media.mimeType?.startsWith('image/')) return <Image unoptimized src={media.url} alt={media.alt || ''} width={media.width || 1200} height={media.height || 800} loading="lazy" className="cms-block-media" />
-  return <a href={media.url} className="cms-link">{media.alt || ui.downloadLabel}</a>
+  if (media.mimeType?.startsWith('video/')) return <div><video data-cms-path={editorPath} data-mis-analytics="manual" controls preload="none" poster={media.poster?.url || undefined} className="cms-block-media"><source src={media.url} type={media.mimeType} />{media.captions?.url && <track default kind="captions" src={media.captions.url} srcLang={media.captions.language||media.language||'fr'} />}</video>{media.transcript&&<details><summary>Transcription</summary><p className="cms-body" lang={media.language||'fr'}>{media.transcript}</p></details>}</div>
+  if (media.mimeType?.startsWith('image/')) return <Image data-cms-path={editorPath} unoptimized src={media.url} alt={media.alt || ''} width={media.width || 1200} height={media.height || 800} loading="lazy" className="cms-block-media" />
+  return <a data-cms-path={editorPath} href={media.url} className="cms-link">{media.alt || ui.downloadLabel}</a>
 }
-function Editorial({ block, headingLevel = 2, lead = false }: { block: PageBlock; headingLevel?: 1 | 2; lead?: boolean }) {
+function Editorial({ block, headingLevel = 2, lead = false, path = '' }: { block: PageBlock; headingLevel?: 1 | 2; lead?: boolean; path?: string }) {
   const localize = useLocalizedHref()
   const Heading = headingLevel === 1 ? 'h1' : 'h2'
-  return <div className="cms-editorial">{block.eyebrow && <p className="cms-kicker">{block.eyebrow}</p>}{block.title && <Heading style={{ paddingTop: lead ? 40 : 0 }}>{block.title}</Heading>}{block.body && <p className="cms-body">{block.body}</p>}<Media media={block.media} />{block.linkLabel && safeHref(block.link) && <a className="cms-link" href={localize(safeHref(block.link)!)}>{block.linkLabel} <span aria-hidden>↗</span></a>}</div>
+  const property = (key: string) => path ? `${path}.${key}` : key
+  return <div className="cms-editorial">{block.eyebrow && <p data-cms-path={property('eyebrow')} className="cms-kicker">{block.eyebrow}</p>}{block.title && <Heading data-cms-path={property('title')} style={{ paddingTop: lead ? 40 : 0 }}>{block.title}</Heading>}{block.body && <p data-cms-path={property('body')} className="cms-body">{block.body}</p>}<Media media={block.media} editorPath={property('media')} />{block.linkLabel && safeHref(block.link) && <a data-cms-path={property('link')} className="cms-link" href={localize(safeHref(block.link)!)}><span data-cms-path={property('linkLabel')}>{block.linkLabel}</span> <span aria-hidden>↗</span></a>}</div>
 }
 export function PageRenderer({ page, forms = {} }: { page: Pick<PageRecord, 'layout'> & Partial<Pick<PageRecord, 'title'>>; forms?: Record<string, PublicForm> }) {
   const content = useSiteContent()
@@ -71,11 +72,11 @@ export function PageRenderer({ page, forms = {} }: { page: Pick<PageRecord, 'lay
       case 'universe': { const universe = content.universes.find(u => u.slug === block.universeSlug); return universe ? <UniversePageLayout universe={universe} headingLevel={headingLevel} afterFormulas={universe.slug === 'particuliers' ? <PricingSection /> : undefined} /> : null }
       case 'contact': return <section className="cms-composed"><div className="cms-reading">{forms[block.formSlug || 'brief-projet'] ? <DynamicContactForm form={forms[block.formSlug || 'brief-projet']} /> : <p role="status">{content.ui.formUnavailable.replaceAll('{{email}}',content.site.email)}</p>}</div></section>
       case 'editorial': return <section className="cms-composed"><Editorial block={block} headingLevel={headingLevel} lead={index === 0} /></section>
-      case 'columns': case 'steps': return <section className="cms-composed"><Heading style={{ paddingTop: 0 }}>{block.title}</Heading><div className="cms-columns">{block.items?.map((item, i) => <Editorial block={item} key={item.id || i} />)}</div></section>
-      case 'gallery': return <section className="cms-composed"><Heading style={{ paddingTop: 0 }}>{block.title}</Heading><div className="cms-columns">{block.items?.map((item, i) => <figure key={item.id || i}><Media media={item.media} /><figcaption>{item.caption}</figcaption></figure>)}</div></section>
-      case 'faq': return <section className="cms-composed"><Heading style={{ paddingTop: 0 }}>{block.title}</Heading>{block.items?.map((item, i) => <details key={item.id || i}><summary>{item.question}</summary><p className="cms-body">{item.answer}</p></details>)}</section>
+      case 'columns': case 'steps': return <section className="cms-composed"><Heading data-cms-path="title" style={{ paddingTop: 0 }}>{block.title}</Heading><div className="cms-columns">{block.items?.map((item, i) => <Editorial block={item} path={`items.${i}`} key={item.id || i} />)}</div></section>
+      case 'gallery': return <section className="cms-composed"><Heading data-cms-path="title" style={{ paddingTop: 0 }}>{block.title}</Heading><div className="cms-columns">{block.items?.map((item, i) => <figure key={item.id || i}><Media media={item.media} editorPath={`items.${i}.media`} /><figcaption data-cms-path={`items.${i}.caption`}>{item.caption}</figcaption></figure>)}</div></section>
+      case 'faq': return <section className="cms-composed"><Heading data-cms-path="title" style={{ paddingTop: 0 }}>{block.title}</Heading>{block.items?.map((item, i) => <details key={item.id || i}><summary data-cms-path={`items.${i}.question`}>{item.question}</summary><p data-cms-path={`items.${i}.answer`} className="cms-body">{item.answer}</p></details>)}</section>
       case 'shared': return block.section && typeof block.section === 'object' ? renderBlocks(block.section.layout || [], key) : null
-      case 'legal': return <LegalPageLayout headingLevel={headingLevel} number={block.number || ''} eyebrow={content.ui.legalEyebrow} title={block.title || ''} lastUpdate={block.lastUpdate || ''}>{block.sections?.map((item, i) => item.kind === 'heading' ? <h2 key={i}>{interpolate(item.text)}</h2> : item.kind === 'subheading' ? <h3 key={i}>{interpolate(item.text)}</h3> : <p key={i} style={{ whiteSpace: 'pre-line' }}>{interpolate(item.text)}</p>)}</LegalPageLayout>
+      case 'legal': return <LegalPageLayout headingLevel={headingLevel} number={block.number || ''} eyebrow={content.ui.legalEyebrow} title={block.title || ''} lastUpdate={block.lastUpdate || ''}>{block.sections?.map((item, i) => item.kind === 'heading' ? <h2 data-cms-path={`sections.${i}.text`} key={i}>{interpolate(item.text)}</h2> : item.kind === 'subheading' ? <h3 data-cms-path={`sections.${i}.text`} key={i}>{interpolate(item.text)}</h3> : <p data-cms-path={`sections.${i}.text`} key={i} style={{ whiteSpace: 'pre-line' }}>{interpolate(item.text)}</p>)}</LegalPageLayout>
       default: return null
     }
   }

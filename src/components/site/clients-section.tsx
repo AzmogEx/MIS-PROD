@@ -30,6 +30,7 @@ export function ClientsSection() {
         {/* En-tête éditoriale */}
         <div className="mb-16 grid gap-8 md:mb-24 md:grid-cols-12">
           <motion.p
+            data-cms-path="clientsSection.eyebrow"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -44,7 +45,7 @@ export function ClientsSection() {
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
             <RevealText immediate={false} stagger={0.05} className="block">
-              {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}
+              <span data-cms-path="clientsSection.titleBefore">{copy.titleBefore}</span><em data-cms-path="clientsSection.titleEmphasis" className="italic">{copy.titleEmphasis}</em><span data-cms-path="clientsSection.titleAfter">{copy.titleAfter}</span>
             </RevealText>
             <RevealText
               immediate={false}
@@ -52,7 +53,7 @@ export function ClientsSection() {
               delay={0.2}
               className="block text-foreground-muted"
             >
-              {copy.subtitle}
+              <span data-cms-path="clientsSection.subtitle">{copy.subtitle}</span>
             </RevealText>
           </h2>
         </div>
@@ -84,6 +85,8 @@ function ClientsMarquee() {
 
   return (
     <div
+      data-cms-field="clients"
+      data-cms-path="clientsSection.clientsLabel"
       className="group relative w-full select-none"
       aria-label={copy.clientsLabel}
     >
@@ -111,6 +114,7 @@ function ClientsMarquee() {
         <div className="animate-marquee flex w-max items-center gap-12 md:gap-20 [animation-play-state:running] group-hover:[animation-play-state:paused]">
           {items.map((client, i) => (
             <div
+              data-cms-path={`clients.items.${i % CLIENTS.length}.name`}
               key={`${client.name}-${i}`}
               className="flex shrink-0 items-center gap-6"
               aria-hidden={i >= CLIENTS.length}
@@ -145,6 +149,8 @@ function TestimonialCard({
   const { clientsSection: copy } = useSiteContent();
   return (
     <motion.li
+      data-cms-field="testimonials"
+      data-cms-path={`testimonials.items.${index}.quote`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -167,7 +173,7 @@ function TestimonialCard({
 
       {/* Numéro + ligne or */}
       <div className="flex items-baseline gap-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
+        <span data-cms-path="clientsSection.testimonialPrefix" className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
           {copy.testimonialPrefix}{String(index + 1).padStart(2, "0")}
         </span>
         <span className="h-px w-8 bg-gold/40" />
@@ -182,17 +188,17 @@ function TestimonialCard({
       </span>
 
       {/* Citation */}
-      <blockquote className="font-serif text-[clamp(1.25rem,1.6vw,1.5rem)] italic leading-[1.35] text-foreground">
+      <blockquote data-cms-path={`testimonials.items.${index}.quote`} className="font-serif text-[clamp(1.25rem,1.6vw,1.5rem)] italic leading-[1.35] text-foreground">
         {testimonial.quote}
       </blockquote>
 
       {/* Méta auteur */}
       <footer className="mt-auto flex flex-col gap-1 pt-6">
         <span className="h-px w-10 bg-gold/60" />
-        <p className="mt-3 font-sans text-sm text-foreground">
+        <p data-cms-path={`testimonials.items.${index}.author`} className="mt-3 font-sans text-sm text-foreground">
           {testimonial.author}
         </p>
-        <p className="font-sans text-[13px] text-foreground-muted">
+        <p data-cms-path={`testimonials.items.${index}.role`} className="font-sans text-[13px] text-foreground-muted">
           {testimonial.role}, {testimonial.organization}
         </p>
         {testimonial.project && (

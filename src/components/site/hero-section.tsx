@@ -41,19 +41,19 @@ export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
         >
           <span className="h-px w-12 bg-gold md:w-20" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-            {copy.studioLabel} · {SITE.city} · {SITE.foundedYear}
+            <span data-cms-path="hero.studioLabel">{copy.studioLabel}</span> · {SITE.city} · {SITE.foundedYear}
           </span>
         </motion.div>
 
         {/* Slogan — 3 lignes serif, italique sur les verbes */}
         <Heading className="font-serif text-balance text-[clamp(2.75rem,8vw,7.5rem)] font-normal leading-[1.02] tracking-[-0.02em] text-foreground">
           <RevealText as="span" delay={0.4} stagger={0.06} className="block">
-            <em className="italic">{copy.firstVerb}</em>
-            {copy.firstRest}
+            <em data-cms-path="hero.firstVerb" className="italic">{copy.firstVerb}</em>
+            <span data-cms-path="hero.firstRest">{copy.firstRest}</span>
           </RevealText>
           <RevealText as="span" delay={0.85} stagger={0.06} className="block">
-            <em className="italic">{copy.secondVerb}</em>
-            {copy.secondRest}
+            <em data-cms-path="hero.secondVerb" className="italic">{copy.secondVerb}</em>
+            <span data-cms-path="hero.secondRest">{copy.secondRest}</span>
           </RevealText>
           <RevealText
             as="span"
@@ -61,7 +61,7 @@ export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
             stagger={0.06}
             className="block text-foreground-muted"
           >
-            <em className="italic text-foreground">{copy.thirdVerb}</em>{copy.thirdRest}
+            <em data-cms-path="hero.thirdVerb" className="italic text-foreground">{copy.thirdVerb}</em><span data-cms-path="hero.thirdRest">{copy.thirdRest}</span>
           </RevealText>
         </Heading>
 
@@ -74,10 +74,11 @@ export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
         >
           <div className="flex items-center gap-6">
             <Link
+              data-cms-path="hero.showreelHref"
               href={copy.showreelHref}
               className="group relative inline-flex h-14 items-center gap-3 overflow-hidden rounded-full border border-border-strong bg-foreground/[0.02] px-7 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground backdrop-blur-md transition-all duration-700 hover:border-gold hover:bg-gold/[0.08] hover:text-gold"
             >
-              <span className="relative z-10">{copy.showreelLabel}</span>
+              <span data-cms-path="hero.showreelLabel" className="relative z-10">{copy.showreelLabel}</span>
               <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
@@ -86,11 +87,12 @@ export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
             </Link>
 
             <Link
+              data-cms-path="hero.universesHref"
               href={copy.universesHref}
               className="group hidden items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground-muted transition-colors hover:text-foreground md:inline-flex"
             >
               <span className="h-px w-6 bg-foreground-muted/40 transition-all duration-500 group-hover:w-12 group-hover:bg-gold" />
-              <span>{copy.universesLabel}</span>
+              <span data-cms-path="hero.universesLabel">{copy.universesLabel}</span>
             </Link>
           </div>
 
@@ -110,12 +112,12 @@ export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground/80">
-              {copy.onAirLabel}
+              <span data-cms-path="hero.onAirLabel">{copy.onAirLabel}</span>
             </span>
           </div>
           <span className="h-8 w-px bg-foreground-subtle/30" />
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
-            {copy.studioEyebrow}
+            <span data-cms-path="hero.studioEyebrow">{copy.studioEyebrow}</span>
           </span>
         </motion.div>
 
@@ -127,7 +129,7 @@ export function HeroSection({ headingLevel = 1 }: { headingLevel?: 1 | 2 }) {
           className="absolute bottom-8 left-6 hidden items-center gap-3 md:left-10 md:flex"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
-            {copy.liveLabel}
+            <span data-cms-path="hero.liveLabel">{copy.liveLabel}</span>
           </span>
           {copy.showTimecode && <Timecode />}
         </motion.div>
@@ -140,7 +142,7 @@ function ScrollIndicator() {
   const { hero: copy } = useSiteContent();
   return (
     <div className="flex items-center gap-3 self-end md:self-auto">
-      <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
+      <span data-cms-path="hero.scrollLabel" className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
         {copy.scrollLabel}
       </span>
       <motion.span

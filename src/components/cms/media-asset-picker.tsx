@@ -2,9 +2,10 @@
 
 import { useId, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type Asset = { id: number; filename: string; alt?: string; url?: string; mimeType?: string; visibility?: string; rightsUntil?: string }
-export function MediaAssetPicker({ value, onChange, label, kind, disabled = false }: { value: string; onChange: (url: string) => void; label: string; kind: string; disabled?: boolean }) {
+export function MediaAssetPicker({ value, onChange, label, kind, disabled = false, editorPath }: { value: string; onChange: (url: string) => void; label: string; kind: string; disabled?: boolean; editorPath?: string }) {
   const id = useId(); const [files, setFiles] = useState<Asset[]>([]); const [opened, setOpened] = useState(false); const [search, setSearch] = useState(''); const [page, setPage] = useState(1); const [next, setNext] = useState(false); const [error, setError] = useState(''); const [busy, setBusy] = useState(false)
   const load = async (current = 1) => {
     setBusy(true); setError(''); setOpened(true)
@@ -18,10 +19,12 @@ export function MediaAssetPicker({ value, onChange, label, kind, disabled = fals
     } catch (cause) { setError(cause instanceof Error ? cause.message : 'Lecture impossible.') }
     finally { setBusy(false) }
   }
-  return <div className="field-type text" style={{ marginBlock: 12 }}>
-    <label htmlFor={id}>{label}</label><input id={id} value={value || ''} onChange={event => onChange(event.target.value)} disabled={disabled} style={{ width: '100%', minHeight: 44 }} />
-    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}><button type="button" disabled={disabled || busy} onClick={() => void load()}>Choisir dans la médiathèque</button><Link href="/medias" target="_blank" rel="noreferrer">Importer ou gérer les images ↗</Link></div>
-    {opened && <div style={{ marginTop: 12 }}><label htmlFor={`${id}-search`}>Rechercher un fichier</label><input id={`${id}-search`} value={search} maxLength={120} onChange={event => setSearch(event.target.value)} disabled={disabled || busy} style={{ width: '100%', minHeight: 44 }} /><button type="button" onClick={() => void load()} disabled={disabled || busy}>Rechercher / actualiser</button><label htmlFor={`${id}-choice`}>Image publique</label><select id={`${id}-choice`} value={files.some(file => file.url === value) ? value : ''} onChange={event => { if (event.target.value) onChange(event.target.value) }} disabled={disabled || busy} style={{ width: '100%', minHeight: 44 }}><option value="">Choisir une image…</option>{files.filter(file => file.url).map(file => <option key={file.id} value={file.url}>{file.alt || file.filename} · {file.filename}</option>)}</select><div style={{ display: 'flex', gap: 8 }}><button type="button" disabled={disabled || busy || page === 1} onClick={() => void load(page - 1)}>Précédents</button><button type="button" disabled={disabled || busy || !next} onClick={() => void load(page + 1)}>Suivants</button></div><p>Seules les images publiques aux droits valides sont proposées. Un nouvel import est restreint : vérifiez ses droits et sa diffusion dans la médiathèque, puis actualisez cette liste. L’adresse est remplie automatiquement ; le contenu du site reste un brouillon jusqu’à publication.</p></div>}
+  return <div className="field-type text mis-editor-media-picker" style={{ marginBlock: 12 }}>
+    <span className="mis-editor-media-label">{label}</span>
+    {value ? <Image unoptimized width={1200} height={800} src={value} alt={`Aperçu de ${label}`} /> : <p>Aucune image choisie.</p>}
+    <div className="mis-editor-media-actions"><button type="button" data-editor-path={editorPath} disabled={disabled || busy} onClick={() => void load()}>{busy ? 'Chargement…' : value ? 'Changer l’image' : 'Choisir une image'}</button><Link href="/medias" target="_blank" rel="noreferrer">Importer une image ↗</Link></div>
+    <details className="mis-editor-image-url"><summary>Options avancées</summary><label htmlFor={id}>Adresse de l’image</label><input id={id} value={value || ''} onChange={event => onChange(event.target.value)} disabled={disabled} style={{ width: '100%', minHeight: 44 }} /></details>
+    {opened && <div className="mis-editor-media-library"><label htmlFor={`${id}-search`}>Rechercher une image</label><input id={`${id}-search`} value={search} maxLength={120} onChange={event => setSearch(event.target.value)} disabled={disabled || busy} style={{ width: '100%', minHeight: 44 }} /><button type="button" onClick={() => void load()} disabled={disabled || busy}>Rechercher</button><label htmlFor={`${id}-choice`}>Image disponible</label><select id={`${id}-choice`} value={files.some(file => file.url === value) ? value : ''} onChange={event => { if (event.target.value) onChange(event.target.value) }} disabled={disabled || busy} style={{ width: '100%', minHeight: 44 }}><option value="">Choisir une image…</option>{files.filter(file => file.url).map(file => <option key={file.id} value={file.url}>{file.alt || file.filename} · {file.filename}</option>)}</select><div style={{ display: 'flex', gap: 8 }}><button type="button" disabled={disabled || busy || page === 1} onClick={() => void load(page - 1)}>Précédentes</button><button type="button" disabled={disabled || busy || !next} onClick={() => void load(page + 1)}>Suivantes</button></div><p>Seules les images publiques avec des droits valides sont proposées.</p></div>}
     {error && <p role="alert">{error}</p>}
   </div>
 }

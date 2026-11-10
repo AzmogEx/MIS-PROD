@@ -32,6 +32,7 @@ export function ManifestoSection() {
         {/* En-tête éditoriale */}
         <div className="mb-20 grid gap-8 md:mb-32 md:grid-cols-12">
           <motion.p
+            data-cms-path="manifesto.eyebrow"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -46,7 +47,7 @@ export function ManifestoSection() {
             className="font-serif text-balance text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground md:col-span-9"
           >
             <RevealText immediate={false} stagger={0.05} className="block">
-              {copy.titleBefore}<em className="italic">{copy.titleEmphasis}</em>{copy.titleAfter}
+              <span data-cms-path="manifesto.titleBefore">{copy.titleBefore}</span><em data-cms-path="manifesto.titleEmphasis" className="italic">{copy.titleEmphasis}</em><span data-cms-path="manifesto.titleAfter">{copy.titleAfter}</span>
             </RevealText>
             <RevealText
               immediate={false}
@@ -54,7 +55,7 @@ export function ManifestoSection() {
               delay={0.2}
               className="block text-foreground-muted"
             >
-              {copy.subtitle}
+              <span data-cms-path="manifesto.subtitle">{copy.subtitle}</span>
             </RevealText>
           </h2>
         </div>
@@ -63,6 +64,7 @@ export function ManifestoSection() {
         <div className="mb-24 grid gap-8 md:mb-32 md:grid-cols-12">
           <div className="md:col-span-3" />
           <motion.p
+            data-cms-path="manifesto.introduction"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -107,22 +109,22 @@ export function ManifestoSection() {
               />
 
               <div className="flex items-baseline gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
+                <span data-cms-path={`manifesto.pillars.${i}.number`} className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
                   {pillar.number}
                 </span>
                 <span className="h-px w-8 bg-gold/40" />
               </div>
 
               <h3 className="font-serif text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
-                <em className="italic">{pillar.verb}.</em>
+                <em data-cms-path={`manifesto.pillars.${i}.verb`} className="italic">{pillar.verb}.</em>
               </h3>
 
               <p className="font-serif text-lg italic leading-snug text-foreground-muted">
-                {pillar.title}
+                <span data-cms-path={`manifesto.pillars.${i}.title`}>{pillar.title}</span>
               </p>
 
               <p className="max-w-sm font-sans text-sm leading-relaxed text-foreground-muted">
-                {pillar.body}
+                <span data-cms-path={`manifesto.pillars.${i}.body`}>{pillar.body}</span>
               </p>
             </motion.li>
           ))}
