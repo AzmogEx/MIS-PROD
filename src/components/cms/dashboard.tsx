@@ -6,6 +6,7 @@ type EditablePage = {
   id: number | string
   title?: string | null
   path?: string | null
+  kind?: string | null
   _status?: 'draft' | 'published' | null
 }
 
@@ -17,7 +18,13 @@ export async function Dashboard({ payload, user }: { payload: Payload; user: Pay
   const result = edit
     ? await payload.find({ collection: 'pages', depth: 0, limit: 100, overrideAccess: false, user }).catch(() => null)
     : null
-  const pages = [...(result?.docs ?? [])].sort((a, b) => Number(b.path === '/') - Number(a.path === '/')) as EditablePage[]
+  const pageOrder = new Map([['/', 0], ['/institutions', 1], ['/entreprises', 2], ['/particuliers', 3], ['/contact', 4]])
+  const pages = ([...(result?.docs ?? [])] as EditablePage[]).sort((a, b) => {
+    const rank = (path?: string | null) => pageOrder.get(path || '') ?? pageOrder.size
+    return rank(a.path) - rank(b.path) || String(a.title || '').localeCompare(String(b.title || ''), 'fr')
+  })
+  const mainPages = pages.filter((page) => page.kind !== 'legal')
+  const legalPages = pages.filter((page) => page.kind === 'legal')
 
   return <section className="mis-dashboard" aria-labelledby="mis-dashboard-title">
     <header className="mis-dashboard-intro">
@@ -34,8 +41,8 @@ export async function Dashboard({ payload, user }: { payload: Payload; user: Pay
         </div>
         <p>Cliquez sur la page, puis sur un texte ou une image dans l’aperçu.</p>
       </div>
-      {result === null ? <p className="mis-dashboard-empty">La liste des pages n’est pas disponible pour le moment. Vous pouvez la retrouver dans « Plus d’outils ».</p> : pages.length > 0 ? <ul className="mis-page-list">
-        {pages.map((page) => {
+      {result === null ? <p className="mis-dashboard-empty">La liste des pages n’est pas disponible pour le moment. Vous pouvez la retrouver dans « Plus d’outils ».</p> : mainPages.length > 0 ? <ul className="mis-page-list">
+        {mainPages.map((page) => {
           const path = page.path || '/'
           const title = path === '/' ? 'Accueil' : page.title || path
           return <li key={page.id}>
@@ -98,6 +105,12 @@ export async function Dashboard({ payload, user }: { payload: Payload; user: Pay
             <li><Link href="/admin/collections/file-shares">Liens temporaires</Link></li>
             <li><Link href="/admin/collections/commercial-portfolios">Portfolios commerciaux</Link></li>
             <li><Link href="/admin/collections/analytics-events">Mesures du site</Link></li>
+          </ul>
+        </section>}
+        {edit && legalPages.length > 0 && <section>
+          <h3>Pages légales — à modifier rarement</h3>
+          <ul>
+            {legalPages.map((page) => <li key={page.id}><Link href={`/atelier/${encodeURIComponent(String(page.id))}?locale=fr`}>{page.title || page.path || 'Page légale'}</Link></li>)}
           </ul>
         </section>}
         <section>
