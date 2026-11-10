@@ -2,7 +2,9 @@ x-cms-environment: &cms-environment
   NODE_ENV: production
   CMS_SCHEMA_PUSH: 'false'
   CMS_DEPLOYMENT_ENVIRONMENT: ${CMS_DEPLOYMENT_ENVIRONMENT:-production}
-  PAYLOAD_SECRET: ${PAYLOAD_SECRET:?Generate a unique secret in Coolify}
+  # Coolify also interpolates this file during builds, without runtime secrets.
+  # payload.config.ts rejects an absent or short secret when the app starts.
+  PAYLOAD_SECRET: ${PAYLOAD_SECRET:-}
   DATABASE_URL: file:/app/.data/cms.db
   NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://mis-prod.fr}
   CMS_EMAIL_DELIVERY: ${CMS_EMAIL_DELIVERY:-disabled}

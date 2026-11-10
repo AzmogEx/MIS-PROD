@@ -1,8 +1,14 @@
 # Recette administrateur MIS
 
-À exécuter sur la préproduction identifiée dans `PREPRODUCTION.md`, après connexion avec votre compte personnel. Une réussite technique de Codex ne remplit pas votre colonne de validation. Aucun email réel pendant cette recette sans destinataire et essai explicitement autorisés.
+À exécuter sur la préproduction identifiée dans [PREPRODUCTION.md](PREPRODUCTION.md), avec le propriétaire de recette qui vous est remis. Une réussite technique de Codex ne remplit pas votre colonne de validation. Aucun email réel pendant cette recette sans destinataire et essai explicitement autorisés.
 
-Nom du testeur : ______ · Date : ______ · Version : ______ · URL : ______
+[Administration](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io/admin/login) · [Site de recette](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io) · [Espace client](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io/espace-client).
+
+**Remise des accès en attente de renouvellement.** Les trois premiers mots de passe synthétiques ont été affichés dans un retour technique ; ils doivent être remplacés et leurs sessions révoquées avant utilisation. Dans Coolify, ouvrir `Adam → mis-preproduction → MIS-CMS-PREPRODUCTION → Files`, choisir le conteneur web et consulter en privé `/app/.cms/preproduction-access.json` après renouvellement. Il contient les accès du propriétaire, du client autorisé et du client sans droits. Ne pas coller son contenu dans la conversation ou dans un ticket.
+
+La page `/recette-mis` (ID 9) conserve deux états utiles : A en brouillon, B publique. Le projet vidéo ID 1 contient le livrable V1, un commentaire synthétique à huit secondes et une acceptation de test. La sélection privée ID 1 est vide ; ajoutez un média uniquement après avoir vérifié ses droits pour les destinataires concernés. Ces objets sont des supports d’essai et ne constituent aucune validation commerciale.
+
+Nom du testeur : ______ · Date : ______ · Révision déployée relevée dans PREPRODUCTION.md : ______
 
 Préfixer les objets créés par `RECETTE-MIS-` et relever leurs identifiants. Utiliser des données synthétiques, une adresse `example.test` et des fichiers autorisés. Ne pas reprendre une vraie demande pour tester une suppression ou une restauration.
 

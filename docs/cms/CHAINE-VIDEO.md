@@ -1,6 +1,6 @@
 # Chaîne vidéo locale — état et preuve
 
-Recette ciblée du 26 octobre 2026. Le choix retenu est la diffusion progressive de fichiers web sur stockage local persistant, avec lecture partielle HTTP et contrôle d’accès serveur. Aucun compte de stockage, CDN, transcodeur distant ni service payant n’a été ouvert ou utilisé. Cette vérification ne démontre pas l’exécution de Docker ou de Coolify ; voir [exploitation](EXPLOITATION.md) et [recette générale](RECETTE.md).
+Recette ciblée du 26 octobre 2026. Le choix retenu est la diffusion progressive de fichiers web sur stockage local persistant, avec lecture partielle HTTP et contrôle d’accès serveur. Le MP4 représentatif a aussi été lu, avancé et contrôlé sur la préproduction Coolify, y compris sur mobile ; preuves et limites dans [PREUVES-PREPRODUCTION.md](PREUVES-PREPRODUCTION.md). Aucun compte de stockage, CDN, transcodeur distant ni service payant n’a été ouvert ou utilisé. Cela ne démontre pas la lecture de masters longs ni la tenue en charge.
 
 ## Besoin observé et choix de diffusion
 

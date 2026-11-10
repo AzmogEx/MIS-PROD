@@ -1,6 +1,6 @@
 # Preuves des intégrations et de la mesure
 
-Revue du **26 octobre 2026**, limitée au code présent, aux tests isolés exécutés et à la recette navigateur enregistrée. Aucun email réel, appel authentifié Google, changement DNS ou déploiement n’a été effectué. Les pages publiques de documentation des fournisseurs ont été consultées ; cela ne constitue pas un essai de leur service.
+Revue du **26 octobre 2026**, limitée au code présent, aux tests isolés exécutés et à la recette navigateur enregistrée. Aucun email réel, appel authentifié Google ou changement DNS n’a été effectué. Une préproduction isolée a ensuite été déployée sur Coolify ; cela ne teste pas les comptes Resend ou Google. Les pages publiques de documentation des fournisseurs ont été consultées ; cela ne constitue pas un essai de leur service.
 
 ## Matrice fonction → code → environnement → preuve → dépendance
 

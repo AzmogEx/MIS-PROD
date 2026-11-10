@@ -1,6 +1,6 @@
 # Recette ciblée du CMS MIS — 26 octobre 2026
 
-Le socle existant est conservé : branche `codex/cms-administration`, Payload 3.92.0, Next 16.4.3, Windows et Node 26.4.0. Coolify et Resend sont les services confirmés. Aucun déploiement, push, email réel, modification DNS, achat ou transfert privé vers une IA externe. Le [bilan du 25 octobre](RECETTE-20261025.md) est archivé comme preuve historique ; les résultats ci-dessous décrivent la finalisation actuelle.
+Le socle existant est conservé : branche `codex/cms-administration`, Payload 3.92.0, Next 16.4.3, Windows et Node 26.4.0. Coolify et Resend sont les services confirmés. Une préproduction distincte a été déployée sur Coolify le 26 octobre ; aucune mise en production, modification DNS, email réel, achat ou transmission privée à une IA externe n’a eu lieu. Le [bilan du 25 octobre](RECETTE-20261025.md) est archivé comme preuve historique ; les résultats ci-dessous décrivent les contrôles locaux. La recette cible et ses limites sont consignées dans [PREPRODUCTION.md](PREPRODUCTION.md).
 
 ## État des données
 
@@ -30,7 +30,7 @@ Les flags de la base livrable restent désactivés : emails commerciaux, emails 
 | Ollama | Boucle locale, quotas et suggestion privée | Ollama 0.40.6, modèle déjà installé, génération réelle française synthétique, cloud désactivé | [Recette réelle](IA-LOCALE-RECETTE.md), [JSON](preuves/ia-locale.json) | Qualité métier, ressources et service permanent sur l’hôte cible |
 | Whisper | Adaptateur local, sources autorisées, quotas, suggestion privée | whisper.cpp b5454 / tiny, transcription réelle d’un extrait public anglais ; persistance par autre processus | [Transcription locale](TRANSCRIPTION-LOCALE.md), [JSON](preuves/transcription-locale.json) | Français, conversion FFmpeg, charge et service permanent à qualifier séparément |
 | Sauvegarde et restauration | Base, fichiers/configuration, empreintes, racines contrôlées ; procédure de bascule | Base livrable : 34 fichiers/8 pages restaurés. Fixture représentative : 18 fichiers, ouverture par nouveau processus, connexion/drafts/versions et accès privés | [Preuves exploitation](PREUVES-EXPLOITATION.md), test restauration applicative | Arrêt des écritures pour cohérence inter-fichiers, copie chiffrée hors machine et restauration sur cible |
-| Docker/Coolify | Dockerfile, volumes, migrations, web/worker et contrôles préparés | Inspection Windows et WSL ; aucun moteur ni socket disponible | [Exploitation](EXPLOITATION.md) | Image, Compose, recréation des conteneurs, droits volumes, HTTPS/proxy et déploiement **non exécutés** |
+| Docker/Coolify | Dockerfile et Compose ; exécution locale non disponible | Sur Coolify : image initiale, migrations, web/worker, volumes et HTTPS vérifiés le 26 octobre | [Préproduction](PREPRODUCTION.md) | Recréation, restauration applicative distincte, déploiement de la correction et état récent des secrets à confirmer |
 | Contenus hérités | Diagnostic et registre exploitables | Export en lecture seule du contenu réellement publié : 37 signalements | [Validation éditoriale](VALIDATION-EDITORIALE.md) | Décisions MIS sur références, témoignages, chiffres, prix, droits, identité légale et traductions |
 
 ## Commandes et résultats

@@ -1,6 +1,6 @@
-# CMS MIS — cadrage du 25 octobre, finalisation du 26 octobre 2026
+# CMS MIS — cadrage du 25 octobre, finalisation du 26 octobre, reprise du 10 novembre 2026
 
-Dépôt confirmé : `AzmogEx/MIS-PROD`, commit initial `e366c51`, branche initiale `prod`, arbre initial propre. Travail local sur `codex/cms-administration`. Coolify (hébergement) et Resend (email) confirmés par MIS. Aucun déploiement, changement DNS ou message réel effectué.
+Dépôt confirmé : `AzmogEx/MIS-PROD`, commit initial `e366c51`, branche initiale `prod`, arbre initial propre. Travail sur `codex/cms-administration`. Coolify (hébergement) et Resend (email) confirmés par MIS. La préproduction distincte a depuis été déployée et testée sur Coolify ; aucune bascule de production, modification DNS ou email réel n’a eu lieu. La reprise du 10 novembre, la tentative de build échouée et l’accès Coolify à rétablir sont consignés dans [AVANCEMENT.md](AVANCEMENT.md).
 
 ## État initial et décisions
 
@@ -41,6 +41,6 @@ La limitation des colonnes historiques a été corrigée par une variante explic
 
 La chaîne vidéo retenue est **locale, persistante et progressive**, avec accès HTTP partiel, contrôles de droits, import reprenable, affiche, VTT et anciennes versions conservées. Le fichier web court du dépôt permet de démontrer ce parcours sans imposer HLS. Stockage distant, débit adaptatif, transcodage, génération d’affiche et montée en charge ne sont pas implémentés ni présentés comme de simples secrets à renseigner. Les volumes/lectures simultanées non établis demanderaient une décision et une chaîne adaptées. Voir [CHAINE-VIDEO.md](CHAINE-VIDEO.md) et la [preuve de lecture réelle](preuves/video-navigateur.json).
 
-Le worker dispose d’un journal daté lié à la base et d’un bail ; les résultats incertains exigent réconciliation avant toute reprogrammation. Le propriétaire initial se crée exclusivement par CLI protégée ; propriétaire et administrateur lisent la file persistante. Les preuves de processus et de restauration locales ne certifient pas un conteneur : aucun moteur Docker disponible dans la recette, donc Docker/Compose/Coolify non exécutés. La préparation d’exploitation reste distincte de sa validation sur l’hôte cible.
+Le worker dispose d’un journal daté lié à la base et d’un bail ; les résultats incertains exigent réconciliation avant toute reprogrammation. Le propriétaire initial se crée exclusivement par CLI protégée ; propriétaire et administrateur lisent la file persistante. La première image Docker, les deux services, les volumes et l’HTTPS ont été exécutés sur la cible Coolify. La recréation de conteneurs et la restauration applicative distincte restent à vérifier sur cet hôte ; voir [PREPRODUCTION.md](PREPRODUCTION.md).
 
 Les **37 signalements hérités** et les décisions complémentaires de prix, droits, traductions et mentions légales sont regroupés dans [VALIDATION-EDITORIALE.md](VALIDATION-EDITORIALE.md). Aucune confirmation commerciale ou juridique n’a été inventée. Les réglages d’exploitation (stockage, fournisseurs, secrets, conservation) restent côté serveur ; une interaction métier nouvelle peut nécessiter du développement. Les résultats de réception et limites restantes sont suivis dans [RECETTE.md](RECETTE.md), sans assimiler préparation à fonctionnement vérifié.
