@@ -24,13 +24,23 @@ export default buildConfig({
   admin: {
     user: 'users', meta: { titleSuffix: ' — MIS Administration' },
     importMap: { baseDir: path.resolve('.') },
-    components: { beforeDashboard: ['/src/components/cms/dashboard#Dashboard'],graphics:{Logo:'/src/components/cms/brand#MISLogo',Icon:'/src/components/cms/brand#MISIcon'} },
+    components: {
+      beforeDashboard: ['/src/components/cms/dashboard#Dashboard'],
+      beforeNavLinks: ['/src/components/cms/simple-navigation#SimpleNavigation'],
+      graphics: { Logo: '/src/components/cms/brand#MISLogo', Icon: '/src/components/cms/brand#MISIcon' },
+    },
     livePreview: { collections: ['pages'] },
   },
   i18n: { supportedLanguages: { fr }, fallbackLanguage: 'fr' },
   localization: { locales: [{ label: 'Français', code: 'fr' }, { label: 'English', code: 'en' }], defaultLocale: 'fr', fallback: true },
-  collections: [...coreCollections, ...operationCollections, ...clientCollections, ...aiCollections],
-  globals: [siteContent, aiSettings],
+  collections: [...coreCollections, ...operationCollections, ...clientCollections, ...aiCollections].map((collection) => ({
+    ...collection,
+    admin: { ...collection.admin, group: false },
+  })),
+  globals: [siteContent, aiSettings].map((global) => ({
+    ...global,
+    admin: { ...global.admin, group: false },
+  })),
   editor: lexicalEditor(),
   db: sqliteAdapter({ client: { url: process.env.DATABASE_URL || 'file:./.data/cms.db' }, push: process.env.NODE_ENV !== 'production' && process.env.CMS_SCHEMA_PUSH === 'true', busyTimeout: 10000, wal: true, transactionOptions: { behavior: 'immediate' } }),
   sharp,
@@ -42,7 +52,7 @@ export default buildConfig({
     jobsCollectionOverrides: ({ defaultJobsCollection }) => ({
       ...defaultJobsCollection,
       access: { ...defaultJobsCollection.access, read: canManage },
-      admin: { ...defaultJobsCollection.admin, hidden: false, group: 'Exploitation', defaultColumns: ['taskSlug', 'waitUntil', 'processing', 'hasError', 'completedAt'], description: 'Lecture des traitements persistants. Une publication interrompue exige de vérifier son contenu et son historique avant une nouvelle programmation.' },
+      admin: { ...defaultJobsCollection.admin, hidden: false, group: false, defaultColumns: ['taskSlug', 'waitUntil', 'processing', 'hasError', 'completedAt'], description: 'Lecture des traitements persistants. Une publication interrompue exige de vérifier son contenu et son historique avant une nouvelle programmation.' },
     }),
   },
   telemetry: false,

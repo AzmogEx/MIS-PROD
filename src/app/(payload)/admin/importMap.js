@@ -6,6 +6,7 @@ import { ColorField as ColorField_039593308a50732fad18f75938ca311c } from '@/com
 import { MISIcon as MISIcon_9e2ad581dd3eb672a4d7e8ef7780bb19 } from '../../../../src/components/cms/brand'
 import { MISLogo as MISLogo_9e2ad581dd3eb672a4d7e8ef7780bb19 } from '../../../../src/components/cms/brand'
 import { Dashboard as Dashboard_f8934c8ff31134a0ce179200803d3d3f } from '../../../../src/components/cms/dashboard'
+import { SimpleNavigation as SimpleNavigation_2e983dbe26eda275c73b659dcfd97c42 } from '../../../../src/components/cms/simple-navigation'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -18,5 +19,6 @@ export const importMap = {
   "/src/components/cms/brand#MISIcon": MISIcon_9e2ad581dd3eb672a4d7e8ef7780bb19,
   "/src/components/cms/brand#MISLogo": MISLogo_9e2ad581dd3eb672a4d7e8ef7780bb19,
   "/src/components/cms/dashboard#Dashboard": Dashboard_f8934c8ff31134a0ce179200803d3d3f,
+  "/src/components/cms/simple-navigation#SimpleNavigation": SimpleNavigation_2e983dbe26eda275c73b659dcfd97c42,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
