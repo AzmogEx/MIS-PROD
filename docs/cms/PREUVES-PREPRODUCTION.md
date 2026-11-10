@@ -1,8 +1,8 @@
 # Exécution sur Coolify — preuves et reprise
 
-Relevé intermédiaire du 26 octobre 2026, jusqu’aux essais de 22:34:42 UTC. Les heures techniques de ce document sont en UTC ; ajouter une heure pour Paris à cette date. Le [tableau des critères](PREPRODUCTION.md) porte l’état du jalon. Aucune conclusion de ce document ne remplit la validation métier de MIS.
+Relevé des essais Coolify du 26 octobre au 10 novembre 2026. Les heures techniques sont en UTC ; le 10 novembre, Paris est à UTC+1. Le [tableau des critères](PREPRODUCTION.md) porte l’état du jalon. Aucune conclusion de ce document ne remplit la validation métier de MIS.
 
-Mise à jour du 10 novembre 2026 : la page `/admin/login` de la cible HTTPS répond toujours. L’accès au panneau Coolify a expiré et présente son écran de connexion ; aucun contrôle récent des conteneurs n’est donc disponible. La tentative de déploiement de `b6a030c` a échoué à l’interpolation Compose avant la construction. Le correctif Compose passe parsing YAML, tests CMS (173/173), lint, TypeScript et build Next.js local ; il n’est pas encore déployé. Le jalon doit encore couvrir la recréation, la restauration applicative distincte, la rotation des accès exposés et la remise utilisateur.
+Mise à jour du 10 novembre 2026 : Coolify 4.7.3 a déployé la révision `03929e686de373c1d6cf6c898276bcae9f932986` (job `ssxnffldmmxr33ihd2zfgjxj`, 10:22:31–10:24:48 UTC). Les conteneurs web/worker sont sains, les volumes persistants ont été conservés et le healthcheck HTTPS répond `200`. La CI `42797896291` a réussi. La restauration isolée, distincte et sans réseau, a aussi passé le probe d’accès privé et un healthcheck `200`. La rotation des trois accès synthétiques reste à faire par MIS avant remise.
 
 ## Construction et accès
 
@@ -17,6 +17,8 @@ La ressource `MIS-CMS-PREPRODUCTION`, environnement `mis-preproduction` du proje
 | Worker | `worker-7uacb4fl5dvn0okdefmxaimf-20261026T221008`, état sain, passage environ toutes les 63 secondes observé |
 | HTTPS | Certificat accepté sans exception ; [rapport de 16 routes](preuves/preproduction-http.json), relevé à 22:12:15 |
 | Ressources de l’hôte | 31 Gio de RAM, environ 23 Gio disponibles ; partition de 878 Gio, environ 794 Gio libres lors du relevé |
+
+Déploiement courant du 10 novembre : SHA source confirmé `03929e686de373c1d6cf6c898276bcae9f932986`, branche `codex/cms-administration`, job Coolify `ssxnffldmmxr33ihd2zfgjxj`. Noms des conteneurs sains : `web-7uacb4fl5dvn0okdefmxaimf-20261110T102238` et `worker-7uacb4fl5dvn0okdefmxaimf-20261110T102238`. Les deux utilisent les volumes `7uacb4fl5dvn0okdefmxaimf_cms-data` et `7uacb4fl5dvn0okdefmxaimf_cms-private`. L’étiquette visible de l’image Docker reste `305010c` ; le journal de déploiement Coolify est la preuve du SHA source actuel.
 
 Les huit pages historiques ont été importées dans une base cible neuve. Les médias locaux des anciennes fixtures n’ont pas été déployés ; les nombres de fichiers diffèrent donc de la base livrable locale. Deux volumes propres à la nouvelle application couvrent `/app/.data` et `/app/.cms`.
 
@@ -53,7 +55,7 @@ La vidéo publique a réellement démarré en HTTPS. À 390 pixels de large, l�
 
 ![Lecture et avance à 390 pixels](captures/preproduction-video-mobile.png)
 
-Un brief `RECETTE-MIS` a été soumis depuis le formulaire public avec une adresse `example.test`. Le navigateur a confirmé « Brief reçu », puis le dossier a été retrouvé et qualifié dans le CRM, avec un propriétaire affecté et une prochaine action. La création du rappel lié échouait sur la conversion de l’identifiant relationnel ; le correctif `b6a030c` et son test local transmettent maintenant l’identifiant canonique, mais cette révision n’a pas encore été déployée ni rejouée dans le CRM cible. Aucun email réel n’a été envoyé.
+Un brief `RECETTE-MIS` a été soumis depuis le formulaire public avec une adresse `example.test`. Le dossier a été retrouvé et qualifié dans le CRM. Après déploiement du correctif CRM, un rappel synthétique ID 1 lié au brief ID 1 a été créé puis relu sur la cible : échéance `2026-11-11T09:00:00.000Z` (10:00 à Paris), sans email. Le probe du 10 novembre confirme un brief, un rappel, un commentaire et une acceptation. Aucun email réel n’a été envoyé.
 
 ## Audience
 
@@ -77,10 +79,11 @@ Les deux conteneurs ont été redémarrés avec `docker restart`, sans retirer l
 | `2026-10-26T22-21-34.907Z-4170785d` | Huit pages, seize fichiers ; état initial sans comptes | Terminée à 22:21:35 ; copie SQLite, intégrité et SHA-256 des fichiers/configurations vérifiés |
 | `2026-10-26T22-28-21.870Z-a096e862` | Neuf pages, dix-huit fichiers ; comptes et vidéo synthétiques, historiques public/brouillon | Terminée à 22:28:22 ; mêmes contrôles réussis |
 | `2026-10-26T22-38-49.822Z-acf141ef` | Neuf pages, dix-huit fichiers ; brief, commentaires, acceptation V1 et sélection privée synthétiques | Terminée à 22:38:50 ; vérifications intégrité/empreintes réussies ; aucune tâche CRM encore créée |
+| `2026-11-10T10-30-38.601Z-678560b3` | Neuf pages, dix-huit fichiers ; brief, rappel ID 1, commentaire, acceptation, médias et fichiers privés | Terminée à 10:30:38 ; restauration applicative distincte, probe ACL/empreintes et santé HTTP 200 réussis |
 
-Les archives sont dans `/app/.data/backups/<identifiant>`. La commande réalise aussi une copie de vérification dans `/app/.data/restore-checks/<identifiant>`. **Cette copie ne vaut pas encore une restauration applicative dans un autre conteneur.** La recréation de conteneurs avec conservation des volumes et la restauration applicative distincte sont encore ouvertes dans ce relevé.
+Les archives sont dans `/app/.data/backups/<identifiant>`. La commande réalise aussi une copie de vérification dans `/app/.data/restore-checks/<identifiant>`. Le 10 novembre, les conteneurs de la ressource ont été recréés avec conservation des volumes. La sauvegarde récente a ensuite été copiée dans des répertoires protégés distincts sur l’hôte et ouverte par un conteneur utilisant la même image, `--network none` et des montages séparés. `cms-target-acceptance.ts probe` a retrouvé le propriétaire, neuf pages, trois utilisateurs, le brief, le rappel, le commentaire et l’acceptation ; l’ACL membre seul et les empreintes vidéo concordent. `/api/health` local répond `200`.
 
-La sauvegarde de 22:38:50 couvre le brief, le commentaire, l’acceptation V1 et la sélection privée ; elle précède la création du rappel et la rotation des comptes. Une nouvelle sauvegarde devra couvrir l’état final de la recette. L’environnement Coolify injecte ses secrets au runtime ; aucun `.env.local` n’était présent dans le conteneur. Le secret `PAYLOAD_SECRET` et la configuration protégée doivent donc être conservés séparément de cette archive pour une restauration complète, notamment du MFA. La présence d’une copie hors de l’hôte et un objectif de rétention ne sont pas validés.
+La sauvegarde couvre l’état de recette avant rotation des comptes. L’environnement Coolify injecte ses secrets au runtime ; aucun `.env.local` n’était présent dans le conteneur. Une copie runtime protégée a été utilisée uniquement pour démarrer le conteneur de restauration ; aucun secret n’est consigné ici. Il faut encore organiser une copie hors hôte et définir la rétention/responsabilité de sauvegarde. La restauration ici prouve le retour des données et fichiers synthétiques, pas le MFA ni un exercice complet de reprise de production.
 
 ## Services externes et capacités absentes
 
@@ -97,7 +100,7 @@ Le dashboard cible affiche Resend en mode test, récupération de compte en boî
 
 ## Remise des accès
 
-Les trois premiers mots de passe synthétiques ont été affichés accidentellement dans un retour technique de la conversation. Ils ne figurent pas dans Git, ce document ou les captures. **Ils doivent être remplacés et les sessions révoquées avant la remise des comptes.** La procédure opérateur `rotate-access`, dans le script versionné, remplace les trois mots de passe, invalide les sessions et écrit les nouveaux accès uniquement dans le fichier privé. Son exécution et la vérification des anciens accès restent à confirmer dans ce relevé, sans copier les valeurs dans la conversation.
+Les trois premiers mots de passe synthétiques ont été affichés accidentellement dans un retour technique de la conversation. Ils ne figurent pas dans Git, ce document ou les captures. **MIS doit les remplacer et révoquer leurs sessions avant la remise des comptes.** La procédure `rotate-access` est disponible dans le conteneur web actuel ; elle ne touche que ces trois comptes synthétiques et écrit les nouveaux accès dans le fichier privé. L’opérateur doit l’exécuter dans le terminal Coolify, puis consulter ce fichier uniquement depuis son accès privé. Ne pas copier les mots de passe dans la conversation.
 
 L’accès à cette fiche et aux comptes ne constitue pas une validation métier. Le propriétaire de recette doit être préservé lors du nettoyage ; les comptes clients, objets et liens synthétiques suivent le périmètre explicite de la [fiche administrateur](RECETTE-ADMINISTRATEUR.md).
 

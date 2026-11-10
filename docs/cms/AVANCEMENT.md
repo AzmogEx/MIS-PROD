@@ -1,12 +1,12 @@
 # Point de reprise — préproduction Coolify, 10 novembre 2026
 
-Reprise après interruption : le site de préproduction répond toujours en HTTPS et son écran `/admin/login` est accessible. Le panneau Coolify demande une nouvelle connexion ; aucun déploiement n’a donc été lancé depuis le dernier relevé du 26 octobre. Le conteneur alors vérifié provenait de `fc2d715`. Le correctif CRM `b6a030c` est poussé sur `codex/cms-administration`, mais son déploiement a échoué avant construction, car Compose exigeait le secret d’exécution au moment où Coolify construit l’image.
+Reprise terminée sur la préproduction Coolify le 10 novembre. La révision `03929e686de373c1d6cf6c898276bcae9f932986` est déployée (job `ssxnffldmmxr33ihd2zfgjxj`) ; le web et le worker sont sains, et l’endpoint de santé répond `200`. Le correctif CRM est maintenant appliqué sur la cible.
 
-Le correctif local remplace cette interpolation obligatoire par une valeur vide pour la phase de construction. `src/payload.config.ts` continue de refuser le démarrage si le vrai secret est absent ou fait moins de 32 caractères ; le Dockerfile emploie un substitut de build isolé. Le 10 novembre, lint, TypeScript et parsing YAML passent ; le build Next.js local réussit avec avertissements. La première exécution CMS dans le bac à sable Windows ne pouvait pas ouvrir son serveur local ni créer les liens physiques nécessaires ; la même suite, relancée avec les permissions de test adaptées, réussit **173/173**. Le test du rappel lié au brief passe aussi. Aucun moteur Docker n’est disponible localement : le build Docker et le redéploiement cible restent à vérifier.
+Le manifeste Compose accepte l’absence du secret uniquement pendant le build ; `src/payload.config.ts` refuse toujours un secret runtime absent ou trop court. L’image Docker réelle a été construite et déployée par Coolify. Le 10 novembre, lint, TypeScript, parsing YAML et build Next.js local passent ; la suite CMS réussit **173/173**. La [CI 42797896291](https://github.com/AzmogEx/MIS-PROD/actions/runs/42797896291) a réussi toutes ses étapes sur la révision déployée.
 
-Le retour technique antérieur a exposé les trois premiers mots de passe synthétiques. Ils doivent être renouvelés et leurs sessions révoquées avant toute remise ; cette opération et la restauration dans un conteneur distinct ne sont pas encore vérifiées. Aucune valeur secrète n’est reproduite ici. Pour achever le déploiement, MIS doit reprendre la session sur [Coolify](https://panel.cleanows.fr) ; l’accès déjà ouvert demande une reconnexion. Le site actif et son domaine n’ont pas été basculés.
+Le retour technique antérieur a exposé les trois premiers mots de passe synthétiques. La rotation et la révocation de leurs sessions restent le seul contrôle technique cible en attente avant remise ; aucune valeur secrète n’est reproduite ici. La restauration dans un conteneur distinct sans réseau a été vérifiée. Le site actif et son domaine n’ont pas été basculés.
 
-La préproduction est réellement déployée dans le projet Coolify `Adam`, environnement `mis-preproduction`, ressource `MIS-CMS-PREPRODUCTION`. L’image initiale provient de `fc2d715` ; la branche `codex/cms-administration` a été publiée avec l’autorisation de MIS. Les scripts opérateurs ont ensuite évolué séparément, jusqu’à `c6e3898` pour les contrôles HTTPS. Les [critères du jalon](PREPRODUCTION.md) et les [preuves cible](PREUVES-PREPRODUCTION.md) font foi pour l’état de la recette en cours. La reprise du 10 novembre a confirmé l’écran d’administration HTTPS ; le panneau Coolify demande une reconnexion, le dernier build a échoué avant construction et la rotation des accès synthétiques reste à faire.
+La préproduction est déployée dans le projet Coolify `Adam`, environnement `mis-preproduction`, ressource `MIS-CMS-PREPRODUCTION`, sur la révision `03929e6`. Les [critères du jalon](PREPRODUCTION.md) et les [preuves cible](PREUVES-PREPRODUCTION.md) font foi pour l’état de la recette. La rotation des accès synthétiques et la validation métier de MIS restent ouvertes.
 
 [Ouvrir la préproduction](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io) · [Administration](https://efm7nhvu1hgz97drwm99xgpg.149.202.88.162.sslip.io/admin/login) · [Fiche de recette MIS](RECETTE-ADMINISTRATEUR.md).
 
@@ -17,9 +17,9 @@ La préproduction est réellement déployée dans le projet Coolify `Adam`, envi
 - Trois comptes synthétiques créés avec accord explicite, connexions propriétaire/client réussies. Le client membre voit son projet et sa sélection ; le client exclu voit zéro projet/sélection et reçoit une 404 sur le fichier privé.
 - Brouillon B isolé de la version A publique, publication B visible après rechargement, dépublication 404, programmation réellement exécutée par le worker. Restauration de A en brouillon avec B toujours publique.
 - Vidéo historique MP4 de 7 040 524 octets et 15,44 s : lecture publique, avance mobile à 390 pixels, repère privé à huit secondes, commentaire et acceptation de V1. Les lectures Range publiques et privées renvoient 206 avec exactement 1 024 octets ; le format MOV volontairement invalide est refusé en 400.
-- Redémarrage des deux conteneurs sans perte : neuf pages, trois comptes, six versions, brouillon/public distincts, accès membre et empreinte du média conservés au contrôle de 22:28:21 UTC.
-- Sauvegarde cible de 22:28:22 UTC, `2026-10-26T22-28-21.870Z-a096e862` : 18 fichiers, neuf pages, intégrité SQLite et empreintes de la copie vérifiées. Cette archive précède les derniers essais CRM et client ; la sauvegarde finale reste à produire.
-- Brief synthétique reçu depuis le formulaire et visible dans le CRM. Audience : zéro événement avant accord/après refus ; quatre événements navigateur pour `page-9` et un événement serveur de réception du brief. Ces comptages sont exclusivement de recette.
+- Recréation des conteneurs le 10 novembre en conservant les volumes ; probe après démarrage : neuf pages, trois comptes, six versions, job terminé, commentaire, approbation et empreinte vidéo présents.
+- Sauvegarde de recette du 10 novembre `2026-11-10T10-30-38.601Z-678560b3` : 18 fichiers et neuf pages. Restauration dans un conteneur distinct sans réseau ; accès privé membre, empreintes des médias et santé HTTP 200 contrôlés.
+- Brief synthétique reçu depuis le formulaire et visible dans le CRM ; rappel ID 1 lié au brief ID 1, échéance 10:00 Paris, créé sans email. Audience : zéro événement avant accord/après refus ; comptages exclusivement de recette.
 
 ## Validé seulement en local ou en CI
 
@@ -27,14 +27,12 @@ La [recette locale du CMS](RECETTE.md) reste applicable pour les fonctionnalité
 
 Les essais d’Ollama 0.40.6 et whisper.cpp b5454/tiny ont utilisé du texte synthétique et un extrait anglais public sur le poste local. Ils ne valident pas une installation sur l’hôte Coolify, le français, les longs contenus ni la charge. Aucun service IA permanent n’a été installé pour ces essais.
 
-La suite locale après correction des dépendances a réussi **172/172**, zéro échec/ignoré. La [CI Linux 40409723519](https://github.com/AzmogEx/MIS-PROD/actions/runs/40409723519) a réussi installation, migrations, seed, lint, TypeScript, tests et build de `fc2d715`. Le défaut initial du test de publication Linux a été corrigé par l’isolation des lectures SQLite de contrôle. Les [correctifs et alertes npm restantes](DEPENDANCES-PREPRODUCTION.md) sont consignés.
+La suite locale la plus récente a réussi **173/173**, zéro échec/ignoré. La [CI Linux 42797896291](https://github.com/AzmogEx/MIS-PROD/actions/runs/42797896291) a réussi installation, migrations, seed, lint, TypeScript, tests et build de `03929e6`. Le défaut initial du test de publication Linux a été corrigé par l’isolation des lectures SQLite de contrôle. Les [correctifs et alertes npm restantes](DEPENDANCES-PREPRODUCTION.md) sont consignés.
 
 ## Encore ouvert dans le jalon cible
 
-- Recréation des conteneurs en conservant les volumes et restauration applicative dans un ensemble distinct sur l’hôte : à terminer ; le redémarrage et la copie de vérification ne les remplacent pas.
-- Changement de statut du brief, rappel CRM et retrait du consentement : essais cible à finaliser.
-- Remise des accès : les trois premiers mots de passe synthétiques ont été affichés dans un retour technique. Leur renouvellement et la révocation des sessions sont requis avant remise. Aucune valeur n’est incluse dans Git ou ces documents.
-- Nouvelle sauvegarde de l’état final, configuration protégée associée, copie hors de l’hôte et responsable/rétention de sauvegarde à arrêter.
+- Rotation des trois mots de passe synthétiques et révocation des sessions : MIS doit exécuter l’étape protégée dans Coolify avant la remise.
+- La sauvegarde de l’état de recette est réalisée avec configuration runtime protégée sur l’hôte ; une copie hors hôte et une politique de rétention/responsable restent à décider.
 - Recette métier de MIS : toutes les cases de la [fiche administrateur](RECETTE-ADMINISTRATEUR.md) restent à remplir.
 
 ## Prêt mais dépendant d’un accès ou d’une configuration

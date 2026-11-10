@@ -30,7 +30,7 @@ Les flags de la base livrable restent désactivés : emails commerciaux, emails 
 | Ollama | Boucle locale, quotas et suggestion privée | Ollama 0.40.6, modèle déjà installé, génération réelle française synthétique, cloud désactivé | [Recette réelle](IA-LOCALE-RECETTE.md), [JSON](preuves/ia-locale.json) | Qualité métier, ressources et service permanent sur l’hôte cible |
 | Whisper | Adaptateur local, sources autorisées, quotas, suggestion privée | whisper.cpp b5454 / tiny, transcription réelle d’un extrait public anglais ; persistance par autre processus | [Transcription locale](TRANSCRIPTION-LOCALE.md), [JSON](preuves/transcription-locale.json) | Français, conversion FFmpeg, charge et service permanent à qualifier séparément |
 | Sauvegarde et restauration | Base, fichiers/configuration, empreintes, racines contrôlées ; procédure de bascule | Base livrable : 34 fichiers/8 pages restaurés. Fixture représentative : 18 fichiers, ouverture par nouveau processus, connexion/drafts/versions et accès privés | [Preuves exploitation](PREUVES-EXPLOITATION.md), test restauration applicative | Arrêt des écritures pour cohérence inter-fichiers, copie chiffrée hors machine et restauration sur cible |
-| Docker/Coolify | Dockerfile et Compose ; exécution locale non disponible | Sur Coolify : image initiale, migrations, web/worker, volumes et HTTPS vérifiés le 26 octobre | [Préproduction](PREPRODUCTION.md) | Recréation, restauration applicative distincte, déploiement de la correction et état récent des secrets à confirmer |
+| Docker/Coolify | Dockerfile et Compose ; exécution locale non disponible | Révision `03929e6` déployée le 10 novembre ; web/worker, volumes conservés, HTTPS et restauration isolée vérifiés | [Préproduction](PREPRODUCTION.md) | Rotation des accès synthétiques et copie hors hôte à organiser |
 | Contenus hérités | Diagnostic et registre exploitables | Export en lecture seule du contenu réellement publié : 37 signalements | [Validation éditoriale](VALIDATION-EDITORIALE.md) | Décisions MIS sur références, témoignages, chiffres, prix, droits, identité légale et traductions |
 
 ## Commandes et résultats
@@ -39,7 +39,7 @@ Les flags de la base livrable restent désactivés : emails commerciaux, emails 
 | --- | --- |
 | `npm run cms:migrate` | Dixième migration appliquée à la base livrable ; huit pages et neuf médias conservés |
 | `npm run lint` / `npm run typecheck` | Réussis sur la version finale |
-| `npm run test:cms` | **172/172 réussis**, zéro échec/ignoré, 91,4 s ; comprend la restauration applicative et la reprise du worker sans journal. Le passage intermédiaire à 170 est remplacé par ce résultat final |
+| `npm run test:cms` | **173/173 réussis**, zéro échec/ignoré ; comprend la restauration applicative et la reprise du worker sans journal |
 | `npm run build` | Réussi : compilation webpack, types, génération et traces. Les deux erreurs de types de scripts de recette du premier essai ont été corrigées avant cette relance |
 | `npm run start -- --hostname 127.0.0.1 --port 3200` puis `node scripts/cms-http-check.mjs` avec `CMS_CHECK_URL=http://127.0.0.1:3200` | Vraie compilation de production démarrée localement : neuf routes publiques 200, aperçu 404, globale 403, atelier redirigé au login, 404/sitemap/robots conformes |
 | `git diff --check` | Aucune erreur d’espacement ; avertissements LF/CRLF Windows seulement |
@@ -48,7 +48,7 @@ Les flags de la base livrable restent désactivés : emails commerciaux, emails 
 | `npx tsx scripts/cms-whisper-local-check.ts` | Réussite réelle Whisper à 21:12:17 UTC : 1 demande, 1 réservation, source inchangée, durée du contrôle 2 395 ms |
 | `npx tsx --env-file-if-exists=.env.local scripts/cms-editorial-review.ts` | 37 signalements exportés ; fichiers existants préservés par défaut, aucune modification du contenu |
 
-Les journaux locaux sont `.data/finalisation-{lint,types,tests,build,http,backup}.log`. Le [relevé de validation](preuves/validation-finale.json) conserve les commandes et empreintes des journaux. Les avertissements `DEP0205` viennent de l’outillage Node ; ils ne valent pas échec. Les contrôles ciblés sont décrits par ce qu’ils vérifient, pas seulement par leurs noms. La CI Linux distante n’a pas été exécutée.
+Les journaux locaux sont `.data/finalisation-{lint,types,tests,build,http,backup}.log`. Le [relevé de validation](preuves/validation-finale.json) conserve les commandes et empreintes des journaux. Les avertissements `DEP0205` viennent de l’outillage Node ; ils ne valent pas échec. Les contrôles ciblés sont décrits par ce qu’ils vérifient, pas seulement par leurs noms. La CI Linux de la révision déployée a réussi dans [run 42797896291](https://github.com/AzmogEx/MIS-PROD/actions/runs/42797896291).
 
 ## Parcours navigateur réellement exécutés
 
